@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worksheet 10 — Multiple &amp; Surface Integrals</title>
+<link rel="stylesheet" href="katex/katex.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script defer src="katex/katex.min.js"></script>
+<script defer src="katex/auto-render.min.js"></script>
+<script defer src="js/render.js"></script>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+  <a class="brand" href="index.html">Analysis 2</a>
+  <a class="navlink" href="index.html">Home</a>
+  <a class="navlink" href="worksheet6.html">WS 6</a>
+  <a class="navlink" href="worksheet7.html">WS 7</a>
+  <a class="navlink" href="worksheet8.html">WS 8</a>
+  <a class="navlink" href="worksheet9.html">WS 9</a>
+  <a class="navlink active" href="worksheet10.html">WS 10</a>
+  <a class="navlink" href="formulas.html">Formulas</a>
+  <a class="navlink" href="cheatsheet.html">Cheat sheet</a>
+</div></nav>
+
+<div class="wrap">
+<div class="page-header">
+  <span class="eyebrow">Worksheet 10 · 10.06.2026</span>
+  <h1>Multiple &amp; Surface Integrals</h1>
+  <p class="lead">Integrating over a 2D region by slicing, the change-of-variables formula with the Jacobian determinant, and integrating a function over a curved surface in $\mathbb{R}^3$ via a parametrization.</p>
+</div>
+
+<div class="toc">
+  <strong>On this page</strong>
+  <ul>
+    <li><a href="#theory">Integration tools (theory)</a></li>
+    <li><a href="#ex1">Exercise 1 — double integral &amp; change of variables</a></li>
+    <li><a href="#ex2">Exercise 2 — surface integral</a></li>
+  </ul>
+</div>
+
+<!-- ===================== THEORY ===================== -->
+<h2 id="theory">The tools</h2>
+<div class="theory">
+<span class="theory-title">Double integral over a region (slicing)</span>
+<p>To integrate over a non-rectangular region $\Omega$, slice it. If for each height $x_2\in[c,d]$ the region runs horizontally from $x_1=\ell(x_2)$ to $x_1=r(x_2)$, then</p>
+$$ \iint_\Omega f(x_1,x_2)\,dx = \int_c^d\!\!\left(\int_{\ell(x_2)}^{r(x_2)} f(x_1,x_2)\,dx_1\right)dx_2. $$
+<p>You do the inside integral first (treating $x_2$ as constant), then the outside one.</p>
+
+<span class="theory-title">Change of variables (the Jacobian)</span>
+<p>This is the multivariable version of $u$-substitution. If $\Phi$ maps a region $\Omega'$ onto $\Omega$ (one-to-one), then</p>
+$$ \iint_\Omega f(x)\,dx = \iint_{\Omega'} f\big(\Phi(u)\big)\,\big|\det J_\Phi(u)\big|\,du. $$
+<p>The factor $|\det J_\Phi|$ is the local area-stretching factor of the map $\Phi$ — it plays the role of $\left|\frac{dx}{du}\right|$ from one-variable substitution. Here $J_\Phi$ is the Jacobian matrix of $\Phi$.</p>
+
+<span class="theory-title">Surface integral via a parametrization</span>
+<p>Let a surface $S$ be described by $\sigma(u_1,u_2)$ for $(u_1,u_2)$ in a parameter region $D$. The <strong>surface area element</strong> is the length of the cross product of the two tangent vectors:</p>
+$$ d\sigma = \left|\frac{\partial\sigma}{\partial u_1}\times\frac{\partial\sigma}{\partial u_2}\right|\,du_1\,du_2, $$
+$$ \iint_S f\,d\sigma = \iint_D f\big(\sigma(u_1,u_2)\big)\,\left|\frac{\partial\sigma}{\partial u_1}\times\frac{\partial\sigma}{\partial u_2}\right|\,du_1\,du_2. $$
+<p class="muted">The cross product $\sigma_{u_1}\times\sigma_{u_2}$ is the (un-normalized) normal to the surface; its length measures how much area an little $du_1\,du_2$ patch covers on $S$.</p>
+</div>
+
+<div class="note">
+<p><span class="note-title">Official vs. own.</span> The single-variable integrals (powers of $u$) are <span class="pill pill-official">on official sheet</span>. The <strong>double-integral slicing setup</strong>, the <strong>change-of-variables / Jacobian formula</strong>, the <strong>cross-product formula</strong>, and the <strong>surface-element formula</strong> are <em>not</em> on the official sheets <span class="pill pill-own">bring yourself</span>.</p>
+</div>
+
+<!-- ===================== EX 1 ===================== -->
+<h2 id="ex1">Exercise 1 — Double integral over a quadrilateral</h2>
+<div class="exercise">
+<p class="subpart-head">$\Omega=ABCD$ with $A=(-2,0),\ B=(2,0),\ C=(1,1),\ D=(-1,1)$, &nbsp; $f(x_1,x_2)=x_1^2-2x_2x_1$.</p>
+
+<h3>(a) Direct computation</h3>
+<p><strong>Describe the region.</strong> $\Omega$ is a trapezoid. The bottom edge $AB$ sits at $x_2=0$, the top edge $DC$ at $x_2=1$. The slanted sides are lines:</p>
+<ul>
+<li>Left side $A(-2,0)\to D(-1,1)$: slope $\tfrac{\Delta x_1}{\Delta x_2}=\tfrac{-1-(-2)}{1-0}=1$, so $x_1=-2+x_2$.</li>
+<li>Right side $B(2,0)\to C(1,1)$: similarly $x_1=2-x_2$.</li>
+</ul>
+<p>So for each $x_2\in[0,1]$, $x_1$ runs from $-(2-x_2)$ to $(2-x_2)$ — a symmetric interval about $0$. With $a:=2-x_2$,</p>
+$$ \iint_\Omega f\,dx = \int_0^1\!\!\int_{-a}^{a}\big(x_1^2-2x_2 x_1\big)\,dx_1\,dx_2. $$
+<p><strong>Inner integral.</strong> Over the symmetric interval $[-a,a]$, $x_1^2$ is even and $x_1$ is odd, so</p>
+$$ \int_{-a}^{a}x_1^2\,dx_1=\frac{2a^3}{3},\qquad \int_{-a}^{a}(-2x_2 x_1)\,dx_1=0. $$
+$$ \Rightarrow\quad \int_{-a}^{a}f\,dx_1=\frac{2}{3}(2-x_2)^3. $$
+<p><strong>Outer integral.</strong> Substitute $u=2-x_2$ ($du=-dx_2$; $x_2{=}0\!\to\!u{=}2$, $x_2{=}1\!\to\!u{=}1$):</p>
+$$ \int_0^1\frac{2}{3}(2-x_2)^3\,dx_2=\frac{2}{3}\int_1^2 u^3\,du=\frac{2}{3}\cdot\frac{u^4}{4}\Big|_1^2=\frac{2}{3}\cdot\frac{16-1}{4}=\frac{2}{3}\cdot\frac{15}{4}=\frac{5}{2}. $$
+<div class="check"><span class="check-title">$\displaystyle\iint_\Omega f\,dx=\frac{5}{2}$</span> — matches the given answer.</div>
+
+<h3>(b) Confirm via the change-of-variables formula</h3>
+<p>The map is $\Phi(x_1,x_2)=\big(x_1(2-x_2),\,x_2\big)$ on $[-1,1]\times[0,1]$. (Check it really covers $\Omega$: as $x_1$ runs over $[-1,1]$, the first coordinate $x_1(2-x_2)$ sweeps $[-(2-x_2),\,2-x_2]$, exactly the horizontal slice found above.)</p>
+<p><strong>Jacobian matrix.</strong></p>
+$$ J_\Phi(x)=\begin{pmatrix}\partial_{x_1}[x_1(2-x_2)] & \partial_{x_2}[x_1(2-x_2)]\\[2pt] \partial_{x_1}[x_2] & \partial_{x_2}[x_2]\end{pmatrix}=\begin{pmatrix}2-x_2 & -x_1\\[2pt] 0 & 1\end{pmatrix}, $$
+$$ \det J_\Phi=(2-x_2)(1)-(-x_1)(0)=2-x_2\;\gt0\ \text{ (since } x_2\le1), \quad\text{so } |\det J_\Phi|=2-x_2. $$
+<p><strong>Transform the integrand.</strong> With $\Phi_1=x_1(2-x_2)$ and $\Phi_2=x_2$,</p>
+$$ f(\Phi(x))=\Phi_1^2-2\Phi_2\Phi_1=x_1^2(2-x_2)^2-2x_2 x_1(2-x_2). $$
+<p>Multiply by $|\det J_\Phi|=(2-x_2)$ and integrate over the rectangle. Doing the $x_1$-integral first, $\int_{-1}^1 x_1^2\,dx_1=\tfrac23$ while $\int_{-1}^1 x_1\,dx_1=0$ kills the second term:</p>
+$$ \int_{-1}^{1}\!\Big[x_1^2(2-x_2)^3-2x_2 x_1(2-x_2)^2\Big]dx_1=\frac{2}{3}(2-x_2)^3. $$
+<p>This is the very same inner result as in part (a), so the outer integral again gives</p>
+<div class="check"><span class="check-title">$\displaystyle\int_{[-1,1]\times[0,1]} f(\Phi(x))\,|\det J_\Phi(x)|\,dx=\frac{5}{2}=\iint_\Omega f\,dx.$</span> The change-of-variables formula checks out.</div>
+</div>
+
+<!-- ===================== EX 2 ===================== -->
+<h2 id="ex2">Exercise 2 — Surface integral in $\mathbb{R}^3$</h2>
+<div class="exercise">
+<p class="subpart-head">$S=\{(x_1,x_2,x_3): 0\le x_1\le1,\ 0\le x_2\le 1-x_1,\ x_3=x_1x_2\}$, &nbsp; $f(x)=\dfrac{x_3}{\sqrt{1+x_1^2+x_2^2}}$.</p>
+<p>Use the suggested parametrization $\sigma(u_1,u_2)=(u_1,\,u_2,\,u_1u_2)$ over the triangle $D:\ 0\le u_1\le1,\ 0\le u_2\le 1-u_1$.</p>
+
+<h3>Step 1 — tangent vectors and the surface element</h3>
+$$ \frac{\partial\sigma}{\partial u_1}=(1,\,0,\,u_2),\qquad \frac{\partial\sigma}{\partial u_2}=(0,\,1,\,u_1). $$
+<p><strong>Cross product</strong> (expand the determinant):</p>
+$$ \frac{\partial\sigma}{\partial u_1}\times\frac{\partial\sigma}{\partial u_2}=\begin{vmatrix}\mathbf i & \mathbf j & \mathbf k\\ 1 & 0 & u_2\\ 0 & 1 & u_1\end{vmatrix}=\big(0\cdot u_1-u_2\cdot1,\ \,-(1\cdot u_1-u_2\cdot0),\ \,1\cdot1-0\big)=(-u_2,\,-u_1,\,1). $$
+<p><strong>Its length:</strong></p>
+$$ \left|\frac{\partial\sigma}{\partial u_1}\times\frac{\partial\sigma}{\partial u_2}\right|=\sqrt{u_2^2+u_1^2+1}=\sqrt{1+u_1^2+u_2^2}. $$
+
+<h3>Step 2 — the integrand simplifies</h3>
+<p>On the surface, $x_1=u_1,\ x_2=u_2,\ x_3=u_1u_2$, so</p>
+$$ f(\sigma(u))=\frac{u_1u_2}{\sqrt{1+u_1^2+u_2^2}}. $$
+<p>Multiplying by the surface element, the square roots <strong>cancel exactly</strong>:</p>
+$$ f\,d\sigma = \frac{u_1u_2}{\sqrt{1+u_1^2+u_2^2}}\cdot\sqrt{1+u_1^2+u_2^2}\;du_1\,du_2 = u_1u_2\;du_1\,du_2. $$
+
+<h3>Step 3 — integrate over the triangle</h3>
+$$ \iint_S f\,d\sigma=\int_0^1\!\!\int_0^{1-u_1} u_1u_2\,du_2\,du_1 = \int_0^1 u_1\cdot\frac{(1-u_1)^2}{2}\,du_1=\frac12\int_0^1 u_1(1-u_1)^2\,du_1. $$
+<p>Expand $u_1(1-u_1)^2=u_1-2u_1^2+u_1^3$ and integrate:</p>
+$$ \int_0^1\big(u_1-2u_1^2+u_1^3\big)\,du_1=\frac12-\frac23+\frac14=\frac{6-8+3}{12}=\frac{1}{12}. $$
+$$ \Rightarrow\quad \iint_S f\,d\sigma=\frac12\cdot\frac{1}{12}=\frac{1}{24}. $$
+<div class="check"><span class="check-title">$\displaystyle\iint_S f\,d\sigma=\frac{1}{24}$</span> — matches the given answer.</div>
+</div>
+
+<div class="pager">
+  <a href="worksheet9.html">← Worksheet 9</a>
+  <span class="spacer"></span>
+  <a href="formulas.html">Formula Reference →</a>
+</div>
+</div>
+
+<footer class="site">Worksheet 10 · Both integrals ($\tfrac52$ and $\tfrac1{24}$) and the Jacobian matrix verified symbolically and against the given answers.</footer>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worksheet 7 — Resonance &amp; Variation of Parameters</title>
+<link rel="stylesheet" href="katex/katex.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script defer src="katex/katex.min.js"></script>
+<script defer src="katex/auto-render.min.js"></script>
+<script defer src="js/render.js"></script>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+  <a class="brand" href="index.html">Analysis 2</a>
+  <a class="navlink" href="index.html">Home</a>
+  <a class="navlink" href="worksheet6.html">WS 6</a>
+  <a class="navlink active" href="worksheet7.html">WS 7</a>
+  <a class="navlink" href="worksheet8.html">WS 8</a>
+  <a class="navlink" href="worksheet9.html">WS 9</a>
+  <a class="navlink" href="worksheet10.html">WS 10</a>
+  <a class="navlink" href="formulas.html">Formulas</a>
+  <a class="navlink" href="cheatsheet.html">Cheat sheet</a>
+</div></nav>
+
+<div class="wrap">
+<div class="page-header">
+  <span class="eyebrow">Worksheet 7 · 13.05.2026</span>
+  <h1>Resonance &amp; Variation of Parameters</h1>
+  <p class="lead">More undetermined coefficients — now with resonance (the $t^s$ rule in action) — and the fully general <em>variation of parameters</em> method for forcing terms like $\tan t$, $e^t/t$ and $1/(e^t+1)$ that no simple guess can handle.</p>
+</div>
+
+<div class="toc">
+  <strong>On this page</strong>
+  <ul>
+    <li><a href="#vop">Variation of parameters (theory)</a></li>
+    <li><a href="#ex1">Exercise 1 — guesses with resonance</a></li>
+    <li><a href="#ex2">Exercise 2 — general solutions</a></li>
+  </ul>
+</div>
+
+<p class="muted">The homogeneous-solution and undetermined-coefficients machinery is explained in detail on the <a href="worksheet6.html#theory">Worksheet 6 theory section</a>. Here we add the one new tool.</p>
+
+<!-- ===================== THEORY ===================== -->
+<h2 id="vop">Variation of parameters</h2>
+<div class="theory">
+<span class="theory-title">When do we need it?</span>
+<p>Undetermined coefficients only works when $g(t)$ is a polynomial, exponential, sine/cosine, or a product of those — because only then do we know what shape to guess. For $g(t)=\tan t$, $\dfrac{e^t}{t}$, or $\dfrac{1}{e^t+1}$ there is no finite guess. <strong>Variation of parameters</strong> always works (for any continuous $g$), at the cost of computing two integrals.</p>
+
+<span class="theory-title">The formula</span>
+<p>First put the equation in <strong>standard form</strong> with leading coefficient $1$:</p>
+$$ y'' + p(t)\,y' + q(t)\,y = g(t). $$
+<p>Let $y_1,y_2$ be the two independent homogeneous solutions. Their <strong>Wronskian</strong> is</p>
+$$ W(t) = \begin{vmatrix} y_1 & y_2 \\ y_1' & y_2' \end{vmatrix} = y_1 y_2' - y_1' y_2. $$
+<p>Then a particular solution is $y_p = u_1 y_1 + u_2 y_2$, where</p>
+$$ u_1' = -\,\frac{y_2\,g}{W}, \qquad u_2' = \frac{y_1\,g}{W}, \qquad\text{so}\qquad u_1=\int -\frac{y_2 g}{W}\,dt,\quad u_2=\int \frac{y_1 g}{W}\,dt. $$
+<p>Equivalently, in one line:</p>
+$$ y_p(t) = -\,y_1(t)\!\int \frac{y_2(t)\,g(t)}{W(t)}\,dt \;+\; y_2(t)\!\int \frac{y_1(t)\,g(t)}{W(t)}\,dt. $$
+<p class="muted">Any constant of integration just reproduces a homogeneous solution, so we drop them and fold everything into $c_1,c_2$ at the end.</p>
+</div>
+<div class="note">
+<p><span class="note-title">Official vs. own.</span> The <strong>variation-of-parameters formula</strong> and the <strong>Wronskian</strong> are <em>not</em> on the official sheets <span class="pill pill-own">bring yourself</span>. The integrals we hit ($\int\sec t\,dt=\ln|\sec t+\tan t|$, $\int\sin t\,dt$, partial fractions) <em>are</em> on the official <em>Derivatives &amp; Integrals</em> sheet <span class="pill pill-official">on official sheet</span>.</p>
+</div>
+
+<!-- ===================== EX 1 ===================== -->
+<h2 id="ex1">Exercise 1 — Guesses (watch for resonance)</h2>
+<p>All three of these have the forcing term clashing with a homogeneous solution, so the $t^s$ modification rule kicks in.</p>
+
+<div class="exercise">
+<div class="subpart">
+<p class="subpart-head">a) &nbsp; $y'' - y = 4e^{t} + 5e^{-t}$</p>
+<p><strong>Roots.</strong> $r^2-1=0 \Rightarrow r=\pm 1$.</p>
+<p><strong>Piece $4e^{t}$:</strong> wants $r=1$, a <em>simple</em> root ($s=1$) $\Rightarrow A\,t\,e^{t}$.</p>
+<p><strong>Piece $5e^{-t}$:</strong> wants $r=-1$, a <em>simple</em> root ($s=1$) $\Rightarrow B\,t\,e^{-t}$.</p>
+<div class="check"><span class="check-title">Guess:</span> $\quad y_p = A\,t\,e^{t} + B\,t\,e^{-t}.$</div>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">b) &nbsp; $y'' + 4y = 4\cos(2t)$</p>
+<p><strong>Roots.</strong> $r^2+4=0 \Rightarrow r=\pm 2i$.</p>
+<p><strong>Forcing $4\cos 2t$</strong> wants $r=\pm 2i$, which <em>are</em> the roots ($s=1$). Multiply the usual $\cos/\sin$ guess by $t$:</p>
+<div class="check"><span class="check-title">Guess:</span> $\quad y_p = t\big(A\cos 2t + B\sin 2t\big).$</div>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">c) &nbsp; $y'' - 2y' + y = 3e^{t}$</p>
+<p><strong>Roots.</strong> $r^2-2r+1=(r-1)^2=0 \Rightarrow r=1$ (double).</p>
+<p><strong>Forcing $3e^{t}$</strong> wants $r=1$, a <em>double</em> root ($s=2$). Multiply $A e^t$ by $t^2$:</p>
+<div class="check"><span class="check-title">Guess:</span> $\quad y_p = A\,t^{2}e^{t}.$</div>
+</div>
+</div>
+
+<!-- ===================== EX 2 ===================== -->
+<h2 id="ex2">Exercise 2 — General solutions</h2>
+<p>Parts (a)–(c) use undetermined coefficients (with resonance in a, b); parts (d)–(f) require variation of parameters.</p>
+
+<div class="exercise">
+<!-- 2a -->
+<h3>2a) &nbsp; $y'' - y = 11e^{t}$</h3>
+<p><strong>Homogeneous.</strong> $r=\pm1$, so $y_h=c_1 e^{-t}+c_2 e^{t}$.</p>
+<p><strong>Resonance.</strong> $e^t$ matches the simple root $r=1$, so guess $y_p = A\,t\,e^{t}$. Then</p>
+$$ y_p' = A e^{t}(1+t),\qquad y_p'' = A e^{t}(2+t). $$
+$$ y_p''-y_p = A e^{t}(2+t) - A t e^{t} = 2A e^{t} \stackrel{!}{=} 11e^{t}\ \Rightarrow\ A=\tfrac{11}{2}. $$
+<div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1 e^{-t} + c_2 e^{t} + \dfrac{11}{2}\,t e^{t}.$</div>
+
+<!-- 2b -->
+<h3>2b) &nbsp; $y'' + 4y = 2\sin(2t)$</h3>
+<p><strong>Homogeneous.</strong> $r=\pm 2i$, so $y_h=c_1\cos 2t+c_2\sin 2t$.</p>
+<p><strong>Resonance.</strong> Guess $y_p = t(A\cos 2t + B\sin 2t)$. Differentiating twice and simplifying,</p>
+$$ y_p'' + 4y_p = 4B\cos 2t - 4A\sin 2t. $$
+<p>Match $2\sin 2t$ (i.e. $0\cdot\cos 2t + 2\sin 2t$): $4B=0\Rightarrow B=0$ and $-4A=2\Rightarrow A=-\tfrac12$.</p>
+<div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1\cos 2t + c_2\sin 2t - \dfrac{1}{2}\,t\cos 2t.$</div>
+
+<!-- 2c -->
+<h3>2c) &nbsp; $y'' + 5y' + 4y = t\,e^{t}$</h3>
+<p><strong>Homogeneous.</strong> $r^2+5r+4=(r+1)(r+4)=0\Rightarrow r=-1,-4$, so $y_h=c_1 e^{-4t}+c_2 e^{-t}$.</p>
+<p><strong>Guess.</strong> $1$ is not a root, so $y_p=(At+B)e^{t}$, with $y_p'=e^{t}(At+A+B)$, $y_p''=e^{t}(At+2A+B)$.</p>
+<p><strong>Substitute.</strong></p>
+$$ y_p''+5y_p'+4y_p = e^{t}\big[10A\,t + (7A+10B)\big]. $$
+<p>Match $t e^{t}$: $10A=1\Rightarrow A=\tfrac{1}{10}$; $7A+10B=0\Rightarrow B=-\tfrac{7}{100}$.</p>
+<div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1 e^{-4t} + c_2 e^{-t} + \dfrac{1}{10}t\,e^{t} - \dfrac{7}{100}e^{t}.$</div>
+
+<!-- 2d -->
+<h3>2d) &nbsp; $y'' + y = \tan t,\quad -\tfrac{\pi}{2}\lt t\lt\tfrac{\pi}{2}$</h3>
+<p><strong>Homogeneous.</strong> $r=\pm i$, so $y_1=\cos t,\ y_2=\sin t$, and $y_h=c_1\cos t+c_2\sin t$.</p>
+<p><strong>Wronskian.</strong> $W = \cos t\cos t - (-\sin t)\sin t = \cos^2 t+\sin^2 t = 1$.</p>
+<p>The equation is already in standard form, so $g=\tan t$. Then</p>
+$$ u_1' = -\frac{y_2 g}{W} = -\sin t\tan t = -\frac{\sin^2 t}{\cos t}, \qquad u_2' = \frac{y_1 g}{W} = \cos t\tan t = \sin t. $$
+<p><strong>Integrate.</strong> Easily $u_2 = -\cos t$. For $u_1$, write $\dfrac{\sin^2 t}{\cos t}=\dfrac{1-\cos^2 t}{\cos t}=\sec t-\cos t$:</p>
+$$ u_1 = -\!\int(\sec t-\cos t)\,dt = -\ln|\sec t+\tan t| + \sin t. $$
+<p><strong>Assemble</strong> $y_p=u_1 y_1+u_2 y_2$:</p>
+$$ y_p = \big(-\ln|\sec t+\tan t|+\sin t\big)\cos t + (-\cos t)\sin t = -\cos t\,\ln|\sec t+\tan t|, $$
+<p>since the two $\sin t\cos t$ terms cancel. Finally $\sec t+\tan t=\dfrac{1+\sin t}{\cos t}$.</p>
+<div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1\cos t + c_2\sin t - \cos t\,\ln\!\left(\dfrac{1+\sin t}{\cos t}\right).$</div>
+
+<!-- 2e -->
+<h3>2e) &nbsp; $y'' - 2y' + y = \dfrac{e^{t}}{t},\quad t\gt 0$</h3>
+<p><strong>Homogeneous.</strong> $(r-1)^2=0\Rightarrow r=1$ double, so $y_1=e^{t},\ y_2=t e^{t}$.</p>
+<p><strong>Wronskian.</strong> With $y_2'=e^{t}(1+t)$,</p>
+$$ W = e^{t}\cdot e^{t}(1+t) - e^{t}\cdot t e^{t} = e^{2t}(1+t) - t e^{2t} = e^{2t}. $$
+<p>Standard form already, $g=e^{t}/t$. Then</p>
+$$ u_1' = -\frac{(t e^{t})(e^{t}/t)}{e^{2t}} = -\frac{e^{2t}}{e^{2t}} = -1, \qquad u_2' = \frac{(e^{t})(e^{t}/t)}{e^{2t}} = \frac{1}{t}. $$
+$$ u_1 = -t, \qquad u_2 = \ln t. $$
+<p><strong>Assemble.</strong></p>
+$$ y_p = (-t)e^{t} + (\ln t)\,t e^{t} = t e^{t}\ln t - t e^{t}. $$
+<p>The $-t e^{t}$ term is just $-1\cdot y_2$, a homogeneous solution, so it is absorbed into $c_2$.</p>
+<div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1 e^{t} + c_2 t e^{t} + t e^{t}\ln t.$</div>
+
+<!-- 2f -->
+<h3>2f) &nbsp; $y'' + y' - 6y = \dfrac{1}{e^{t}+1},\quad t\gt 0$</h3>
+<p><strong>Homogeneous.</strong> $r^2+r-6=(r+3)(r-2)=0\Rightarrow r=-3,2$, so $y_1=e^{-3t},\ y_2=e^{2t}$.</p>
+<p><strong>Wronskian.</strong> $W = e^{-3t}(2e^{2t}) - (-3e^{-3t})(e^{2t}) = 2e^{-t}+3e^{-t} = 5e^{-t}.$</p>
+<p>With $g=\dfrac{1}{e^{t}+1}$,</p>
+$$ u_1' = -\frac{e^{2t}}{5e^{-t}}\cdot\frac{1}{e^{t}+1} = -\frac{e^{3t}}{5(e^{t}+1)}, \qquad u_2' = \frac{e^{-3t}}{5e^{-t}}\cdot\frac{1}{e^{t}+1} = \frac{e^{-2t}}{5(e^{t}+1)}. $$
+<p><strong>Substitute $w=e^{t}$</strong> (so $dw=e^{t}\,dt$, i.e. $dt=\dfrac{dw}{w}$). For $u_1$:</p>
+$$ u_1 = -\frac15\int\frac{w^3}{w+1}\frac{dw}{w} = -\frac15\int\frac{w^2}{w+1}\,dw = -\frac15\int\Big(w-1+\frac{1}{w+1}\Big)dw = -\frac15\Big(\frac{w^2}{2}-w+\ln(w+1)\Big). $$
+<p>Back-substitute $w=e^t$: $\;u_1 = -\dfrac{e^{2t}}{10}+\dfrac{e^{t}}{5}-\dfrac{1}{5}\ln(e^{t}+1).$</p>
+<p>For $u_2$, the integrand becomes $\dfrac{1}{5\,w^3(w+1)}$. Partial fractions (the decomposition is on the official sheet):</p>
+$$ \frac{1}{w^3(w+1)} = \frac{1}{w}-\frac{1}{w^2}+\frac{1}{w^3}-\frac{1}{w+1}, $$
+$$ u_2 = \frac15\Big(\ln w + \frac1w - \frac{1}{2w^2} - \ln(w+1)\Big) = \frac{t}{5}+\frac{e^{-t}}{5}-\frac{e^{-2t}}{10}-\frac15\ln(e^{t}+1). $$
+<p><strong>Assemble</strong> $y_p=u_1 e^{-3t}+u_2 e^{2t}$ and group by $\tfrac15$:</p>
+$$ y_p = \frac15\Big( t e^{2t} + e^{t} - \tfrac12 - \tfrac12 e^{-t} + e^{-2t} - \big(e^{2t}+e^{-3t}\big)\ln(e^{t}+1)\Big). $$
+<div class="check"><span class="check-title">Answer (matches key):</span>
+$ \displaystyle y = c_1 e^{-3t} + c_2 e^{2t} + \frac15\Big( t e^{2t} + e^{t} - \tfrac12 - \tfrac12 e^{-t} + e^{-2t} - \big(e^{2t}+e^{-3t}\big)\ln(e^{t}+1)\Big).$
+</div>
+<p class="muted">This monster was confirmed two ways: by integrating $u_1,u_2$ as above, and by plugging the whole $y_p$ back into the ODE — both give exactly $\dfrac{1}{e^t+1}$.</p>
+</div>
+
+<div class="pager">
+  <a href="worksheet6.html">← Worksheet 6</a>
+  <span class="spacer"></span>
+  <a href="worksheet8.html">Worksheet 8 — Partial Derivatives →</a>
+</div>
+</div>
+
+<footer class="site">Worksheet 7 · All six general solutions verified against <em>WorksheetNr7answers</em> (part 2d matches after a logarithm identity; 2f confirmed by direct substitution).</footer>
+</body>
+</html>

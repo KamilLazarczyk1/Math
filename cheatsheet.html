@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheat Sheet — Analysis 2 (printable)</title>
+<link rel="stylesheet" href="katex/katex.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script defer src="katex/katex.min.js"></script>
+<script defer src="katex/auto-render.min.js"></script>
+<script defer src="js/render.js"></script>
+<style>
+  /* ---- Cheat-sheet specific (dense, printable) ---- */
+  .cs-wrap { max-width: 1180px; margin: 0 auto; padding: 18px 20px 60px; }
+  .cs-controls { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin: 6px 0 14px; }
+  .btn {
+    background: var(--accent); color:#fff; border:none; border-radius:8px;
+    padding:9px 16px; font-size:.92rem; font-weight:600; cursor:pointer;
+  }
+  .legend { font-size:.82rem; color:var(--text-soft); }
+  .legend b { color: var(--text); }
+  .mark-o { color: var(--green); font-weight:700; }
+  .mark-x { color: var(--amber); font-weight:700; }
+
+  .cs-cols { column-count: 3; column-gap: 18px; }
+  @media (max-width: 1000px){ .cs-cols { column-count: 2; } }
+  @media (max-width: 660px){ .cs-cols { column-count: 1; } }
+
+  .cs-block {
+    break-inside: avoid;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 8px 11px 4px;
+    margin: 0 0 12px;
+  }
+  .cs-block h3 {
+    margin: 2px 0 6px; font-size: .92rem; color: var(--accent);
+    border-bottom: 1px solid var(--border); padding-bottom: 3px;
+  }
+  .cs-block ul { list-style: none; margin: 0; padding: 0; }
+  .cs-block li { margin: 4px 0; font-size: .86rem; line-height: 1.4; }
+  .cs-block .katex { font-size: .92em; }
+  .cs-block .lbl { color: var(--text-soft); font-size:.8em; }
+
+  @media print {
+    @page { size: A4; margin: 10mm; }
+    .topnav, .cs-controls, footer.site { display: none !important; }
+    body { background:#fff; color:#000; font-size: 11px; }
+    .cs-wrap { padding: 0; max-width: none; }
+    .cs-cols { column-count: 3; column-gap: 10px; }
+    .cs-block { border:1px solid #bbb; box-shadow:none; padding:5px 7px 2px; margin-bottom:7px; }
+    .cs-block h3 { color:#000; font-size: 10.5px; }
+    .cs-block li { font-size: 9.5px; margin:2.5px 0; }
+    .mark-o { color:#000; } .mark-x { color:#000; font-weight:800; }
+    h1.cs-title { font-size: 15px; margin: 0 0 2px; }
+    .cs-sub { font-size: 9.5px; margin: 0 0 6px; }
+    a { color:#000; text-decoration:none; }
+  }
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+  <a class="brand" href="index.html">Analysis 2</a>
+  <a class="navlink" href="index.html">Home</a>
+  <a class="navlink" href="worksheet6.html">WS 6</a>
+  <a class="navlink" href="worksheet7.html">WS 7</a>
+  <a class="navlink" href="worksheet8.html">WS 8</a>
+  <a class="navlink" href="worksheet9.html">WS 9</a>
+  <a class="navlink" href="worksheet10.html">WS 10</a>
+  <a class="navlink" href="formulas.html">Formulas</a>
+  <a class="navlink active" href="cheatsheet.html">Cheat sheet</a>
+</div></nav>
+
+<div class="cs-wrap">
+  <h1 class="cs-title">Analysis 2 — Complete Cheat Sheet</h1>
+  <p class="cs-sub muted">Every formula used in Worksheets 6–10, including the trivial ones. Use this as the master list for your handwritten A4 page.</p>
+  <div class="cs-controls">
+    <button class="btn" onclick="window.print()">🖨 Print / Save as PDF</button>
+    <span class="legend"><b><span class="mark-o">O</span></b> = already on the official sheets (Derivatives/Integrals or Laplace) — optional to copy. &nbsp; <b><span class="mark-x">★</span></b> = bring on your own page.</span>
+  </div>
+
+  <div class="cs-cols">
+
+    <!-- DERIVATIVES -->
+    <div class="cs-block">
+      <h3>Derivatives — rules</h3>
+      <ul>
+        <li><span class="mark-o">O</span> $(cf)'=cf',\ (f\pm g)'=f'\pm g'$</li>
+        <li><span class="mark-o">O</span> $(fg)'=f'g+fg'$</li>
+        <li><span class="mark-o">O</span> $\left(\frac fg\right)'=\frac{f'g-fg'}{g^2}$</li>
+        <li><span class="mark-o">O</span> $\frac{d}{dx}f(g(x))=f'(g)\,g'$</li>
+        <li><span class="mark-o">O</span> $\frac{d}{dx}x^n=nx^{n-1}$, $\ \frac{d}{dx}c=0$</li>
+        <li><span class="mark-o">O</span> $\frac{d}{dx}\sqrt u=\frac{u'}{2\sqrt u}$</li>
+        <li><span class="mark-o">O</span> $\frac{d}{dx}\frac1x=-\frac1{x^2}$</li>
+      </ul>
+    </div>
+
+    <div class="cs-block">
+      <h3>Derivatives — exp / log / trig</h3>
+      <ul>
+        <li><span class="mark-o">O</span> $\frac{d}{dx}e^{x}=e^x,\ \frac{d}{dx}e^{g}=g'e^{g}$</li>
+        <li><span class="mark-o">O</span> $\frac{d}{dx}a^x=a^x\ln a$</li>
+        <li><span class="mark-o">O</span> $\frac{d}{dx}\ln x=\frac1x,\ \frac{d}{dx}\ln g=\frac{g'}{g}$</li>
+        <li><span class="mark-o">O</span> $\frac{d}{dx}\log_a x=\frac{1}{x\ln a}$</li>
+        <li><span class="mark-o">O</span> $\sin'=\cos,\ \cos'=-\sin$</li>
+        <li><span class="mark-o">O</span> $\tan'=\sec^2,\ \cot'=-\csc^2$</li>
+        <li><span class="mark-o">O</span> $\sec'=\sec\tan,\ \csc'=-\csc\cot$</li>
+        <li><span class="mark-o">O</span> $\arctan'u=\frac{u'}{1+u^2}$</li>
+        <li><span class="mark-o">O</span> $\arcsin'u=\frac{u'}{\sqrt{1-u^2}}$</li>
+      </ul>
+    </div>
+
+    <!-- INTEGRALS -->
+    <div class="cs-block">
+      <h3>Integrals — basic</h3>
+      <ul>
+        <li><span class="mark-o">O</span> $\int x^n dx=\frac{x^{n+1}}{n+1}+c\ (n\neq-1)$</li>
+        <li><span class="mark-o">O</span> $\int\frac1x dx=\ln|x|+c$</li>
+        <li><span class="mark-o">O</span> $\int\frac{1}{ax+b}dx=\frac1a\ln|ax+b|+c$</li>
+        <li><span class="mark-o">O</span> $\int e^u du=e^u+c$</li>
+        <li><span class="mark-o">O</span> $\int a^u du=\frac{a^u}{\ln a}+c$</li>
+        <li><span class="mark-o">O</span> $\int\ln u\,du=u\ln u-u+c$</li>
+        <li><span class="mark-o">O</span> $\int u\,e^u du=(u-1)e^u+c$</li>
+        <li><span class="mark-o">O</span> $\int\frac{1}{u\ln u}du=\ln|\ln u|+c$</li>
+      </ul>
+    </div>
+
+    <div class="cs-block">
+      <h3>Integrals — trig</h3>
+      <ul>
+        <li><span class="mark-o">O</span> $\int\sin u\,du=-\cos u+c$</li>
+        <li><span class="mark-o">O</span> $\int\cos u\,du=\sin u+c$</li>
+        <li><span class="mark-o">O</span> $\int\sec^2 u\,du=\tan u+c$</li>
+        <li><span class="mark-o">O</span> $\int\csc^2 u\,du=-\cot u+c$</li>
+        <li><span class="mark-o">O</span> $\int\tan u\,du=\ln|\sec u|+c$</li>
+        <li><span class="mark-o">O</span> $\int\cot u\,du=\ln|\sin u|+c$</li>
+        <li><span class="mark-o">O</span> $\int\sec u\,du=\ln|\sec u+\tan u|+c$</li>
+        <li><span class="mark-o">O</span> $\int\csc u\,du=\ln|\csc u-\cot u|+c$</li>
+      </ul>
+    </div>
+
+    <div class="cs-block">
+      <h3>Integrals — techniques &amp; exp·trig</h3>
+      <ul>
+        <li><span class="mark-o">O</span> $\int u\,dv=uv-\int v\,du$</li>
+        <li><span class="mark-o">O</span> $\int f(g)g'\,dx=\int f(u)\,du$</li>
+        <li><span class="mark-o">O</span> $\int_a^b f=F(b)-F(a)$</li>
+        <li><span class="mark-o">O</span> $\int e^{au}\sin bu\,du=\frac{e^{au}}{a^2+b^2}(a\sin bu-b\cos bu)$</li>
+        <li><span class="mark-o">O</span> $\int e^{au}\cos bu\,du=\frac{e^{au}}{a^2+b^2}(a\cos bu+b\sin bu)$</li>
+        <li><span class="mark-o">O</span> Partial fractions: $\frac{A}{ax+b},\frac{Ax+B}{ax^2+bx+c}$, repeated $\to$ powers</li>
+        <li><span class="mark-x">★</span> FTC-1: $\frac{d}{dx}\!\int_a^x h=h(x)$, $\frac{d}{dx}\!\int_x^b h=-h(x)$</li>
+      </ul>
+    </div>
+
+    <!-- ODE -->
+    <div class="cs-block">
+      <h3>Linear ODE — recipe (WS6–7)</h3>
+      <ul>
+        <li><span class="mark-x">★</span> $ay''+by'+cy=g\Rightarrow y=y_h+y_p$</li>
+        <li><span class="mark-x">★</span> char. eqn $ar^2+br+c=0$, $r=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$</li>
+        <li><span class="mark-x">★</span> real $r_1\ne r_2$: $y_h=c_1e^{r_1t}+c_2e^{r_2t}$</li>
+        <li><span class="mark-x">★</span> double $r$: $y_h=(c_1+c_2t)e^{rt}$</li>
+        <li><span class="mark-x">★</span> $\alpha\pm\beta i$: $y_h=e^{\alpha t}(c_1\cos\beta t+c_2\sin\beta t)$</li>
+      </ul>
+    </div>
+
+    <div class="cs-block">
+      <h3>Undetermined coefficients</h3>
+      <ul>
+        <li><span class="mark-x">★</span> $g=e^{at}\to Ae^{at}$</li>
+        <li><span class="mark-x">★</span> $g=P_n(t)\to$ full degree-$n$ polynomial</li>
+        <li><span class="mark-x">★</span> $g=\cos bt$ or $\sin bt\to A\cos bt+B\sin bt$</li>
+        <li><span class="mark-x">★</span> $g=e^{at}P_n\to e^{at}\cdot$(deg-$n$ poly)</li>
+        <li><span class="mark-x">★</span> $g=e^{at}\cos bt\to e^{at}(A\cos bt+B\sin bt)$</li>
+        <li><span class="mark-x">★</span> sums of pieces $\to$ sum of guesses</li>
+        <li><span class="mark-x">★</span> <b>Resonance:</b> ×$t^s$, $s=$ multiplicity of matching root ($0,1,2$)</li>
+      </ul>
+    </div>
+
+    <div class="cs-block">
+      <h3>Variation of parameters</h3>
+      <ul>
+        <li><span class="mark-x">★</span> standard form: leading coeff $=1$, RHS $=g$</li>
+        <li><span class="mark-x">★</span> $W=y_1y_2'-y_1'y_2$ (Wronskian)</li>
+        <li><span class="mark-x">★</span> $u_1'=-\frac{y_2 g}{W},\quad u_2'=\frac{y_1 g}{W}$</li>
+        <li><span class="mark-x">★</span> $y_p=u_1y_1+u_2y_2$</li>
+      </ul>
+    </div>
+
+    <!-- MULTIVARIABLE -->
+    <div class="cs-block">
+      <h3>Partials, gradient, tangent (WS8)</h3>
+      <ul>
+        <li><span class="mark-x">★</span> $\frac{\partial f}{\partial x_i}$: differentiate in $x_i$, others fixed</li>
+        <li><span class="mark-x">★</span> $\nabla f=(f_{x_1},\dots,f_{x_n})$</li>
+        <li><span class="mark-x">★</span> dir. deriv. $\frac{\partial f}{\partial v}=\nabla f\cdot v$ (v as given)</li>
+        <li><span class="mark-x">★</span> tangent plane $z=f(x_0)+\nabla f(x_0)\cdot(x-x_0)$</li>
+        <li><span class="mark-x">★</span> diff'able $\Leftrightarrow \lim\frac{|f(x)-f(x_0)-\nabla f(x_0)\cdot(x-x_0)|}{\lVert x-x_0\rVert}=0$</li>
+        <li><span class="mark-x">★</span> diff'able $\Rightarrow$ continuous &amp; partials exist; converse false</li>
+        <li><span class="mark-x">★</span> disprove diff'ability: show not continuous (path test)</li>
+      </ul>
+    </div>
+
+    <div class="cs-block">
+      <h3>Extrema &amp; stability (WS9)</h3>
+      <ul>
+        <li><span class="mark-x">★</span> critical pt: $\nabla f=0$</li>
+        <li><span class="mark-x">★</span> Hessian $H_f=[\,\partial^2 f/\partial x_i\partial x_j\,]$</li>
+        <li><span class="mark-x">★</span> $H_f$ pos.def.(all $\lambda>0$)→min; neg.def.→max; mixed→saddle</li>
+        <li><span class="mark-x">★</span> Jacobian $J_f=[\,\partial f_i/\partial x_j\,]$</li>
+        <li><span class="mark-x">★</span> equilibrium: $f(x_0)=0$</li>
+        <li><span class="mark-x">★</span> $\det(A-\lambda I)=0$; $2\times2$: $\lambda^2-(\operatorname{tr})\lambda+\det=0$</li>
+        <li><span class="mark-x">★</span> all $\operatorname{Re}\lambda<0$→stable; some $\operatorname{Re}\lambda>0$→unstable</li>
+        <li><span class="mark-x">★</span> chain rule $\frac{d}{dt}V(x(t))=\nabla V\cdot x'(t)$</li>
+        <li><span class="mark-x">★</span> implicit diff: differentiate $F(t,x(t))=c$ in $t$</li>
+      </ul>
+    </div>
+
+    <!-- INTEGRALS 2 -->
+    <div class="cs-block">
+      <h3>Multiple &amp; surface integrals (WS10)</h3>
+      <ul>
+        <li><span class="mark-x">★</span> $\iint_\Omega f=\int_c^d\!\int_{\ell(x_2)}^{r(x_2)}f\,dx_1dx_2$</li>
+        <li><span class="mark-x">★</span> change of vars: $\iint_\Omega f\,dx=\iint_{\Omega'}f(\Phi)\,|\det J_\Phi|\,du$</li>
+        <li><span class="mark-x">★</span> $\det\!\begin{pmatrix}a&b\\c&d\end{pmatrix}=ad-bc$</li>
+        <li><span class="mark-x">★</span> $a\times b=(a_2b_3-a_3b_2,\ a_3b_1-a_1b_3,\ a_1b_2-a_2b_1)$</li>
+        <li><span class="mark-x">★</span> $d\sigma=|\sigma_{u_1}\times\sigma_{u_2}|\,du_1du_2$</li>
+        <li><span class="mark-x">★</span> $\iint_S f\,d\sigma=\iint_D f(\sigma)\,|\sigma_{u_1}\times\sigma_{u_2}|\,du$</li>
+      </ul>
+    </div>
+
+    <!-- ALGEBRA -->
+    <div class="cs-block">
+      <h3>Algebra &amp; trig identities</h3>
+      <ul>
+        <li><span class="mark-x">★</span> $\sin^2t+\cos^2t=1$; $\ 1-\cos^2t=\sin^2t$</li>
+        <li><span class="mark-x">★</span> $\tan t=\frac{\sin t}{\cos t},\ \sec t=\frac1{\cos t}$</li>
+        <li><span class="mark-x">★</span> $\sec t+\tan t=\frac{1+\sin t}{\cos t}$</li>
+        <li><span class="mark-x">★</span> $|\sin x|\le|x|$</li>
+        <li><span class="mark-x">★</span> $\int_{-a}^a$odd$=0$; $\int_{-a}^a$even$=2\int_0^a$</li>
+        <li><span class="mark-x">★</span> $e^{i\theta}=\cos\theta+i\sin\theta$</li>
+        <li><span class="mark-x">★</span> $e^0=1,\ \cos0=1,\ \sin0=0$</li>
+      </ul>
+    </div>
+
+    <!-- LAPLACE -->
+    <div class="cs-block">
+      <h3>Laplace transforms <span class="lbl">(all <span class="mark-o">O</span>; not needed WS6–10)</span></h3>
+      <ul>
+        <li><span class="mark-o">O</span> $\mathcal L\{1\}=\frac1s,\ \mathcal L\{t^n\}=\frac{n!}{s^{n+1}}$</li>
+        <li><span class="mark-o">O</span> $\mathcal L\{e^{at}\}=\frac{1}{s-a},\ \mathcal L\{t^ne^{at}\}=\frac{n!}{(s-a)^{n+1}}$</li>
+        <li><span class="mark-o">O</span> $\mathcal L\{\cos bt\}=\frac{s}{s^2+b^2},\ \mathcal L\{\sin bt\}=\frac{b}{s^2+b^2}$</li>
+        <li><span class="mark-o">O</span> $\mathcal L\{f'\}=sF-f(0)$</li>
+        <li><span class="mark-o">O</span> $\mathcal L\{f''\}=s^2F-sf(0)-f'(0)$</li>
+        <li><span class="mark-o">O</span> shift $\mathcal L\{e^{at}f\}=F(s-a)$</li>
+        <li class="lbl">Full tables (2.2/2.3/2.5) are on the official Laplace sheet.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site">Tip: use your browser's “Print → Save as PDF”. The nav bar and buttons are hidden automatically when printing.</footer>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worksheet 9 — Hessian, Jacobian &amp; Chain Rule</title>
+<link rel="stylesheet" href="katex/katex.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script defer src="katex/katex.min.js"></script>
+<script defer src="katex/auto-render.min.js"></script>
+<script defer src="js/render.js"></script>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+  <a class="brand" href="index.html">Analysis 2</a>
+  <a class="navlink" href="index.html">Home</a>
+  <a class="navlink" href="worksheet6.html">WS 6</a>
+  <a class="navlink" href="worksheet7.html">WS 7</a>
+  <a class="navlink" href="worksheet8.html">WS 8</a>
+  <a class="navlink active" href="worksheet9.html">WS 9</a>
+  <a class="navlink" href="worksheet10.html">WS 10</a>
+  <a class="navlink" href="formulas.html">Formulas</a>
+  <a class="navlink" href="cheatsheet.html">Cheat sheet</a>
+</div></nav>
+
+<div class="wrap">
+<div class="page-header">
+  <span class="eyebrow">Worksheet 9 · 04.06.2026</span>
+  <h1>Hessian, Jacobian &amp; the Chain Rule</h1>
+  <p class="lead">Classifying critical points of a scalar function with the Hessian, finding and judging the stability of equilibria of a vector field with the Jacobian, and using the multivariable chain rule (including implicit differentiation).</p>
+</div>
+
+<div class="toc">
+  <strong>On this page</strong>
+  <ul>
+    <li><a href="#theory">Tools (theory)</a></li>
+    <li><a href="#ex1">Exercise 1 — Hessian / local extrema</a></li>
+    <li><a href="#ex2">Exercise 2 — Jacobian / stability</a></li>
+    <li><a href="#ex3">Exercise 3 — chain rule</a></li>
+  </ul>
+</div>
+
+<div class="note">
+<p><span class="note-title">No official answer key for this sheet.</span> Every critical point, eigenvalue and derivative below was recomputed independently with a computer-algebra system and matches the hand calculations shown.</p>
+</div>
+
+<!-- ===================== THEORY ===================== -->
+<h2 id="theory">The tools</h2>
+
+<div class="theory">
+<span class="theory-title">Critical points and the Hessian (second-derivative test)</span>
+<p>For a scalar function $f(x_1,\dots,x_n)$, a <strong>critical point</strong> is where the gradient vanishes, $\nabla f(x_0)=0$. To classify it, use the <strong>Hessian</strong>, the symmetric matrix of second partials:</p>
+$$ H_f(x) = \left[\frac{\partial^2 f}{\partial x_i\,\partial x_j}\right]_{i,j}. $$
+<p>Evaluate $H_f$ at the critical point and look at its <strong>eigenvalues</strong>:</p>
+<table>
+<tr><th>Eigenvalues of $H_f(x_0)$</th><th>$H_f(x_0)$ is</th><th>$x_0$ is a</th></tr>
+<tr><td>all $\gt 0$</td><td>positive definite</td><td>local minimum</td></tr>
+<tr><td>all $\lt 0$</td><td>negative definite</td><td>local maximum</td></tr>
+<tr><td>both signs present</td><td>indefinite</td><td>saddle point</td></tr>
+</table>
+<p class="muted">(If some eigenvalue is $0$ the test is inconclusive.) This is the $n$-dimensional version of the single-variable test "$f''\gt0\Rightarrow$ min, $f''\lt0\Rightarrow$ max."</p>
+
+<span class="theory-title">Jacobian and linear stability</span>
+<p>For a vector field $f:\mathbb{R}^n\to\mathbb{R}^n$, $f=(f_1,\dots,f_n)$, the <strong>Jacobian</strong> is the matrix of all first partials:</p>
+$$ J_f(x) = \left[\frac{\partial f_i}{\partial x_j}\right]_{i,j}. $$
+<p>A <strong>critical point</strong> (equilibrium) of the system $x'=f(x)$ is a point with $f(x_0)=0$. The worksheet gives the stability rule directly via the eigenvalues $\lambda$ of $J_f(x_0)$:</p>
+<table>
+<tr><th>Eigenvalue condition</th><th>Verdict</th></tr>
+<tr><td>$\operatorname{Re}(\lambda)\lt0$ for <em>all</em> eigenvalues</td><td>asymptotically stable</td></tr>
+<tr><td>$\operatorname{Re}(\lambda)\gt0$ for <em>some</em> eigenvalue</td><td>not stable</td></tr>
+</table>
+<p>For a $2\times2$ matrix, eigenvalues solve $\lambda^2-(\operatorname{tr})\lambda+\det=0$, i.e. $\lambda=\dfrac{\operatorname{tr}\pm\sqrt{\operatorname{tr}^2-4\det}}{2}$.</p>
+
+<span class="theory-title">Multivariable chain rule &amp; implicit differentiation</span>
+<p>If $x(t)=(x_1(t),\dots,x_n(t))$ is a curve and $V$ a scalar function, then</p>
+$$ \frac{d}{dt}V(x(t)) = \nabla V(x(t))\cdot x'(t) = \sum_i \frac{\partial V}{\partial x_i}\,x_i'(t). $$
+<p>For implicit relations $F(t,x(t))=c$, just differentiate both sides in $t$, applying the product/chain rules and remembering $\dfrac{d}{dt}x(t)=x'(t)$.</p>
+</div>
+
+<div class="note">
+<p><span class="note-title">Official vs. own.</span> The <strong>Hessian test</strong>, the <strong>Jacobian</strong>, the <strong>eigenvalue stability criterion</strong> and the <strong>multivariable chain rule</strong> are <em>not</em> on the official sheets <span class="pill pill-own">bring yourself</span>. The underlying derivative rules are <span class="pill pill-official">on official sheet</span>.</p>
+</div>
+
+<!-- ===================== EX 1 ===================== -->
+<h2 id="ex1">Exercise 1 — Local extrema via the Hessian</h2>
+<div class="exercise">
+<p class="subpart-head">$f(x_1,x_2,x_3)=x_1x_2x_3+\dfrac{1}{x_1}+\dfrac{1}{x_2}+\dfrac{1}{x_3}$ on $(\mathbb{R}\setminus\{0\})^3$.</p>
+
+<h3>Step 1 — find the critical points</h3>
+<p>Set each partial to zero (using $\dfrac{d}{dx}\tfrac1x=-\tfrac1{x^2}$):</p>
+$$ \frac{\partial f}{\partial x_1}=x_2x_3-\frac{1}{x_1^2}=0,\quad \frac{\partial f}{\partial x_2}=x_1x_3-\frac{1}{x_2^2}=0,\quad \frac{\partial f}{\partial x_3}=x_1x_2-\frac{1}{x_3^2}=0. $$
+<p><strong>Trick:</strong> multiply the first equation by $x_1$, the second by $x_2$, the third by $x_3$:</p>
+$$ x_1x_2x_3=\frac{1}{x_1},\qquad x_1x_2x_3=\frac{1}{x_2},\qquad x_1x_2x_3=\frac{1}{x_3}. $$
+<p>The right-hand sides are all equal, so $\dfrac1{x_1}=\dfrac1{x_2}=\dfrac1{x_3}$, hence $x_1=x_2=x_3=:a$. Then $x_1x_2x_3=a^3$ must equal $\dfrac1a$, giving $a^4=1$, so (for real $a\neq0$) $a=\pm1$.</p>
+<div class="check"><span class="check-title">Critical points:</span> $\;(1,1,1)\;$ and $\;(-1,-1,-1)$.</div>
+
+<h3>Step 2 — the Hessian</h3>
+<p>The second partials are $\dfrac{\partial^2 f}{\partial x_i^2}=\dfrac{2}{x_i^3}$ and $\dfrac{\partial^2 f}{\partial x_1\partial x_2}=x_3$, $\dfrac{\partial^2 f}{\partial x_1\partial x_3}=x_2$, $\dfrac{\partial^2 f}{\partial x_2\partial x_3}=x_1$, so</p>
+$$ H_f=\begin{pmatrix} 2/x_1^3 & x_3 & x_2\\ x_3 & 2/x_2^3 & x_1\\ x_2 & x_1 & 2/x_3^3 \end{pmatrix}. $$
+
+<h3>Step 3 — classify each point</h3>
+<p><strong>At $(1,1,1)$:</strong></p>
+$$ H_f(1,1,1)=\begin{pmatrix}2&1&1\\1&2&1\\1&1&2\end{pmatrix}=I+\mathbf{1}, $$
+<p>where $\mathbf 1$ is the all-ones matrix. Since $\mathbf 1$ has eigenvalues $3$ (eigenvector $(1,1,1)$) and $0$ (double), $H_f=I+\mathbf 1$ has eigenvalues $1+3=4$ and $1+0=1$ (double): $\{4,1,1\}$. All positive $\Rightarrow$ positive definite $\Rightarrow$ <strong>local minimum</strong>, with value $f(1,1,1)=1+1+1+1=4$.</p>
+<p><strong>At $(-1,-1,-1)$:</strong> every diagonal entry is $2/(-1)^3=-2$ and every off-diagonal is $-1$, so</p>
+$$ H_f(-1,-1,-1)=-\begin{pmatrix}2&1&1\\1&2&1\\1&1&2\end{pmatrix}, $$
+<p>with eigenvalues $\{-4,-1,-1\}$. All negative $\Rightarrow$ negative definite $\Rightarrow$ <strong>local maximum</strong>, with value $f(-1,-1,-1)=(-1)+(-1)+(-1)+(-1)=-4$.</p>
+<div class="check"><span class="check-title">Result:</span> local minimum at $(1,1,1)$ with $f=4$; local maximum at $(-1,-1,-1)$ with $f=-4$.</div>
+</div>
+
+<!-- ===================== EX 2 ===================== -->
+<h2 id="ex2">Exercise 2 — Jacobian, critical points &amp; stability</h2>
+<div class="exercise">
+<p class="subpart-head">$f(x)=\big(3x_1x_2-2x_2^2+11,\ \ x_1+3x_2\big)$.</p>
+
+<h3>(a) The Jacobian</h3>
+<p>With $f_1=3x_1x_2-2x_2^2+11$ and $f_2=x_1+3x_2$:</p>
+$$ J_f(x)=\begin{pmatrix}\partial f_1/\partial x_1 & \partial f_1/\partial x_2\\[2pt] \partial f_2/\partial x_1 & \partial f_2/\partial x_2\end{pmatrix}=\begin{pmatrix}3x_2 & 3x_1-4x_2\\[2pt] 1 & 3\end{pmatrix}. $$
+
+<h3>(b) Critical points: $f(x_0)=0$</h3>
+<p>From $f_2=x_1+3x_2=0$ we get $x_1=-3x_2$. Substitute into $f_1=0$:</p>
+$$ 3(-3x_2)x_2-2x_2^2+11=-9x_2^2-2x_2^2+11=-11x_2^2+11=0 \;\Rightarrow\; x_2^2=1\;\Rightarrow\; x_2=\pm1. $$
+<p>So $x_2=1\Rightarrow x_1=-3$ and $x_2=-1\Rightarrow x_1=3$.</p>
+<div class="check"><span class="check-title">Critical points:</span> $\;(-3,1)\;$ and $\;(3,-1)$.</div>
+
+<h3>(c) Stability via eigenvalues of $J_f$</h3>
+<p><strong>At $(-3,1)$:</strong></p>
+$$ J_f(-3,1)=\begin{pmatrix}3 & 3(-3)-4(1)\\ 1 & 3\end{pmatrix}=\begin{pmatrix}3 & -13\\ 1 & 3\end{pmatrix},\quad \operatorname{tr}=6,\ \det=9+13=22. $$
+$$ \lambda=\frac{6\pm\sqrt{36-88}}{2}=\frac{6\pm\sqrt{-52}}{2}=3\pm i\sqrt{13}. $$
+<p>The real part is $\operatorname{Re}(\lambda)=3\gt0$ $\Rightarrow$ <strong>not stable</strong> (a spiral source).</p>
+<p><strong>At $(3,-1)$:</strong></p>
+$$ J_f(3,-1)=\begin{pmatrix}-3 & 3(3)-4(-1)\\ 1 & 3\end{pmatrix}=\begin{pmatrix}-3 & 13\\ 1 & 3\end{pmatrix},\quad \operatorname{tr}=0,\ \det=-9-13=-22. $$
+$$ \lambda=\frac{0\pm\sqrt{0-4(-22)}}{2}=\frac{\pm\sqrt{88}}{2}=\pm\sqrt{22}. $$
+<p>One eigenvalue $+\sqrt{22}\gt0$ $\Rightarrow$ <strong>not stable</strong> (a saddle).</p>
+<div class="check"><span class="check-title">Conclusion:</span> both critical points are <strong>not stable</strong> — $(-3,1)$ because the complex eigenvalues have positive real part, $(3,-1)$ because it has a positive real eigenvalue.</div>
+</div>
+
+<!-- ===================== EX 3 ===================== -->
+<h2 id="ex3">Exercise 3 — Chain rule</h2>
+<div class="exercise">
+
+<h3>(a) Show $\dfrac{d}{dt}V(x(t))\le0$</h3>
+<p>For $V(x)=\ln(1+x_1^2)+x_2^2$, the gradient is</p>
+$$ \nabla V=\Big(\frac{2x_1}{1+x_1^2},\ 2x_2\Big). $$
+<p>By the chain rule, with the given $x_1'=x_1(x_2-1)$ and $x_2'=-\dfrac{x_1^2}{1+x_1^2}$,</p>
+$$ \frac{d}{dt}V(x(t))=\frac{2x_1}{1+x_1^2}\,x_1' + 2x_2\,x_2' = \frac{2x_1}{1+x_1^2}\,x_1(x_2-1) + 2x_2\!\left(-\frac{x_1^2}{1+x_1^2}\right). $$
+<p>Put over the common denominator $1+x_1^2$:</p>
+$$ = \frac{2x_1^2(x_2-1) - 2x_1^2 x_2}{1+x_1^2} = \frac{2x_1^2 x_2 - 2x_1^2 - 2x_1^2 x_2}{1+x_1^2} = \frac{-2x_1^2}{1+x_1^2}. $$
+<p>Since $x_1^2\ge0$ and $1+x_1^2\gt0$, this is $\le0$ for all $t$.</p>
+<div class="check"><span class="check-title">Shown:</span> $\;\dfrac{d}{dt}V(x(t))=-\dfrac{2x_1(t)^2}{1+x_1(t)^2}\le0.$ <span class="muted">(So $V$ is a Lyapunov function — it never increases along trajectories.)</span></div>
+
+<h3>(b) Implicit differentiation</h3>
+<p>Differentiate $x(t)^2+2t\,x(t)-t^2=c$ with respect to $t$. Term by term, using the product rule on $2t\,x(t)$ and the chain rule on $x(t)^2$:</p>
+$$ \frac{d}{dt}\big[x^2\big]=2x\,x',\qquad \frac{d}{dt}\big[2tx\big]=2x+2t\,x',\qquad \frac{d}{dt}\big[t^2\big]=2t,\qquad \frac{d}{dt}[c]=0. $$
+<p>Adding up:</p>
+$$ 2x\,x' + 2x + 2t\,x' - 2t = 0. $$
+<p>Group the $x'$ terms and the non-$x'$ terms:</p>
+$$ \underbrace{2x - 2t}_{=\,2(x-t)} \; + \; \underbrace{(2x+2t)}_{=\,2(x+t)}\,x' = 0. $$
+<div class="check"><span class="check-title">Shown:</span> $\;2\big(x(t)-t\big)+2\big(x(t)+t\big)x'(t)=0,$ exactly as required.</div>
+</div>
+
+<div class="pager">
+  <a href="worksheet8.html">← Worksheet 8</a>
+  <span class="spacer"></span>
+  <a href="worksheet10.html">Worksheet 10 — Integrals →</a>
+</div>
+</div>
+
+<footer class="site">Worksheet 9 · Critical points, Hessian eigenvalues, Jacobian eigenvalues and both chain-rule identities independently verified by computer algebra.</footer>
+</body>
+</html>

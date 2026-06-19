@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worksheet 6 — Linear ODEs &amp; Undetermined Coefficients</title>
+<link rel="stylesheet" href="katex/katex.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script defer src="katex/katex.min.js"></script>
+<script defer src="katex/auto-render.min.js"></script>
+<script defer src="js/render.js"></script>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+  <a class="brand" href="index.html">Analysis 2</a>
+  <a class="navlink" href="index.html">Home</a>
+  <a class="navlink active" href="worksheet6.html">WS 6</a>
+  <a class="navlink" href="worksheet7.html">WS 7</a>
+  <a class="navlink" href="worksheet8.html">WS 8</a>
+  <a class="navlink" href="worksheet9.html">WS 9</a>
+  <a class="navlink" href="worksheet10.html">WS 10</a>
+  <a class="navlink" href="formulas.html">Formulas</a>
+  <a class="navlink" href="cheatsheet.html">Cheat sheet</a>
+</div></nav>
+
+<div class="wrap">
+<div class="page-header">
+  <span class="eyebrow">Worksheet 6 · 23.04.2026</span>
+  <h1>Second-Order Linear ODEs — Undetermined Coefficients</h1>
+  <p class="lead">Constant-coefficient equations $y'' + by' + cy = g(t)$: building the homogeneous solution from the characteristic equation, guessing a particular solution, and pinning down constants with initial conditions.</p>
+</div>
+
+<div class="toc">
+  <strong>On this page</strong>
+  <ul>
+    <li><a href="#theory">The method (theory)</a></li>
+    <li><a href="#ex1">Exercise 1 — guessing $y_p$</a></li>
+    <li><a href="#ex2">Exercise 2 — general solutions</a></li>
+    <li><a href="#ex3">Exercise 3 — initial value problems</a></li>
+  </ul>
+</div>
+
+<!-- ===================== THEORY ===================== -->
+<h2 id="theory">The method, from the ground up</h2>
+
+<div class="theory">
+<span class="theory-title">What kind of equation is this?</span>
+<p>Every problem on this sheet is a <strong>second-order linear ODE with constant coefficients</strong>:</p>
+$$ a\,y'' + b\,y' + c\,y = g(t), \qquad a,b,c \text{ constants},\ a\neq 0. $$
+<p>"Second-order" = the highest derivative is $y''$. "Linear" = $y, y', y''$ appear only to the first power, never multiplied together. "Constant coefficients" = the numbers $a,b,c$ don't depend on $t$. The right-hand side $g(t)$ is called the <em>forcing term</em>. When $g(t)=0$ we call it <strong>homogeneous</strong>; otherwise <strong>non-homogeneous</strong>.</p>
+
+<span class="theory-title">The key structural fact</span>
+<p>The general solution of the non-homogeneous equation is always</p>
+$$ y(t) = y_h(t) + y_p(t), $$
+<p>where $y_h$ (the <strong>homogeneous</strong> solution) is the full general solution of $a y''+by'+cy=0$, and $y_p$ (a <strong>particular</strong> solution) is any single function that satisfies the full equation with $g(t)$ on the right. Intuitively: $y_h$ carries the two free constants $c_1,c_2$ (a 2nd-order equation needs two), and $y_p$ takes care of the forcing.</p>
+
+<span class="theory-title">Step 1 — the homogeneous solution via the characteristic equation</span>
+<p>Try $y=e^{rt}$ in $a y''+by'+cy=0$. Since $y'=re^{rt}$ and $y''=r^2 e^{rt}$, dividing by $e^{rt}$ gives the <strong>characteristic equation</strong></p>
+$$ a r^2 + b r + c = 0. $$
+<p>Its roots decide the shape of $y_h$:</p>
+<table>
+<tr><th>Roots of $ar^2+br+c=0$</th><th>Homogeneous solution $y_h$</th></tr>
+<tr><td>Two distinct real roots $r_1\neq r_2$</td><td>$c_1 e^{r_1 t} + c_2 e^{r_2 t}$</td></tr>
+<tr><td>One repeated real root $r$</td><td>$(c_1 + c_2 t)\,e^{rt}$</td></tr>
+<tr><td>Complex pair $r=\alpha\pm\beta i$</td><td>$e^{\alpha t}\big(c_1\cos\beta t + c_2\sin\beta t\big)$</td></tr>
+</table>
+<p class="muted">The complex case comes from Euler's formula $e^{i\beta t}=\cos\beta t + i\sin\beta t$; the real and imaginary parts give the two real solutions.</p>
+
+<span class="theory-title">Step 2 — a particular solution by "undetermined coefficients"</span>
+<p>The idea: if $g(t)$ is a polynomial, an exponential, a sine/cosine, or a product of these, then $y_p$ has the <em>same shape</em>. We write down a guess with unknown coefficients, plug it in, and match. Here is the guess table:</p>
+<table>
+<tr><th>Forcing term $g(t)$</th><th>Trial guess $y_p$</th></tr>
+<tr><td>$P_n(t)$ (polynomial of degree $n$)</td><td>$A_n t^n + \dots + A_1 t + A_0$ (full polynomial of degree $n$)</td></tr>
+<tr><td>$e^{at}$</td><td>$A e^{at}$</td></tr>
+<tr><td>$\cos(bt)$ or $\sin(bt)$</td><td>$A\cos bt + B\sin bt$ (always include both!)</td></tr>
+<tr><td>$e^{at}P_n(t)$</td><td>$e^{at}(A_n t^n + \dots + A_0)$</td></tr>
+<tr><td>$e^{at}\cos bt$ or $e^{at}\sin bt$</td><td>$e^{at}(A\cos bt + B\sin bt)$</td></tr>
+</table>
+<p>If $g(t)$ is a <em>sum</em> of such pieces, guess the sum of the corresponding trials (and solve piece by piece — this is the superposition principle).</p>
+
+<span class="theory-title">Step 3 — the modification ("resonance") rule</span>
+<p>The guess above fails if it is <strong>already a homogeneous solution</strong> (you'd just get $0=g$). The fix: <strong>multiply the trial by $t^s$</strong>, where $s$ is how many times the relevant root appears in the characteristic equation.</p>
+<p>Concretely, look at the exponent that the forcing term "wants": for $e^{at}$ the value is $r=a$; for $\cos bt,\sin bt$ it is $r=\pm bi$; for $e^{at}\cos bt$ it is $r=a\pm bi$. Then</p>
+$$ s = \text{multiplicity of that }r\text{ as a root of } ar^2+br+c=0 \in\{0,1,2\}. $$
+<p>$s=0$ means no clash (use the plain guess), $s=1$ multiply by $t$, $s=2$ multiply by $t^2$.</p>
+</div>
+
+<div class="note">
+<p><span class="note-title">From the official sheet vs. your own.</span> The derivative and integral rules used below are all on the professor's <em>Derivatives &amp; Integrals</em> sheet <span class="pill pill-official">on official sheet</span>. The <strong>characteristic-equation method</strong>, the <strong>guess table</strong>, and the <strong>$t^s$ resonance rule</strong> are <em>not</em> on any official sheet — put them on your own page <span class="pill pill-own">bring yourself</span>.</p>
+</div>
+
+<!-- ===================== EX 1 ===================== -->
+<h2 id="ex1">Exercise 1 — Write an appropriate guess for $y_p$</h2>
+<p>Here we only set up the trial form (with the resonance rule applied); we are told not to solve for the coefficients. The recipe each time: find the characteristic roots, then read the guess off the table and check for a clash.</p>
+
+<div class="exercise">
+<div class="subpart">
+<p class="subpart-head">a) &nbsp; $y'' + y = 4e^{3t} + 5t^2$</p>
+<p><strong>Roots.</strong> $r^2+1=0 \Rightarrow r=\pm i$. So $y_h = c_1\cos t + c_2\sin t$ (complex pair $\alpha=0,\beta=1$).</p>
+<p><strong>Piece $4e^{3t}$:</strong> wants $r=3$, which is not a root ($s=0$) $\Rightarrow$ guess $A e^{3t}$.</p>
+<p><strong>Piece $5t^2$:</strong> polynomial of degree $2$; it "wants" $r=0$, not a root ($s=0$) $\Rightarrow$ guess $Bt^2+Ct+D$.</p>
+<div class="check"><span class="check-title">Guess:</span> $\quad y_p = A e^{3t} + Bt^2 + Ct + D.$</div>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">b) &nbsp; $y'' - 5y' - 6y = 3e^{-2t} + 4\cos(3t)$</p>
+<p><strong>Roots.</strong> $r^2-5r-6=(r-6)(r+1)=0 \Rightarrow r=6,\,-1$.</p>
+<p><strong>Piece $3e^{-2t}$:</strong> wants $r=-2$, not a root $\Rightarrow A e^{-2t}$.</p>
+<p><strong>Piece $4\cos 3t$:</strong> wants $r=\pm 3i$, not roots $\Rightarrow B\cos 3t + C\sin 3t$.</p>
+<div class="check"><span class="check-title">Guess:</span> $\quad y_p = A e^{-2t} + B\cos 3t + C\sin 3t.$</div>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">c) &nbsp; $y'' - 2y' + 5y = 3t\,e^{t}$</p>
+<p><strong>Roots.</strong> $r^2-2r+5=0 \Rightarrow r=\dfrac{2\pm\sqrt{4-20}}{2}=1\pm 2i$.</p>
+<p><strong>Forcing $3t\,e^{t}$</strong> is $e^{at}P_1(t)$ with $a=1$. It wants $r=1$, which is <em>not</em> a root (the roots are $1\pm 2i$, complex) $\Rightarrow s=0$. Use $e^{t}\times(\text{degree-1 polynomial})$.</p>
+<div class="check"><span class="check-title">Guess:</span> $\quad y_p = (A t + B)\,e^{t}.$</div>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">d) &nbsp; $y'' - 4y' - 5y = 3e^{2t}\sin(t)$</p>
+<p><strong>Roots.</strong> $r^2-4r-5=(r-5)(r+1)=0 \Rightarrow r=5,\,-1$.</p>
+<p><strong>Forcing $3e^{2t}\sin t$</strong> is $e^{at}\sin bt$ with $a=2, b=1$. It wants $r=2\pm i$, not roots $\Rightarrow s=0$.</p>
+<div class="check"><span class="check-title">Guess:</span> $\quad y_p = e^{2t}\big(A\cos t + B\sin t\big).$</div>
+</div>
+</div>
+
+<!-- ===================== EX 2 ===================== -->
+<h2 id="ex2">Exercise 2 — Find the general solution</h2>
+<p>Now we carry out all three steps fully and solve for the coefficients. <span class="muted">The general solutions below are written in the same order as the official answer key, so the constants line up exactly.</span></p>
+
+<div class="exercise">
+<!-- 2a -->
+<h3>2a) &nbsp; $y'' - y' - 12y = 10e^{5t}$</h3>
+<p><strong>Homogeneous.</strong> $r^2-r-12=(r-4)(r+3)=0 \Rightarrow r=4,-3$, so $y_h = c_1 e^{-3t} + c_2 e^{4t}$.</p>
+<p><strong>Guess.</strong> $5$ is not a root, so $y_p = A e^{5t}$. Then $y_p' = 5Ae^{5t}$, $y_p'' = 25Ae^{5t}$.</p>
+<p><strong>Substitute &amp; match.</strong></p>
+$$ 25A - 5A - 12A = 10 \;\Rightarrow\; 8A = 10 \;\Rightarrow\; A = \tfrac{5}{4}. $$
+<div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1 e^{-3t} + c_2 e^{4t} + \dfrac{5}{4}e^{5t}.$</div>
+
+<!-- 2b -->
+<h3>2b) &nbsp; $y'' + y' - 2y = 4t^2 - 1$</h3>
+<p><strong>Homogeneous.</strong> $r^2+r-2=(r+2)(r-1)=0 \Rightarrow r=-2,1$, so $y_h = c_1 e^{-2t} + c_2 e^{t}$.</p>
+<p><strong>Guess.</strong> RHS is a degree-2 polynomial, $r=0$ not a root, so $y_p = At^2+Bt+C$, with $y_p'=2At+B$, $y_p''=2A$.</p>
+<p><strong>Substitute.</strong></p>
+$$ 2A + (2At+B) - 2(At^2+Bt+C) = -2A\,t^2 + (2A-2B)\,t + (2A+B-2C). $$
+<p><strong>Match to $4t^2 + 0\cdot t - 1$:</strong></p>
+$$ -2A = 4 \Rightarrow A=-2;\quad 2A-2B=0 \Rightarrow B=-2;\quad 2A+B-2C=-1 \Rightarrow -6-2C=-1 \Rightarrow C=-\tfrac{5}{2}. $$
+<div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1 e^{-2t} + c_2 e^{t} - 2t^2 - 2t - \dfrac{5}{2}.$</div>
+
+<!-- 2c -->
+<h3>2c) &nbsp; $y'' + 4y' + 3y = 2t + 4\cos t$</h3>
+<p><strong>Homogeneous.</strong> $r^2+4r+3=(r+1)(r+3)=0 \Rightarrow r=-1,-3$, so $y_h = c_1 e^{-3t} + c_2 e^{-t}$.</p>
+<p><strong>Superposition.</strong> Solve for the two pieces of the RHS separately.</p>
+<p><em>Piece $2t$:</em> guess $y_{p1}=At+B$ ($y'=A$, $y''=0$). Substituting: $0 + 4A + 3(At+B) = 3A\,t + (4A+3B)$. Match $2t+0$:</p>
+$$ 3A=2 \Rightarrow A=\tfrac{2}{3};\qquad 4A+3B=0 \Rightarrow B=-\tfrac{8}{9}. $$
+<p><em>Piece $4\cos t$:</em> guess $y_{p2}=C\cos t + D\sin t$. Then $y_{p2}'=-C\sin t+D\cos t$, $y_{p2}''=-C\cos t-D\sin t$. Substituting:</p>
+$$ (-C\cos t-D\sin t)+4(-C\sin t+D\cos t)+3(C\cos t+D\sin t) = (2C+4D)\cos t + (2D-4C)\sin t. $$
+<p>Match $4\cos t + 0\sin t$: from $2D-4C=0$ we get $D=2C$, then $2C+4(2C)=4 \Rightarrow 10C=4 \Rightarrow C=\tfrac{2}{5},\ D=\tfrac{4}{5}$.</p>
+<div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1 e^{-3t} + c_2 e^{-t} + \dfrac{2}{3}t - \dfrac{8}{9} + \dfrac{2}{5}\cos t + \dfrac{4}{5}\sin t.$</div>
+
+<!-- 2d -->
+<h3>2d) &nbsp; $y'' + 4y' + 4y = t^2$</h3>
+<p><strong>Homogeneous.</strong> $r^2+4r+4=(r+2)^2=0 \Rightarrow r=-2$ (repeated), so $y_h = (c_1 + c_2 t)e^{-2t}$.</p>
+<p><strong>Guess.</strong> Degree-2 polynomial, $r=0$ not a root, $y_p=At^2+Bt+C$, $y_p'=2At+B$, $y_p''=2A$.</p>
+<p><strong>Substitute.</strong></p>
+$$ 2A + 4(2At+B) + 4(At^2+Bt+C) = 4A\,t^2 + (8A+4B)\,t + (2A+4B+4C). $$
+<p>Match $t^2+0t+0$: $4A=1\Rightarrow A=\tfrac14$; $8A+4B=0\Rightarrow B=-\tfrac12$; $2A+4B+4C=0\Rightarrow \tfrac12-2+4C=0\Rightarrow C=\tfrac38$.</p>
+<div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = (c_1+c_2 t)e^{-2t} + \dfrac{1}{4}t^2 - \dfrac{1}{2}t + \dfrac{3}{8}.$</div>
+
+<!-- 2e -->
+<h3>2e) &nbsp; $y'' + 4y = 20e^{t}\cos t$</h3>
+<p><strong>Homogeneous.</strong> $r^2+4=0 \Rightarrow r=\pm 2i$, so $y_h = c_1\sin 2t + c_2\cos 2t$.</p>
+<p><strong>Guess.</strong> Forcing wants $r=1\pm i$ (not $\pm 2i$), so no resonance: $y_p = e^{t}(A\cos t + B\sin t)$.</p>
+<p><strong>Derivatives</strong> (product rule). With $y_p=e^t(A\cos t+B\sin t)$,</p>
+$$ y_p' = e^{t}\big[(A+B)\cos t + (B-A)\sin t\big], \qquad y_p'' = e^{t}\big[2B\cos t - 2A\sin t\big]. $$
+<p><strong>Substitute into $y_p''+4y_p$:</strong></p>
+$$ e^{t}(2B\cos t - 2A\sin t) + 4e^{t}(A\cos t + B\sin t) = e^{t}\big[(4A+2B)\cos t + (4B-2A)\sin t\big]. $$
+<p>Match $20e^{t}\cos t$ (so $20\cos t + 0\sin t$): $4B-2A=0\Rightarrow A=2B$, then $4(2B)+2B=20\Rightarrow 10B=20\Rightarrow B=2,\ A=4$.</p>
+<div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1\sin 2t + c_2\cos 2t + 2e^{t}\sin t + 4e^{t}\cos t.$</div>
+
+<!-- 2f -->
+<h3>2f) &nbsp; $y'' + y' - y = 3$</h3>
+<p><strong>Homogeneous.</strong> $r^2+r-1=0 \Rightarrow r=\dfrac{-1\pm\sqrt{5}}{2}$ (two distinct real roots), so</p>
+$$ y_h = c_1\,e^{\frac{-1-\sqrt5}{2}\,t} + c_2\,e^{\frac{-1+\sqrt5}{2}\,t}. $$
+<p><strong>Guess.</strong> RHS is the constant $3$ (degree-0 polynomial); $r=0$ is not a root, so $y_p = A$. Then $y_p'=y_p''=0$ and the equation becomes $-A=3\Rightarrow A=-3$.</p>
+<div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1\,e^{\frac{-1-\sqrt5}{2}\,t} + c_2\,e^{\frac{-1+\sqrt5}{2}\,t} - 3.$</div>
+</div>
+
+<!-- ===================== EX 3 ===================== -->
+<h2 id="ex3">Exercise 3 — Initial value problems</h2>
+<p>We take each general solution from Exercise 2 and impose $y(0)$ and $y'(0)$. This gives two linear equations for $c_1,c_2$. <span class="muted">Recall $e^{0}=1$, $\cos 0=1$, $\sin 0=0$.</span></p>
+
+<div class="exercise">
+<!-- 3a -->
+<h3>3a) &nbsp; $y(0)=2,\ y'(0)=-1$ &nbsp;<span class="sub">(equation 2a)</span></h3>
+<p>$y = c_1 e^{-3t} + c_2 e^{4t} + \tfrac54 e^{5t}$, so $y' = -3c_1 e^{-3t} + 4c_2 e^{4t} + \tfrac{25}{4}e^{5t}$.</p>
+$$ y(0)=c_1+c_2+\tfrac54 = 2 \;\Rightarrow\; c_1+c_2=\tfrac34, $$
+$$ y'(0)=-3c_1+4c_2+\tfrac{25}{4}=-1 \;\Rightarrow\; -3c_1+4c_2=-\tfrac{29}{4}. $$
+<p>Solving: from the first $c_1=\tfrac34-c_2$; substitute to get $7c_2=-5$, so $c_2=-\tfrac57$ and $c_1=\tfrac{41}{28}$.</p>
+<div class="check"><span class="check-title">$c_1=\dfrac{41}{28},\ c_2=-\dfrac57$</span> — matches key.</div>
+
+<!-- 3b -->
+<h3>3b) &nbsp; $y(0)=1,\ y'(0)=1$ &nbsp;<span class="sub">(equation 2b)</span></h3>
+<p>$y = c_1 e^{-2t} + c_2 e^{t} - 2t^2-2t-\tfrac52$, so $y' = -2c_1 e^{-2t} + c_2 e^{t} - 4t - 2$.</p>
+$$ y(0)=c_1+c_2-\tfrac52=1 \Rightarrow c_1+c_2=\tfrac72,\qquad y'(0)=-2c_1+c_2-2=1 \Rightarrow -2c_1+c_2=3. $$
+<p>Subtracting: $3c_1=\tfrac12\Rightarrow c_1=\tfrac16$, then $c_2=\tfrac72-\tfrac16=\tfrac{10}{3}$.</p>
+<div class="check"><span class="check-title">$c_1=\dfrac16,\ c_2=\dfrac{10}{3}$</span> — matches key.</div>
+
+<!-- 3c -->
+<h3>3c) &nbsp; $y(0)=2,\ y'(0)=0$ &nbsp;<span class="sub">(equation 2c)</span></h3>
+<p>$y = c_1 e^{-3t} + c_2 e^{-t} + \tfrac23 t - \tfrac89 + \tfrac25\cos t + \tfrac45\sin t$, so $y' = -3c_1 e^{-3t} - c_2 e^{-t} + \tfrac23 - \tfrac25\sin t + \tfrac45\cos t$.</p>
+$$ y(0)=c_1+c_2-\tfrac89+\tfrac25 = 2 \;\Rightarrow\; c_1+c_2=\tfrac{112}{45}, $$
+$$ y'(0)=-3c_1-c_2+\tfrac23+\tfrac45 = 0 \;\Rightarrow\; -3c_1-c_2=-\tfrac{22}{15}=-\tfrac{66}{45}. $$
+<p>Adding the two equations: $-2c_1=\tfrac{46}{45}\Rightarrow c_1=-\tfrac{23}{45}$, then $c_2=\tfrac{112}{45}+\tfrac{23}{45}=\tfrac{135}{45}=3$.</p>
+<div class="check"><span class="check-title">$c_1=-\dfrac{23}{45},\ c_2=3$</span> — matches key.</div>
+
+<!-- 3d -->
+<h3>3d) &nbsp; $y(0)=5,\ y'(0)=3$ &nbsp;<span class="sub">(equation 2d)</span></h3>
+<p>$y = (c_1+c_2 t)e^{-2t} + \tfrac14 t^2 - \tfrac12 t + \tfrac38$. Differentiating the product, $y' = e^{-2t}\big(c_2 - 2c_1 - 2c_2 t\big) + \tfrac12 t - \tfrac12$.</p>
+$$ y(0)=c_1+\tfrac38=5 \Rightarrow c_1=\tfrac{37}{8}, \qquad y'(0)=c_2-2c_1-\tfrac12=3 \Rightarrow c_2 = \tfrac72 + 2c_1 = \tfrac72+\tfrac{37}{4}=\tfrac{51}{4}. $$
+<div class="check"><span class="check-title">$c_1=\dfrac{37}{8},\ c_2=\dfrac{51}{4}$</span> — matches key.</div>
+
+<!-- 3e -->
+<h3>3e) &nbsp; $y(0)=0,\ y'(0)=-1$ &nbsp;<span class="sub">(equation 2e)</span></h3>
+<p>$y = c_1\sin 2t + c_2\cos 2t + 4e^{t}\cos t + 2e^{t}\sin t$. Then
+$y' = 2c_1\cos 2t - 2c_2\sin 2t + 4e^{t}(\cos t-\sin t) + 2e^{t}(\sin t+\cos t)$.</p>
+$$ y(0)=c_2 + 4 = 0 \Rightarrow c_2=-4, \qquad y'(0)=2c_1 + 4 + 2 = -1 \Rightarrow 2c_1=-7 \Rightarrow c_1=-\tfrac72. $$
+<div class="check"><span class="check-title">$c_1=-\dfrac72,\ c_2=-4$</span> — matches key.</div>
+
+<!-- 3f -->
+<h3>3f) &nbsp; $y(0)=-1,\ y'(0)=-1$ &nbsp;<span class="sub">(equation 2f)</span></h3>
+<p>Write $r_1=\tfrac{-1-\sqrt5}{2},\ r_2=\tfrac{-1+\sqrt5}{2}$, so $y=c_1 e^{r_1 t}+c_2 e^{r_2 t}-3$ and $y'=c_1 r_1 e^{r_1 t}+c_2 r_2 e^{r_2 t}$. Note $r_1+r_2=-1$ and $r_1 r_2=-1$.</p>
+$$ y(0)=c_1+c_2-3=-1 \Rightarrow c_1+c_2=2, \qquad y'(0)=r_1 c_1 + r_2 c_2 = -1. $$
+<p>Try the symmetric guess $c_1=c_2=1$: then $c_1+c_2=2$ ✓ and $r_1 c_1 + r_2 c_2 = r_1+r_2 = -1$ ✓. Both equations hold, so this is the (unique) solution.</p>
+<div class="check"><span class="check-title">$c_1=1,\ c_2=1$</span> — matches key.</div>
+</div>
+
+<div class="pager">
+  <a href="index.html">← Home</a>
+  <span class="spacer"></span>
+  <a href="worksheet7.html">Worksheet 7 — Variation of Parameters →</a>
+</div>
+</div>
+
+<footer class="site">Worksheet 6 · All six general solutions and all six sets of IVP constants verified against <em>Answers_WorksheetNr6</em>.</footer>
+</body>
+</html>

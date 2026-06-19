@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formula Reference — Analysis 2</title>
+<link rel="stylesheet" href="katex/katex.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script defer src="katex/katex.min.js"></script>
+<script defer src="katex/auto-render.min.js"></script>
+<script defer src="js/render.js"></script>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+  <a class="brand" href="index.html">Analysis 2</a>
+  <a class="navlink" href="index.html">Home</a>
+  <a class="navlink" href="worksheet6.html">WS 6</a>
+  <a class="navlink" href="worksheet7.html">WS 7</a>
+  <a class="navlink" href="worksheet8.html">WS 8</a>
+  <a class="navlink" href="worksheet9.html">WS 9</a>
+  <a class="navlink" href="worksheet10.html">WS 10</a>
+  <a class="navlink active" href="formulas.html">Formulas</a>
+  <a class="navlink" href="cheatsheet.html">Cheat sheet</a>
+</div></nav>
+
+<div class="wrap">
+<div class="page-header">
+  <span class="eyebrow">Reference</span>
+  <h1>Formula Reference</h1>
+  <p class="lead">Every formula used anywhere in these solutions, grouped by topic. Each one is tagged so you know whether you already have it in the exam.</p>
+</div>
+
+<div class="card">
+  <p><span class="pill pill-official">on official sheet</span> &nbsp;=&nbsp; already printed on the professor's <em>Derivatives &amp; Integrals</em> sheet or the <em>Laplace Transform</em> tables — you don't need to copy it.</p>
+  <p style="margin-bottom:0"><span class="pill pill-own">bring yourself</span> &nbsp;=&nbsp; <em>not</em> on any official sheet — put it on your own handwritten A4 page. The <a href="cheatsheet.html">Cheat Sheet</a> collects all of these (and the trivial ones too) in a dense, printable layout.</p>
+</div>
+
+<div class="toc">
+  <strong>Sections</strong>
+  <ul>
+    <li><a href="#diff">1. Differentiation</a></li>
+    <li><a href="#int">2. Integration</a></li>
+    <li><a href="#ode">3. Linear ODEs</a></li>
+    <li><a href="#multi">4. Multivariable differential calculus</a></li>
+    <li><a href="#integrals2">5. Multiple &amp; surface integrals</a></li>
+    <li><a href="#algebra">6. Algebra &amp; trig identities</a></li>
+    <li><a href="#laplace">7. Laplace transforms</a></li>
+  </ul>
+</div>
+
+<!-- 1. DIFFERENTIATION -->
+<h2 id="diff">1. Differentiation</h2>
+<p>All of the basic differentiation rules below are printed on the official sheet.</p>
+<table>
+<tr><th>Rule</th><th>Formula</th><th>Source</th></tr>
+<tr><td>Constant multiple / sum</td><td>$(cf)'=cf'$, &nbsp; $(f\pm g)'=f'\pm g'$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Power rule</td><td>$\dfrac{d}{dx}x^n=nx^{n-1}$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Product rule</td><td>$(fg)'=f'g+fg'$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Quotient rule</td><td>$\left(\dfrac fg\right)'=\dfrac{f'g-fg'}{g^2}$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Chain rule</td><td>$\dfrac{d}{dx}f(g(x))=f'(g(x))\,g'(x)$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Exponential (chain)</td><td>$\dfrac{d}{dx}e^{g(x)}=g'(x)e^{g(x)}$, &nbsp; $\dfrac{d}{dx}a^x=a^x\ln a$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Logarithm (chain)</td><td>$\dfrac{d}{dx}\ln g(x)=\dfrac{g'(x)}{g(x)}$, &nbsp; $\dfrac{d}{dx}\ln|x|=\dfrac1x$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Square root (used in WS8)</td><td>$\dfrac{d}{dx}\sqrt{u}=\dfrac{u'}{2\sqrt u}$</td><td><span class="pill pill-official">official</span> <span class="muted">(power rule, $n=\tfrac12$)</span></td></tr>
+<tr><td>Trig</td><td>$\sin'=\cos$, $\cos'=-\sin$, $\tan'=\sec^2$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Inverse tangent (WS8 Ex2a)</td><td>$\dfrac{d}{dx}\arctan u=\dfrac{u'}{1+u^2}$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Reciprocal (WS9)</td><td>$\dfrac{d}{dx}\dfrac1x=-\dfrac1{x^2}$</td><td><span class="pill pill-official">official</span></td></tr>
+</table>
+
+<!-- 2. INTEGRATION -->
+<h2 id="int">2. Integration</h2>
+<table>
+<tr><th>Integral</th><th>Formula</th><th>Source</th></tr>
+<tr><td>Power</td><td>$\displaystyle\int x^n\,dx=\dfrac{x^{n+1}}{n+1}+c\ (n\neq-1)$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Reciprocal</td><td>$\displaystyle\int\dfrac1x\,dx=\ln|x|+c$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Linear denominator</td><td>$\displaystyle\int\dfrac{1}{ax+b}\,dx=\dfrac1a\ln|ax+b|+c$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Sine / cosine</td><td>$\displaystyle\int\sin u\,du=-\cos u+c,\ \int\cos u\,du=\sin u+c$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Secant (WS7 2d)</td><td>$\displaystyle\int\sec u\,du=\ln|\sec u+\tan u|+c$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Partial fractions (WS7 2f)</td><td>Decomposition table for $\dfrac{P(x)}{Q(x)}$ by factor type</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>By parts</td><td>$\displaystyle\int u\,dv=uv-\int v\,du$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>$u$-substitution</td><td>$\displaystyle\int f(g(x))g'(x)\,dx=\int f(u)\,du$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>FTC part 2</td><td>$\displaystyle\int_a^b f=F(b)-F(a)$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td><strong>FTC part 1</strong> (WS8 1a-iii, 1b-ii)</td><td>$\dfrac{d}{dx}\!\displaystyle\int_a^x h(t)\,dt=h(x),\quad \dfrac{d}{dx}\!\int_x^b h\,dt=-h(x)$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+</table>
+
+<!-- 3. ODEs -->
+<h2 id="ode">3. Linear ODEs (WS 6–7)</h2>
+<p>None of this section is on the official sheets — it is the heart of your own page.</p>
+<table>
+<tr><th>Concept</th><th>Formula</th><th>Source</th></tr>
+<tr><td>Solution structure</td><td>$y=y_h+y_p$ (homogeneous + particular)</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Characteristic equation</td><td>For $ay''+by'+cy=0$: &nbsp; $ar^2+br+c=0$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>$y_h$ — distinct real roots</td><td>$y_h=c_1e^{r_1t}+c_2e^{r_2t}$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>$y_h$ — repeated root $r$</td><td>$y_h=(c_1+c_2t)e^{rt}$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>$y_h$ — complex $\alpha\pm\beta i$</td><td>$y_h=e^{\alpha t}(c_1\cos\beta t+c_2\sin\beta t)$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Quadratic formula</td><td>$r=\dfrac{-b\pm\sqrt{b^2-4ac}}{2a}$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Undetermined coeff. — guesses</td><td>$e^{at}\!\to\!Ae^{at}$; &nbsp; $P_n\!\to\!$ full deg-$n$ poly; &nbsp; $\cos/\sin bt\!\to\!A\cos bt+B\sin bt$; &nbsp; products combine</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Resonance ($t^s$) rule</td><td>Multiply the guess by $t^s$, $s=$ multiplicity of the matching root $\in\{0,1,2\}$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Wronskian</td><td>$W=y_1y_2'-y_1'y_2$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Variation of parameters</td><td>$y_p=u_1y_1+u_2y_2$, &nbsp; $u_1'=-\dfrac{y_2g}{W}$, &nbsp; $u_2'=\dfrac{y_1g}{W}$ &nbsp;<span class="muted">(standard form, leading coeff $1$)</span></td><td><span class="pill pill-own">bring yourself</span></td></tr>
+</table>
+
+<!-- 4. MULTIVARIABLE -->
+<h2 id="multi">4. Multivariable differential calculus (WS 8–9)</h2>
+<table>
+<tr><th>Concept</th><th>Formula</th><th>Source</th></tr>
+<tr><td>Partial derivative</td><td>$\dfrac{\partial f}{\partial x_i}$: differentiate in $x_i$, all other variables held constant</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Gradient</td><td>$\nabla f=\big(\tfrac{\partial f}{\partial x_1},\dots,\tfrac{\partial f}{\partial x_n}\big)$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Directional derivative</td><td>$\dfrac{\partial f}{\partial v}(x_0)=\nabla f(x_0)\cdot v$ &nbsp;<span class="muted">(this course: $v$ used as given, not normalized)</span></td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Tangent plane</td><td>$z=f(x_0)+\nabla f(x_0)\cdot(x-x_0)$ &nbsp;(2 vars: $f(x_0)+f_{x_1}(x_0)(x_1-x_{01})+f_{x_2}(x_0)(x_2-x_{02})$)</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Differentiability</td><td>$\displaystyle\lim_{x\to x_0}\dfrac{|f(x)-f(x_0)-\nabla f(x_0)\cdot(x-x_0)|}{\lVert x-x_0\rVert}=0$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Implication chain</td><td>differentiable $\Rightarrow$ continuous &amp; partials exist; &nbsp; partials exist $\not\Rightarrow$ differentiable</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Hessian</td><td>$H_f=\big[\partial^2 f/\partial x_i\partial x_j\big]$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Second-derivative test</td><td>at a critical point: $H_f$ pos. def. $\Rightarrow$ min; neg. def. $\Rightarrow$ max; indefinite $\Rightarrow$ saddle (judge by eigenvalue signs)</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Jacobian</td><td>$J_f=\big[\partial f_i/\partial x_j\big]$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Eigenvalues ($2\times2$)</td><td>$\det(A-\lambda I)=0\Rightarrow\lambda^2-(\operatorname{tr}A)\lambda+\det A=0$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Stability (given on WS9)</td><td>all $\operatorname{Re}\lambda\lt0\Rightarrow$ asympt. stable; some $\operatorname{Re}\lambda\gt0\Rightarrow$ not stable</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Chain rule (along a curve)</td><td>$\dfrac{d}{dt}V(x(t))=\nabla V\cdot x'(t)$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Implicit differentiation</td><td>differentiate $F(t,x(t))=c$ in $t$, treating $x=x(t)$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+</table>
+
+<!-- 5. INTEGRALS 2 -->
+<h2 id="integrals2">5. Multiple &amp; surface integrals (WS 10)</h2>
+<table>
+<tr><th>Concept</th><th>Formula</th><th>Source</th></tr>
+<tr><td>Double integral (slicing)</td><td>$\displaystyle\iint_\Omega f\,dx=\int_c^d\!\!\int_{\ell(x_2)}^{r(x_2)}f\,dx_1\,dx_2$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Change of variables</td><td>$\displaystyle\iint_\Omega f(x)\,dx=\iint_{\Omega'}f(\Phi(u))\,|\det J_\Phi(u)|\,du$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Surface element</td><td>$d\sigma=\big|\sigma_{u_1}\times\sigma_{u_2}\big|\,du_1\,du_2$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Surface integral</td><td>$\displaystyle\iint_S f\,d\sigma=\iint_D f(\sigma(u))\,\big|\sigma_{u_1}\times\sigma_{u_2}\big|\,du$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Cross product</td><td>$a\times b=(a_2b_3-a_3b_2,\ a_3b_1-a_1b_3,\ a_1b_2-a_2b_1)$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>$2\times2$ determinant</td><td>$\det\!\begin{pmatrix}a&b\\c&d\end{pmatrix}=ad-bc$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+</table>
+
+<!-- 6. ALGEBRA -->
+<h2 id="algebra">6. Algebra &amp; trig identities used</h2>
+<table>
+<tr><th>Identity</th><th>Formula</th><th>Source</th></tr>
+<tr><td>Pythagorean</td><td>$\sin^2 t+\cos^2 t=1$ &nbsp;(so $1-\cos^2 t=\sin^2 t$)</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Definitions</td><td>$\tan t=\dfrac{\sin t}{\cos t}$, &nbsp; $\sec t=\dfrac{1}{\cos t}$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Used in WS7 2d</td><td>$\sec t+\tan t=\dfrac{1+\sin t}{\cos t}$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Bound (WS8 3c)</td><td>$|\sin x|\le|x|$ for all $x$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Even/odd over $[-a,a]$ (WS10)</td><td>$\int_{-a}^a(\text{odd})=0$, &nbsp; $\int_{-a}^a(\text{even})=2\int_0^a$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Euler's formula</td><td>$e^{i\theta}=\cos\theta+i\sin\theta$ &nbsp;<span class="muted">(why complex roots give $\cos,\sin$)</span></td><td><span class="pill pill-own">bring yourself</span></td></tr>
+</table>
+
+<!-- 7. LAPLACE -->
+<h2 id="laplace">7. Laplace transforms</h2>
+<div class="note">
+<p><span class="note-title">Not needed for Worksheets 6–10.</span> These ODEs were solved with undetermined coefficients and variation of parameters, so the Laplace tables weren't used here. They are still fully provided in the official <em>Laplace Transform</em> tables (Tables 2.2, 2.3, 2.5 — basic transforms, the linearity/derivative/translation principles, inverse transforms, and irreducible-quadratic inversions), so if a Laplace problem shows up on the exam, everything you need is already on that sheet. <span class="pill pill-official">on official sheet</span></p>
+</div>
+
+<div class="pager">
+  <a href="worksheet10.html">← Worksheet 10</a>
+  <span class="spacer"></span>
+  <a href="cheatsheet.html">Printable Cheat Sheet →</a>
+</div>
+</div>
+
+<footer class="site">Formula reference · "official" = on the professor's printed sheets; "bring yourself" = put on your own A4 page.</footer>
+</body>
+</html>

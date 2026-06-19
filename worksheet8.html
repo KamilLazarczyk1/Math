@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worksheet 8 — Partial Derivatives &amp; Differentiability</title>
+<link rel="stylesheet" href="katex/katex.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script defer src="katex/katex.min.js"></script>
+<script defer src="katex/auto-render.min.js"></script>
+<script defer src="js/render.js"></script>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+  <a class="brand" href="index.html">Analysis 2</a>
+  <a class="navlink" href="index.html">Home</a>
+  <a class="navlink" href="worksheet6.html">WS 6</a>
+  <a class="navlink" href="worksheet7.html">WS 7</a>
+  <a class="navlink active" href="worksheet8.html">WS 8</a>
+  <a class="navlink" href="worksheet9.html">WS 9</a>
+  <a class="navlink" href="worksheet10.html">WS 10</a>
+  <a class="navlink" href="formulas.html">Formulas</a>
+  <a class="navlink" href="cheatsheet.html">Cheat sheet</a>
+</div></nav>
+
+<div class="wrap">
+<div class="page-header">
+  <span class="eyebrow">Worksheet 8 · 28.05.2026</span>
+  <h1>Partial Derivatives, Gradient &amp; Differentiability</h1>
+  <p class="lead">The start of multivariable calculus: differentiating functions of several variables one variable at a time, the gradient and directional derivatives, tangent planes, and the subtle question of when a function is actually <em>differentiable</em>.</p>
+</div>
+
+<div class="toc">
+  <strong>On this page</strong>
+  <ul>
+    <li><a href="#theory">Core ideas (theory)</a></li>
+    <li><a href="#ex1">Exercise 1 — partial derivatives</a></li>
+    <li><a href="#ex2">Exercise 2 — gradient &amp; directional derivative</a></li>
+    <li><a href="#ex3">Exercise 3 — differentiability</a></li>
+  </ul>
+</div>
+
+<!-- ===================== THEORY ===================== -->
+<h2 id="theory">Core ideas</h2>
+
+<div class="theory">
+<span class="theory-title">Partial derivatives</span>
+<p>For $f(x_1,\dots,x_n)$, the partial derivative $\dfrac{\partial f}{\partial x_i}$ is the ordinary derivative with respect to $x_i$ while <strong>treating every other variable as a constant</strong>. Formally,</p>
+$$ \frac{\partial f}{\partial x_i}(x) = \lim_{h\to 0}\frac{f(x_1,\dots,x_i+h,\dots,x_n)-f(x_1,\dots,x_n)}{h}. $$
+<p>All the one-variable rules (product, quotient, chain) apply as usual — you just hold the other letters fixed.</p>
+
+<span class="theory-title">Differentiating an integral with a variable limit (FTC)</span>
+<p>The Fundamental Theorem of Calculus gives, for a variable upper/lower limit,</p>
+$$ \frac{d}{dx}\int_{a}^{x} h(t)\,dt = h(x), \qquad \frac{d}{dx}\int_{x}^{b} h(t)\,dt = -\,h(x). $$
+<p>This handles the "integral" functions in 1a(iii) and 1b(ii) without ever computing the integral.</p>
+
+<span class="theory-title">Gradient and directional derivative</span>
+<p>The <strong>gradient</strong> stacks all first partials into a vector:</p>
+$$ \nabla f(x) = \Big(\tfrac{\partial f}{\partial x_1},\,\tfrac{\partial f}{\partial x_2},\,\dots,\,\tfrac{\partial f}{\partial x_n}\Big). $$
+<p>The <strong>directional derivative</strong> of $f$ along a vector $v$ measures the rate of change of $f$ as you move in the direction $v$. When $f$ is differentiable it equals a dot product:</p>
+$$ \frac{\partial f}{\partial v}(x_0) \;=\; \lim_{h\to 0}\frac{f(x_0+hv)-f(x_0)}{h} \;=\; \nabla f(x_0)\cdot v. $$
+<p class="muted"><strong>Convention warning.</strong> Some books require $v$ to be a unit vector ($\lVert v\rVert=1$). This course uses the version above with the vector $v$ <em>as given</em> (not normalized) — that is exactly what produces the answer in 2(ii). If a problem instead asks for the rate "per unit length," you would divide by $\lVert v\rVert$.</p>
+
+<span class="theory-title">Tangent plane (linear approximation)</span>
+<p>If $f(x_1,x_2)$ is differentiable at $x_0=(x_{01},x_{02})$, the graph $z=f(x_1,x_2)$ has the tangent plane</p>
+$$ z = f(x_0) + \frac{\partial f}{\partial x_1}(x_0)\,(x_1-x_{01}) + \frac{\partial f}{\partial x_2}(x_0)\,(x_2-x_{02}). $$
+
+<span class="theory-title">Differentiability — the careful definition</span>
+<p>$f$ is <strong>differentiable</strong> at $x_0$ if it is well-approximated by a linear map there: there is a vector (the gradient) with</p>
+$$ \lim_{x\to x_0}\frac{\big|\,f(x)-f(x_0)-\nabla f(x_0)\cdot(x-x_0)\,\big|}{\lVert x-x_0\rVert} = 0. $$
+<p>The crucial logical chain (and its traps):</p>
+<table>
+<tr><th>True implication</th><th>Common trap (false!)</th></tr>
+<tr><td>differentiable $\Rightarrow$ continuous</td><td>partials exist $\not\Rightarrow$ continuous</td></tr>
+<tr><td>differentiable $\Rightarrow$ both partials exist</td><td>partials exist $\not\Rightarrow$ differentiable</td></tr>
+<tr><td>partials exist <em>and</em> are continuous near $x_0$ $\Rightarrow$ differentiable</td><td>continuous $\not\Rightarrow$ differentiable</td></tr>
+</table>
+<p>So to <em>disprove</em> differentiability, the quickest route is often to show $f$ is not even continuous (Exercise 3b), or that the limit above fails along some path (3c).</p>
+</div>
+
+<!-- ===================== EX 1 ===================== -->
+<h2 id="ex1">Exercise 1 — Partial derivatives</h2>
+
+<div class="exercise">
+<h3>1a — at a specific point</h3>
+
+<div class="subpart">
+<p class="subpart-head">(i) &nbsp; $f(x_1,x_2)=\sqrt{3x_1+x_2^2}$ at $(1,2)$</p>
+<p>Using $\dfrac{d}{du}\sqrt{u}=\dfrac{1}{2\sqrt u}$ together with the chain rule:</p>
+$$ \frac{\partial f}{\partial x_1}=\frac{3}{2\sqrt{3x_1+x_2^2}},\qquad \frac{\partial f}{\partial x_2}=\frac{2x_2}{2\sqrt{3x_1+x_2^2}}=\frac{x_2}{\sqrt{3x_1+x_2^2}}. $$
+<p>At $(1,2)$, $3x_1+x_2^2 = 3+4 = 7$:</p>
+<div class="check"><span class="check-title">$\dfrac{\partial f}{\partial x_1}(1,2)=\dfrac{3}{2\sqrt7},\quad \dfrac{\partial f}{\partial x_2}(1,2)=\dfrac{2}{\sqrt7}$</span> — matches the given answer.</div>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">(ii) &nbsp; $f(x_1,x_2,x_3)=x_2\,e^{x_1+x_2x_3}$ at $(0,1,-1)$</p>
+<p>Let $E=e^{x_1+x_2x_3}$. Differentiating (product rule where $x_2$ appears as a factor):</p>
+$$ \frac{\partial f}{\partial x_1}=x_2 E,\qquad \frac{\partial f}{\partial x_2}=E + x_2 E\,x_3 = E(1+x_2x_3),\qquad \frac{\partial f}{\partial x_3}=x_2 E\,x_2 = x_2^2 E. $$
+<p>At $(0,1,-1)$ the exponent is $0+(1)(-1)=-1$, so $E=e^{-1}$:</p>
+<div class="check"><span class="check-title">$\dfrac{\partial f}{\partial x_1}=\dfrac1e,\quad \dfrac{\partial f}{\partial x_2}=e^{-1}(1-1)=0,\quad \dfrac{\partial f}{\partial x_3}=\dfrac1e$</span> — matches.</div>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">(iii) &nbsp; $f(x_1,x_2)=8x_1^2+\displaystyle\int_{1}^{x_2}e^{-t^2}\,dt$ at $(3,1)$</p>
+<p>The integral does not depend on $x_1$, so $\dfrac{\partial f}{\partial x_1}=16x_1$. For $x_2$, the integral has variable upper limit, so by the FTC $\dfrac{\partial f}{\partial x_2}=e^{-x_2^2}$ (we never need the value of the integral itself).</p>
+<p>At $(3,1)$:</p>
+<div class="check"><span class="check-title">$\dfrac{\partial f}{\partial x_1}(3,1)=48,\quad \dfrac{\partial f}{\partial x_2}(3,1)=e^{-1}=\dfrac1e$</span> — matches.</div>
+</div>
+
+<h3>1b — general formulas</h3>
+
+<div class="subpart">
+<p class="subpart-head">(i) &nbsp; $f(x_1,x_2)=\ln\!\big(x_1+\sqrt{x_1^2+x_2^2}\big)$</p>
+<p>Write $R=\sqrt{x_1^2+x_2^2}$ and use $\dfrac{d}{du}\ln u=\dfrac{u'}{u}$. For $x_1$, the inside derivative is $1+\dfrac{x_1}{R}=\dfrac{R+x_1}{R}$, so</p>
+$$ \frac{\partial f}{\partial x_1}=\frac{1}{x_1+R}\cdot\frac{R+x_1}{R}=\frac{1}{R}=\frac{1}{\sqrt{x_1^2+x_2^2}}. $$
+<p>For $x_2$, the inside derivative is $\dfrac{x_2}{R}$, so</p>
+$$ \frac{\partial f}{\partial x_2}=\frac{1}{x_1+R}\cdot\frac{x_2}{R}=\frac{x_2}{\big(x_1+\sqrt{x_1^2+x_2^2}\big)\sqrt{x_1^2+x_2^2}}. $$
+<div class="check"><span class="check-title">Both match the given answer.</span> (Nice surprise: the $x_1$-partial collapses to $1/R$.)</div>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">(ii) &nbsp; $f(x_1,x_2)=\displaystyle\int_{x_1}^{x_2}\cos(t^2)\,dt$</p>
+<p>Variable lower limit $x_1$ gives a minus sign; variable upper limit $x_2$ gives a plus sign (FTC):</p>
+<div class="check"><span class="check-title">$\dfrac{\partial f}{\partial x_1}=-\cos(x_1^2),\qquad \dfrac{\partial f}{\partial x_2}=\cos(x_2^2)$</span> — matches.</div>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">(iii) &nbsp; $f(x_1,x_2,x_3,x_4)=\dfrac{x_1-x_2}{x_3-x_4}$</p>
+<p>Treat $\dfrac{1}{x_3-x_4}$ as a constant for the top variables, and use the power/chain rule $(x_3-x_4)^{-1}$ for the bottom ones:</p>
+$$ \frac{\partial f}{\partial x_1}=\frac{1}{x_3-x_4},\quad \frac{\partial f}{\partial x_2}=\frac{-1}{x_3-x_4}=\frac{1}{x_4-x_3}, $$
+$$ \frac{\partial f}{\partial x_3}=(x_1-x_2)\cdot\frac{-1}{(x_3-x_4)^2}=\frac{x_2-x_1}{(x_3-x_4)^2},\quad \frac{\partial f}{\partial x_4}=(x_1-x_2)\cdot\frac{-1}{(x_3-x_4)^2}\cdot(-1)=\frac{x_1-x_2}{(x_3-x_4)^2}. $$
+<div class="check"><span class="check-title">All four match the given answer.</span></div>
+</div>
+</div>
+
+<!-- ===================== EX 2 ===================== -->
+<h2 id="ex2">Exercise 2 — Gradient &amp; directional derivative</h2>
+
+<div class="exercise">
+<div class="subpart">
+<p class="subpart-head">(a) &nbsp; Gradient of $f(x_1,x_2)=\arctan\!\Big(\dfrac{x_1+x_2}{x_1-x_2}\Big)$</p>
+<p>Let $u=\dfrac{x_1+x_2}{x_1-x_2}$. Then $\dfrac{\partial f}{\partial x_i}=\dfrac{1}{1+u^2}\,\dfrac{\partial u}{\partial x_i}$ since $\dfrac{d}{du}\arctan u=\dfrac{1}{1+u^2}$.</p>
+<p><strong>Inside derivatives</strong> (quotient rule):</p>
+$$ \frac{\partial u}{\partial x_1}=\frac{(x_1-x_2)-(x_1+x_2)}{(x_1-x_2)^2}=\frac{-2x_2}{(x_1-x_2)^2},\qquad \frac{\partial u}{\partial x_2}=\frac{(x_1-x_2)+(x_1+x_2)}{(x_1-x_2)^2}=\frac{2x_1}{(x_1-x_2)^2}. $$
+<p><strong>The $1+u^2$ factor</strong> simplifies beautifully:</p>
+$$ 1+u^2=\frac{(x_1-x_2)^2+(x_1+x_2)^2}{(x_1-x_2)^2}=\frac{2(x_1^2+x_2^2)}{(x_1-x_2)^2}. $$
+<p>Multiplying, the $(x_1-x_2)^2$ cancel:</p>
+$$ \frac{\partial f}{\partial x_1}=\frac{(x_1-x_2)^2}{2(x_1^2+x_2^2)}\cdot\frac{-2x_2}{(x_1-x_2)^2}=\frac{-x_2}{x_1^2+x_2^2},\qquad \frac{\partial f}{\partial x_2}=\frac{x_1}{x_1^2+x_2^2}. $$
+<div class="check"><span class="check-title">$\nabla f=\Big(-\dfrac{x_2}{x_1^2+x_2^2},\ \dfrac{x_1}{x_1^2+x_2^2}\Big)$</span> — matches.</div>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">(ii) &nbsp; Directional derivative of $f(x)=\dfrac{1}{x_1+2x_2-3x_3}$ at $x_0=(1,1,-1)$ along $v=(12,-9,-4)$</p>
+<p>Let $D=x_1+2x_2-3x_3$, so $f=D^{-1}$ and $\dfrac{\partial f}{\partial x_i}=-D^{-2}\dfrac{\partial D}{\partial x_i}$ with $\partial D=(1,2,-3)$.</p>
+<p><strong>At $x_0$:</strong> $D=1+2(1)-3(-1)=1+2+3=6$, so $D^2=36$ and</p>
+$$ \nabla f(x_0)=\Big(-\tfrac{1}{36},\,-\tfrac{2}{36},\,\tfrac{3}{36}\Big)=\Big(-\tfrac{1}{36},\,-\tfrac{1}{18},\,\tfrac{1}{12}\Big). $$
+<p><strong>Dot with the given vector</strong> $v=(12,-9,-4)$:</p>
+$$ \frac{\partial f}{\partial v}(x_0)=\nabla f(x_0)\cdot v = -\tfrac{12}{36}+\tfrac{(-9)(-1)}{18}+\tfrac{-4}{12} = -\tfrac13+\tfrac12-\tfrac13 = -\tfrac16. $$
+<div class="check"><span class="check-title">$\dfrac{\partial f}{\partial v}(1,1,-1)=-\dfrac16$</span> — matches. (This uses $v$ directly, confirming the non-normalized convention.)</div>
+</div>
+</div>
+
+<!-- ===================== EX 3 ===================== -->
+<h2 id="ex3">Exercise 3 — Differentiability</h2>
+
+<div class="exercise">
+<div class="subpart">
+<p class="subpart-head">(a) &nbsp; Tangent plane to $f(x_1,x_2)=e^{x_2^2-x_1^2}$ at $x_0=(-1,1)$</p>
+<p><strong>Value.</strong> $f(-1,1)=e^{1-1}=e^0=1$.</p>
+<p><strong>Partials.</strong> With $E=e^{x_2^2-x_1^2}$,</p>
+$$ \frac{\partial f}{\partial x_1}=-2x_1 E,\qquad \frac{\partial f}{\partial x_2}=2x_2 E. $$
+<p>At $(-1,1)$, $E=1$, so $\dfrac{\partial f}{\partial x_1}=-2(-1)=2$ and $\dfrac{\partial f}{\partial x_2}=2(1)=2$.</p>
+<p><strong>Plane.</strong></p>
+$$ z = 1 + 2\,(x_1-(-1)) + 2\,(x_2-1) = 1 + 2(x_1+1) + 2(x_2-1). $$
+<div class="check"><span class="check-title">Tangent plane:</span> $\;z = 2x_1 + 2x_2 + 1.$</div>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">(b) &nbsp; $f(x_1,x_2)=\dfrac{x_1x_2}{x_1^2+x_2^2}$ (and $f(0,0)=0$): partials at the origin &amp; differentiability</p>
+<p><strong>Partial $\partial f/\partial x_1(0,0)$.</strong> Approach along the $x_1$-axis ($x_2=0$): $f(h,0)=\dfrac{h\cdot 0}{h^2}=0$, so</p>
+$$ \frac{\partial f}{\partial x_1}(0,0)=\lim_{h\to0}\frac{f(h,0)-f(0,0)}{h}=\lim_{h\to0}\frac{0-0}{h}=0. $$
+<p>By the same computation with $x_1=0$, $\dfrac{\partial f}{\partial x_2}(0,0)=0$. <strong>So both partials exist and equal $0$.</strong></p>
+<p><strong>Differentiable?</strong> First test continuity at the origin (a necessary condition). Approach along the line $x_2=x_1$, i.e. $x_1=x_2=s\to0$:</p>
+$$ f(s,s)=\frac{s\cdot s}{s^2+s^2}=\frac{s^2}{2s^2}=\frac12 \;\not\to\; 0=f(0,0). $$
+<p>Along the axis $x_2=0$ instead, $f\equiv 0$. Two paths give two different limits ($\tfrac12$ and $0$), so $\displaystyle\lim_{(x_1,x_2)\to(0,0)}f$ does not exist — $f$ is <strong>not continuous</strong> at $(0,0)$.</p>
+<div class="check"><span class="check-title">Conclusion:</span> $\dfrac{\partial f}{\partial x_1}(0,0)=\dfrac{\partial f}{\partial x_2}(0,0)=0$, but $f$ is <strong>not differentiable</strong> at $(0,0)$ (it isn't even continuous there). A textbook example that "partials exist" is far weaker than "differentiable."</div>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">(c) &nbsp; $f(x_1,x_2)=|x_2|^{\alpha}\sin(x_1)$ (and $f=0$ when $x_2=0$): for which $\alpha$ is $f$ (i) continuous, (ii) differentiable at $(0,0)$?</p>
+
+<p class="muted">Note $f(0,0)=0$, and both partials at the origin will turn out to be $0$ (computed below).</p>
+
+<h4>(i) Continuity at $(0,0)$</h4>
+<p>We use the bound $|\sin x_1|\le|x_1|$ and the fact that $|x_2|\le\lVert(x_1,x_2)\rVert$ and $|x_1|\le\lVert(x_1,x_2)\rVert$, writing $\rho=\lVert(x_1,x_2)\rVert$.</p>
+<p><strong>Case $\alpha\ge0$ (continuous).</strong> For $\alpha>0$,</p>
+$$ |f| = |x_2|^{\alpha}\,|\sin x_1| \le \rho^{\alpha}\cdot|x_1| \le \rho^{\alpha}\cdot\rho = \rho^{\alpha+1}\to0. $$
+<p>For $\alpha=0$, simply $|f|=|\sin x_1|\le|x_1|\to0$. Either way the limit is $0=f(0,0)$, so $f$ is continuous.</p>
+<p><strong>Case $\alpha\lt0$ (not continuous).</strong> Take the path $x_2=s,\ x_1=s^{2}$ with $s\to0^+$ (it does tend to the origin). Then</p>
+$$ f = s^{\alpha}\sin(s^{2}) \sim s^{\alpha}\cdot s^{2} = s^{\alpha+2}. $$
+<p>More directly, choose $x_1=s,\ x_2=s^{2}$: $\,f=(s^{2})^{\alpha}\sin s = s^{2\alpha}\sin s\sim s^{2\alpha+1}$. For $\alpha\le-\tfrac12$ this blows up or stays nonzero (e.g. $\alpha=-\tfrac12$ gives $\to1$), and for any $\alpha\lt0$ a slightly steeper path $x_1=s^{p}$ with $0\lt p\lt|\alpha|$ gives $s^{\alpha+p}\to\infty$. So the limit is not $0$, and $f$ is not continuous.</p>
+<div class="check"><span class="check-title">(i) Continuous at $(0,0)\iff \alpha\ge0$.</span></div>
+
+<h4>(ii) Differentiability at $(0,0)$</h4>
+<p><strong>Partials at the origin.</strong> On the $x_1$-axis $f(h,0)=0$ (the $x_2=0$ branch), so $\partial f/\partial x_1(0,0)=0$. On the $x_2$-axis $f(0,h)=|h|^{\alpha}\sin 0 = 0$, so $\partial f/\partial x_2(0,0)=0$. Hence the candidate gradient is $0$, and the differentiability limit to check is</p>
+$$ \lim_{(x_1,x_2)\to(0,0)}\frac{|f(x_1,x_2)|}{\rho}=\lim\frac{|x_2|^{\alpha}|\sin x_1|}{\sqrt{x_1^2+x_2^2}}. $$
+<p><strong>Case $\alpha\gt0$ (differentiable).</strong> Since $|\sin x_1|\le|x_1|\le\rho$,</p>
+$$ \frac{|x_2|^{\alpha}|\sin x_1|}{\rho}\le |x_2|^{\alpha}\cdot\frac{|x_1|}{\rho}\le|x_2|^{\alpha}\to0. $$
+<p><strong>Case $\alpha=0$ (not differentiable).</strong> The ratio is $\dfrac{|\sin x_1|}{\rho}$. Along $x_2=0,\ x_1=s$: $\dfrac{|\sin s|}{|s|}\to1\neq0$. The limit fails.</p>
+<p><strong>Case $\alpha\lt0$:</strong> not even continuous, so not differentiable.</p>
+<div class="check"><span class="check-title">(ii) Differentiable at $(0,0)\iff \alpha\gt0$.</span></div>
+<p class="muted">Neat takeaway: $\alpha\ge0$ buys continuity, but you need the strict $\alpha\gt0$ for differentiability — the borderline $\alpha=0$ is continuous yet not differentiable.</p>
+</div>
+</div>
+
+<div class="pager">
+  <a href="worksheet7.html">← Worksheet 7</a>
+  <span class="spacer"></span>
+  <a href="worksheet9.html">Worksheet 9 — Hessian &amp; Jacobian →</a>
+</div>
+</div>
+
+<footer class="site">Worksheet 8 · Parts with printed answers all match; the differentiability results in 3b–3c (no key provided) were verified by path analysis and symbolic limits.</footer>
+</body>
+</html>
