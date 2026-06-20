@@ -30,6 +30,17 @@
   <p class="lead">Integrating over a 2D region by slicing, the change-of-variables formula with the Jacobian determinant, and integrating a function over a curved surface in $\mathbb{R}^3$ via a parametrization.</p>
 </div>
 
+<div class="eli5">
+<span class="eli5-title">Start here — the whole idea in plain words</span>
+<p>An integral just means "<strong>add up a huge number of tiny pieces</strong>." A normal integral adds pieces along a line; here we add pieces over a flat region, and then over a curved surface.</p>
+<p><strong>Double integral = weighing a sheet.</strong></p>
+<span class="analogy"><b>Picture this:</b> a metal sheet whose thickness varies from place to place. To get its total weight, chop it into tiny squares, weigh each tiny square, and add them all up. "Slicing" just means: add up along one horizontal strip first, then add up all the strips.</span>
+<p><strong>Change of variables = redraw the map to make the shape simple.</strong> The region here is an awkward trapezoid. We switch to friendlier coordinates that turn it into a tidy rectangle. But stretching a map changes areas, so we multiply by a correction factor — the <em>Jacobian determinant</em>.</p>
+<span class="analogy"><b>Picture this:</b> it's an <em>exchange rate for area</em> — it converts "one unit of area on the new map" into "how much real area that actually covers." It's the 2-D version of the $\frac{dx}{du}$ factor you already use in ordinary substitution.</span>
+<p><strong>Surface integral = how much paint covers a curved hood.</strong></p>
+<span class="analogy"><b>Picture this:</b> you describe a curved car hood with a flat sheet of graph paper (a "parametrization"). A small square on the flat paper maps to a bigger, tilted patch on the real curved hood. The length of the <em>cross product</em> $|\sigma_{u_1}\times\sigma_{u_2}|$ is exactly that "how much bigger" stretch factor. In Exercise 2 this stretch factor neatly cancels the square root hiding in $f$, which is why a scary-looking integral collapses into the easy $\iint u_1u_2$.</span>
+</div>
+
 <div class="toc">
   <strong>On this page</strong>
   <ul>
@@ -78,6 +89,7 @@ $$ \iint_S f\,d\sigma = \iint_D f\big(\sigma(u_1,u_2)\big)\,\left|\frac{\partial
 $$ \iint_\Omega f\,dx = \int_0^1\!\!\int_{-a}^{a}\big(x_1^2-2x_2 x_1\big)\,dx_1\,dx_2. $$
 <p><strong>Inner integral.</strong> Over the symmetric interval $[-a,a]$, $x_1^2$ is even and $x_1$ is odd, so</p>
 $$ \int_{-a}^{a}x_1^2\,dx_1=\frac{2a^3}{3},\qquad \int_{-a}^{a}(-2x_2 x_1)\,dx_1=0. $$
+<div class="tip">spotting symmetry saves work. The slice runs from $-a$ to $+a$ (symmetric about $0$). The term with a lone $x_1$ is "odd" — its left half and right half are mirror images with opposite signs, so they perfectly cancel and the integral is $0$ without computing anything.</div>
 $$ \Rightarrow\quad \int_{-a}^{a}f\,dx_1=\frac{2}{3}(2-x_2)^3. $$
 <p><strong>Outer integral.</strong> Substitute $u=2-x_2$ ($du=-dx_2$; $x_2{=}0\!\to\!u{=}2$, $x_2{=}1\!\to\!u{=}1$):</p>
 $$ \int_0^1\frac{2}{3}(2-x_2)^3\,dx_2=\frac{2}{3}\int_1^2 u^3\,du=\frac{2}{3}\cdot\frac{u^4}{4}\Big|_1^2=\frac{2}{3}\cdot\frac{16-1}{4}=\frac{2}{3}\cdot\frac{15}{4}=\frac{5}{2}. $$
@@ -88,6 +100,7 @@ $$ \int_0^1\frac{2}{3}(2-x_2)^3\,dx_2=\frac{2}{3}\int_1^2 u^3\,du=\frac{2}{3}\cd
 <p><strong>Jacobian matrix.</strong></p>
 $$ J_\Phi(x)=\begin{pmatrix}\partial_{x_1}[x_1(2-x_2)] & \partial_{x_2}[x_1(2-x_2)]\\[2pt] \partial_{x_1}[x_2] & \partial_{x_2}[x_2]\end{pmatrix}=\begin{pmatrix}2-x_2 & -x_1\\[2pt] 0 & 1\end{pmatrix}, $$
 $$ \det J_\Phi=(2-x_2)(1)-(-x_1)(0)=2-x_2\;\gt0\ \text{ (since } x_2\le1), \quad\text{so } |\det J_\Phi|=2-x_2. $$
+<div class="tip">there's a $0$ in the bottom-left corner, so this matrix is "triangular" and its determinant is just the product of the diagonal, $(2-x_2)\cdot1$. That number is the area exchange rate: a tiny tile in the $(x_1,x_2)$ rectangle covers $(2-x_2)$ times as much area after the map $\Phi$ stretches it.</div>
 <p><strong>Transform the integrand.</strong> With $\Phi_1=x_1(2-x_2)$ and $\Phi_2=x_2$,</p>
 $$ f(\Phi(x))=\Phi_1^2-2\Phi_2\Phi_1=x_1^2(2-x_2)^2-2x_2 x_1(2-x_2). $$
 <p>Multiply by $|\det J_\Phi|=(2-x_2)$ and integrate over the rectangle. Doing the $x_1$-integral first, $\int_{-1}^1 x_1^2\,dx_1=\tfrac23$ while $\int_{-1}^1 x_1\,dx_1=0$ kills the second term:</p>
@@ -114,6 +127,7 @@ $$ \left|\frac{\partial\sigma}{\partial u_1}\times\frac{\partial\sigma}{\partial
 $$ f(\sigma(u))=\frac{u_1u_2}{\sqrt{1+u_1^2+u_2^2}}. $$
 <p>Multiplying by the surface element, the square roots <strong>cancel exactly</strong>:</p>
 $$ f\,d\sigma = \frac{u_1u_2}{\sqrt{1+u_1^2+u_2^2}}\cdot\sqrt{1+u_1^2+u_2^2}\;du_1\,du_2 = u_1u_2\;du_1\,du_2. $$
+<div class="tip">this is the whole point of the problem. The ugly $\sqrt{1+u_1^2+u_2^2}$ that the surface-stretch factor produces is the <em>exact same</em> square root sitting in the bottom of $f$, so they cancel. A frightening surface integral quietly becomes "integrate $u_1u_2$ over a triangle."</div>
 
 <h3>Step 3 — integrate over the triangle</h3>
 $$ \iint_S f\,d\sigma=\int_0^1\!\!\int_0^{1-u_1} u_1u_2\,du_2\,du_1 = \int_0^1 u_1\cdot\frac{(1-u_1)^2}{2}\,du_1=\frac12\int_0^1 u_1(1-u_1)^2\,du_1. $$

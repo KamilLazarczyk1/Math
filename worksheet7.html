@@ -30,6 +30,15 @@
   <p class="lead">More undetermined coefficients — now with resonance (the $t^s$ rule in action) — and the fully general <em>variation of parameters</em> method for forcing terms like $\tan t$, $e^t/t$ and $1/(e^t+1)$ that no simple guess can handle.</p>
 </div>
 
+<div class="eli5">
+<span class="eli5-title">Start here — the whole idea in plain words</span>
+<p>This sheet is the <a href="worksheet6.html">same ODE game as Worksheet 6</a>, with two new wrinkles.</p>
+<p><strong>Wrinkle 1 — resonance (Exercise 1 &amp; parts of 2):</strong> when the thing pushing the system is something the system already does naturally, the simple guess fails, and you patch it by multiplying by $t$ (or $t^2$). Same swing-pushed-at-its-own-rhythm idea as before.</p>
+<p><strong>Wrinkle 2 — variation of parameters (the new tool):</strong> sometimes the push is something ugly like $\tan t$ or $\dfrac{1}{e^t+1}$ — there's no neat shape to guess. So we stop guessing and <em>build</em> the answer out of the two natural building-block solutions we already found, but we let the "amounts" of each block <em>change over time</em> instead of being fixed constants.</p>
+<span class="analogy"><b>Picture this:</b> you're building a ramp from two LEGO planks. Normally you'd use a fixed number of each. Here you let the amount of each plank vary as you move along, so together the two planks can trace <em>any</em> curve — even a weird one. Two simple recipes (the $u_1',u_2'$ formulas) tell you exactly how much of each plank to add at every step.</span>
+<p>The <strong>Wronskian</strong> $W$ is just a bookkeeping number that checks your two planks are genuinely different shapes (if they weren't, you couldn't build anything new), and it shows up as the denominator. The price for this "works on anything" method is that you have to do two integrals — which is where all the real work is in parts (d), (e), (f).</p>
+</div>
+
 <div class="toc">
   <strong>On this page</strong>
   <ul>
@@ -128,6 +137,7 @@ $$ y_p''+5y_p'+4y_p = e^{t}\big[10A\,t + (7A+10B)\big]. $$
 $$ u_1' = -\frac{y_2 g}{W} = -\sin t\tan t = -\frac{\sin^2 t}{\cos t}, \qquad u_2' = \frac{y_1 g}{W} = \cos t\tan t = \sin t. $$
 <p><strong>Integrate.</strong> Easily $u_2 = -\cos t$. For $u_1$, write $\dfrac{\sin^2 t}{\cos t}=\dfrac{1-\cos^2 t}{\cos t}=\sec t-\cos t$:</p>
 $$ u_1 = -\!\int(\sec t-\cos t)\,dt = -\ln|\sec t+\tan t| + \sin t. $$
+<div class="tip">the awkward $\dfrac{\sin^2 t}{\cos t}$ can't be integrated as-is, so we trade $\sin^2 t$ for $1-\cos^2 t$ (the Pythagorean identity). That splits it into $\sec t - \cos t$ — two pieces we <em>do</em> have on the integral sheet.</div>
 <p><strong>Assemble</strong> $y_p=u_1 y_1+u_2 y_2$:</p>
 $$ y_p = \big(-\ln|\sec t+\tan t|+\sin t\big)\cos t + (-\cos t)\sin t = -\cos t\,\ln|\sec t+\tan t|, $$
 <p>since the two $\sin t\cos t$ terms cancel. Finally $\sec t+\tan t=\dfrac{1+\sin t}{\cos t}$.</p>
@@ -144,6 +154,7 @@ $$ u_1 = -t, \qquad u_2 = \ln t. $$
 <p><strong>Assemble.</strong></p>
 $$ y_p = (-t)e^{t} + (\ln t)\,t e^{t} = t e^{t}\ln t - t e^{t}. $$
 <p>The $-t e^{t}$ term is just $-1\cdot y_2$, a homogeneous solution, so it is absorbed into $c_2$.</p>
+<div class="tip">whenever a piece of $y_p$ is already one of the "natural" solutions, it's pointless to keep it separate — it just shifts the value of the free constant $c_2$. So we quietly drop it and let $c_2$ swallow it.</div>
 <div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1 e^{t} + c_2 t e^{t} + t e^{t}\ln t.$</div>
 
 <!-- 2f -->
@@ -154,6 +165,7 @@ $$ y_p = (-t)e^{t} + (\ln t)\,t e^{t} = t e^{t}\ln t - t e^{t}. $$
 $$ u_1' = -\frac{e^{2t}}{5e^{-t}}\cdot\frac{1}{e^{t}+1} = -\frac{e^{3t}}{5(e^{t}+1)}, \qquad u_2' = \frac{e^{-3t}}{5e^{-t}}\cdot\frac{1}{e^{t}+1} = \frac{e^{-2t}}{5(e^{t}+1)}. $$
 <p><strong>Substitute $w=e^{t}$</strong> (so $dw=e^{t}\,dt$, i.e. $dt=\dfrac{dw}{w}$). For $u_1$:</p>
 $$ u_1 = -\frac15\int\frac{w^3}{w+1}\frac{dw}{w} = -\frac15\int\frac{w^2}{w+1}\,dw = -\frac15\int\Big(w-1+\frac{1}{w+1}\Big)dw = -\frac15\Big(\frac{w^2}{2}-w+\ln(w+1)\Big). $$
+<div class="tip">the substitution $w=e^t$ turns the scary exponential fraction into an ordinary algebra fraction in $w$. Then $\dfrac{w^2}{w+1}$ is "top-heavy" (numerator degree $\ge$ denominator), so we do polynomial division to get $w-1+\dfrac{1}{w+1}$ — three things we can integrate one at a time.</div>
 <p>Back-substitute $w=e^t$: $\;u_1 = -\dfrac{e^{2t}}{10}+\dfrac{e^{t}}{5}-\dfrac{1}{5}\ln(e^{t}+1).$</p>
 <p>For $u_2$, the integrand becomes $\dfrac{1}{5\,w^3(w+1)}$. Partial fractions (the decomposition is on the official sheet):</p>
 $$ \frac{1}{w^3(w+1)} = \frac{1}{w}-\frac{1}{w^2}+\frac{1}{w^3}-\frac{1}{w+1}, $$

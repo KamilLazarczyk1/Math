@@ -30,6 +30,20 @@
   <p class="lead">Constant-coefficient equations $y'' + by' + cy = g(t)$: building the homogeneous solution from the characteristic equation, guessing a particular solution, and pinning down constants with initial conditions.</p>
 </div>
 
+<div class="eli5">
+<span class="eli5-title">Start here — the whole idea in plain words</span>
+<p><strong>What is a differential equation?</strong> Normally you solve for a <em>number</em> ("find $x$"). Here you solve for a whole <em>function</em> $y(t)$ — a rule for how something behaves over time. The equation ties the function together with its own speed $y'$ and its acceleration $y''$.</p>
+<span class="analogy"><b>Picture this:</b> a car on a road. $y$ = where it is, $y'$ = how fast it's going, $y''$ = how hard it's accelerating. A rule like "the acceleration depends on the position" (a spring yanking it back) is a differential equation. Solving it means finding the car's entire journey over time, not just one spot.</span>
+<p><strong>The one big trick:</strong> the full answer is always <em>natural behavior</em> + <em>reaction to being pushed</em>, written $y=y_h+y_p$.</p>
+<span class="analogy"><b>Picture this:</b> a kid on a swing. Left alone, it swings in its own rhythm and slowly dies down — that's $y_h$, the "natural" part. If you also push it over and over, it follows your pushing too — that's $y_p$, the "forced" part. The real motion is the two added together.</span>
+<p><strong>How we get the natural part ($y_h$):</strong> we bet the answer is an exponential $e^{rt}$, because exponentials are magic — their derivative is just themselves times $r$. That bet turns all the scary calculus into a plain high-school quadratic for $r$. Solve the quadratic, and the roots tell you the natural shapes (growing/decaying exponentials, or wobbling sines &amp; cosines).</p>
+<p><strong>How we get the forced part ($y_p$):</strong> guess that the answer <em>looks like the push itself</em>, with unknown numbers in front, then plug in and solve for those numbers.</p>
+<span class="analogy"><b>Picture this:</b> push something with a sine wave and it answers with a sine wave — you just need to find how loud. It's like knowing the tune and only tuning the volume knob.</span>
+<p><strong>The "resonance" wrinkle (multiply by $t$):</strong> sometimes your guess is something the system <em>already</em> does on its own. Then the plain guess flops, and the fix is to multiply it by $t$.</p>
+<span class="analogy"><b>Picture this:</b> pushing the swing exactly in time with its own rhythm makes it swing higher and higher. That growing-over-time effect is the extra factor of $t$.</span>
+<p><strong>Initial conditions (Exercise 3):</strong> the natural part has two unknown "dials" $c_1,c_2$. Telling the system where it starts, $y(0)$, and how fast it starts, $y'(0)$, locks those two dials to one specific motion.</p>
+</div>
+
 <div class="toc">
   <strong>On this page</strong>
   <ul>
@@ -152,6 +166,7 @@ $$ -2A = 4 \Rightarrow A=-2;\quad 2A-2B=0 \Rightarrow B=-2;\quad 2A+B-2C=-1 \Rig
 <h3>2c) &nbsp; $y'' + 4y' + 3y = 2t + 4\cos t$</h3>
 <p><strong>Homogeneous.</strong> $r^2+4r+3=(r+1)(r+3)=0 \Rightarrow r=-1,-3$, so $y_h = c_1 e^{-3t} + c_2 e^{-t}$.</p>
 <p><strong>Superposition.</strong> Solve for the two pieces of the RHS separately.</p>
+<div class="tip">because the equation is <em>linear</em>, you're allowed to handle each part of the push on its own and just add the answers. Deal with the $2t$ push, then the $4\cos t$ push, then glue them together.</div>
 <p><em>Piece $2t$:</em> guess $y_{p1}=At+B$ ($y'=A$, $y''=0$). Substituting: $0 + 4A + 3(At+B) = 3A\,t + (4A+3B)$. Match $2t+0$:</p>
 $$ 3A=2 \Rightarrow A=\tfrac{2}{3};\qquad 4A+3B=0 \Rightarrow B=-\tfrac{8}{9}. $$
 <p><em>Piece $4\cos t$:</em> guess $y_{p2}=C\cos t + D\sin t$. Then $y_{p2}'=-C\sin t+D\cos t$, $y_{p2}''=-C\cos t-D\sin t$. Substituting:</p>
@@ -177,6 +192,7 @@ $$ y_p' = e^{t}\big[(A+B)\cos t + (B-A)\sin t\big], \qquad y_p'' = e^{t}\big[2B\
 <p><strong>Substitute into $y_p''+4y_p$:</strong></p>
 $$ e^{t}(2B\cos t - 2A\sin t) + 4e^{t}(A\cos t + B\sin t) = e^{t}\big[(4A+2B)\cos t + (4B-2A)\sin t\big]. $$
 <p>Match $20e^{t}\cos t$ (so $20\cos t + 0\sin t$): $4B-2A=0\Rightarrow A=2B$, then $4(2B)+2B=20\Rightarrow 10B=20\Rightarrow B=2,\ A=4$.</p>
+<div class="tip">"matching" works because $\cos t$ and $\sin t$ are independent — there's no way to fake one with the other. So for the equation to hold at <em>every</em> $t$, the cosine amounts on both sides must match, and the sine amounts must match. That single requirement splits into two tidy equations for $A$ and $B$.</div>
 <div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1\sin 2t + c_2\cos 2t + 2e^{t}\sin t + 4e^{t}\cos t.$</div>
 
 <!-- 2f -->
@@ -190,6 +206,7 @@ $$ y_h = c_1\,e^{\frac{-1-\sqrt5}{2}\,t} + c_2\,e^{\frac{-1+\sqrt5}{2}\,t}. $$
 <!-- ===================== EX 3 ===================== -->
 <h2 id="ex3">Exercise 3 — Initial value problems</h2>
 <p>We take each general solution from Exercise 2 and impose $y(0)$ and $y'(0)$. This gives two linear equations for $c_1,c_2$. <span class="muted">Recall $e^{0}=1$, $\cos 0=1$, $\sin 0=0$.</span></p>
+<div class="tip">the general solution still has two unknown dials $c_1,c_2$. Two facts about the start (position $y(0)$ and speed $y'(0)$) give two equations — and two equations pin down two unknowns. So every IVP below is just "plug in $t=0$ twice, then solve a little 2×2 system."</div>
 
 <div class="exercise">
 <!-- 3a -->

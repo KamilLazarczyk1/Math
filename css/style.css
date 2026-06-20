@@ -19,6 +19,8 @@
   --red: #d33d3d;
   --purple: #7a4fd0;
   --purple-soft: #f1ecfb;
+  --eli5: #0d8f86;
+  --eli5-soft: #e2f6f3;
   --shadow: 0 1px 3px rgba(20,30,50,.06), 0 6px 24px rgba(20,30,50,.05);
   --radius: 12px;
   --maxw: 860px;
@@ -41,6 +43,8 @@
     --red: #ff7a7a;
     --purple: #b79bf0;
     --purple-soft: #221a36;
+    --eli5: #4fd0c4;
+    --eli5-soft: #0f2e2b;
     --shadow: 0 1px 3px rgba(0,0,0,.3), 0 6px 24px rgba(0,0,0,.25);
   }
 }
@@ -160,6 +164,56 @@ a { color: var(--accent); }
   font-size: .9rem;
   letter-spacing: .03em;
   text-transform: uppercase;
+}
+
+.eli5 {
+  background: var(--eli5-soft);
+  border: 1px solid var(--eli5);
+  border-left: 5px solid var(--eli5);
+  border-radius: 10px;
+  padding: 6px 20px 12px;
+  margin: 18px 0;
+}
+.eli5 .eli5-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 800;
+  color: var(--eli5);
+  margin: 12px 0 2px;
+  font-size: .82rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.eli5 .eli5-title::before {
+  content: "💡";
+  font-size: 1rem;
+}
+.eli5 p { margin: .5em 0; }
+.eli5 .analogy {
+  display: block;
+  border-left: 3px solid var(--eli5);
+  padding-left: 12px;
+  margin: 8px 0;
+  font-style: italic;
+  color: var(--text);
+}
+.eli5 .analogy b { font-style: normal; }
+
+.tip {
+  display: block;
+  background: var(--eli5-soft);
+  border-left: 3px solid var(--eli5);
+  border-radius: 0 7px 7px 0;
+  padding: 7px 13px;
+  margin: 10px 0;
+  font-size: .92rem;
+  line-height: 1.55;
+}
+.tip::before {
+  content: "💡 In plain words — ";
+  font-weight: 700;
+  color: var(--eli5);
 }
 
 .note {

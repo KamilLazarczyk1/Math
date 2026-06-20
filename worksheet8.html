@@ -30,6 +30,19 @@
   <p class="lead">The start of multivariable calculus: differentiating functions of several variables one variable at a time, the gradient and directional derivatives, tangent planes, and the subtle question of when a function is actually <em>differentiable</em>.</p>
 </div>
 
+<div class="eli5">
+<span class="eli5-title">Start here — the whole idea in plain words</span>
+<p>Until now a function ate one number and spat out one number. Now functions eat <em>several</em> numbers at once. The mental image for $f(x_1,x_2)$ is a <strong>landscape</strong>: you stand at a spot $(x_1,x_2)$ and $f$ is your <em>height</em> there.</p>
+<p><strong>Partial derivative = slope if you only walk one way.</strong> $\dfrac{\partial f}{\partial x_1}$ is how steep the ground feels if you step only east-west, pretending north-south is frozen. $\dfrac{\partial f}{\partial x_2}$ is the same stepping only north-south. (Mechanically: differentiate normally, treating the other letters as constants.)</p>
+<p><strong>Gradient = the arrow pointing straight uphill.</strong> $\nabla f$ collects those slopes into one arrow; a longer arrow means steeper ground.</p>
+<span class="analogy"><b>Picture this:</b> pour water on the hill — it runs off in exactly the opposite direction of the gradient (straight downhill).</span>
+<p><strong>Directional derivative = slope walking in a direction you choose.</strong> Not just east or north, but any direction $v$. You get it by dotting the uphill-arrow with your direction: $\nabla f\cdot v$.</p>
+<p><strong>Tangent plane = the best flat stand-in.</strong> Zoom into a smooth hill close enough and it looks flat; that flat sheet just touching it is the tangent plane. (It's the tangent <em>line</em> idea, bumped up one dimension.)</p>
+<p><strong>Differentiable = "smooth here, no nasty surprises."</strong> A function is differentiable at a point if that flat stand-in actually fits — no kinks, folds, or cliffs.</p>
+<span class="analogy"><b>The trap (Exercise 3b):</b> knowing the ground is flat going east <em>and</em> flat going north is NOT enough to be smooth — the surface can still be crumpled in a <em>diagonal</em> direction. Think of standing where four sloped tiles meet at a pinch: each compass direction looks fine, but the corner itself is a mess. That's why "partial derivatives exist" is much weaker than "differentiable."</span>
+<p>In <strong>3c</strong>, a single knob $\alpha$ controls how "tame" a function is near the origin — bigger $\alpha$ flattens it out — and we find exactly how big $\alpha$ must be for (i) merely continuous vs (ii) genuinely smooth.</p>
+</div>
+
 <div class="toc">
   <strong>On this page</strong>
   <ul>
@@ -113,6 +126,7 @@ $$ \frac{\partial f}{\partial x_1}=x_2 E,\qquad \frac{\partial f}{\partial x_2}=
 <p class="subpart-head">(i) &nbsp; $f(x_1,x_2)=\ln\!\big(x_1+\sqrt{x_1^2+x_2^2}\big)$</p>
 <p>Write $R=\sqrt{x_1^2+x_2^2}$ and use $\dfrac{d}{du}\ln u=\dfrac{u'}{u}$. For $x_1$, the inside derivative is $1+\dfrac{x_1}{R}=\dfrac{R+x_1}{R}$, so</p>
 $$ \frac{\partial f}{\partial x_1}=\frac{1}{x_1+R}\cdot\frac{R+x_1}{R}=\frac{1}{R}=\frac{1}{\sqrt{x_1^2+x_2^2}}. $$
+<div class="tip">don't panic at the messy fraction — the bracket on top, $R+x_1$, is identical to the $x_1+R$ on the bottom, so they cancel and almost everything disappears. Always glance for a shared factor before grinding through algebra.</div>
 <p>For $x_2$, the inside derivative is $\dfrac{x_2}{R}$, so</p>
 $$ \frac{\partial f}{\partial x_2}=\frac{1}{x_1+R}\cdot\frac{x_2}{R}=\frac{x_2}{\big(x_1+\sqrt{x_1^2+x_2^2}\big)\sqrt{x_1^2+x_2^2}}. $$
 <div class="check"><span class="check-title">Both match the given answer.</span> (Nice surprise: the $x_1$-partial collapses to $1/R$.)</div>
@@ -183,6 +197,7 @@ $$ \frac{\partial f}{\partial x_1}(0,0)=\lim_{h\to0}\frac{f(h,0)-f(0,0)}{h}=\lim
 <p><strong>Differentiable?</strong> First test continuity at the origin (a necessary condition). Approach along the line $x_2=x_1$, i.e. $x_1=x_2=s\to0$:</p>
 $$ f(s,s)=\frac{s\cdot s}{s^2+s^2}=\frac{s^2}{2s^2}=\frac12 \;\not\to\; 0=f(0,0). $$
 <p>Along the axis $x_2=0$ instead, $f\equiv 0$. Two paths give two different limits ($\tfrac12$ and $0$), so $\displaystyle\lim_{(x_1,x_2)\to(0,0)}f$ does not exist — $f$ is <strong>not continuous</strong> at $(0,0)$.</p>
+<div class="tip">the "path test." If two different roads to the same point arrive at two different heights, there's no single height the function is heading toward — so the limit simply doesn't exist. One mismatched pair of paths is enough to kill continuity (and with it, differentiability).</div>
 <div class="check"><span class="check-title">Conclusion:</span> $\dfrac{\partial f}{\partial x_1}(0,0)=\dfrac{\partial f}{\partial x_2}(0,0)=0$, but $f$ is <strong>not differentiable</strong> at $(0,0)$ (it isn't even continuous there). A textbook example that "partials exist" is far weaker than "differentiable."</div>
 </div>
 
@@ -195,6 +210,7 @@ $$ f(s,s)=\frac{s\cdot s}{s^2+s^2}=\frac{s^2}{2s^2}=\frac12 \;\not\to\; 0=f(0,0)
 <p>We use the bound $|\sin x_1|\le|x_1|$ and the fact that $|x_2|\le\lVert(x_1,x_2)\rVert$ and $|x_1|\le\lVert(x_1,x_2)\rVert$, writing $\rho=\lVert(x_1,x_2)\rVert$.</p>
 <p><strong>Case $\alpha\ge0$ (continuous).</strong> For $\alpha>0$,</p>
 $$ |f| = |x_2|^{\alpha}\,|\sin x_1| \le \rho^{\alpha}\cdot|x_1| \le \rho^{\alpha}\cdot\rho = \rho^{\alpha+1}\to0. $$
+<div class="tip">this is the "squeeze." We never compute the limit directly — we trap $|f|$ between $0$ and something obviously shrinking ($\rho^{\alpha+1}$). If the upper trap goes to $0$, the thing inside is forced to $0$ too. The trick that powers it is $|\sin x_1|\le|x_1|$: the sine factor is what supplies the smallness.</div>
 <p>For $\alpha=0$, simply $|f|=|\sin x_1|\le|x_1|\to0$. Either way the limit is $0=f(0,0)$, so $f$ is continuous.</p>
 <p><strong>Case $\alpha\lt0$ (not continuous).</strong> Take the path $x_2=s,\ x_1=s^{2}$ with $s\to0^+$ (it does tend to the origin). Then</p>
 $$ f = s^{\alpha}\sin(s^{2}) \sim s^{\alpha}\cdot s^{2} = s^{\alpha+2}. $$
