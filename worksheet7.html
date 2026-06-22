@@ -107,25 +107,50 @@ $$ y_p(t) = -\,y_1(t)\!\int \frac{y_2(t)\,g(t)}{W(t)}\,dt \;+\; y_2(t)\!\int \fr
 <!-- 2a -->
 <h3>2a) &nbsp; $y'' - y = 11e^{t}$</h3>
 <p><strong>Homogeneous.</strong> $r=\pm1$, so $y_h=c_1 e^{-t}+c_2 e^{t}$.</p>
-<p><strong>Resonance.</strong> $e^t$ matches the simple root $r=1$, so guess $y_p = A\,t\,e^{t}$. Then</p>
-$$ y_p' = A e^{t}(1+t),\qquad y_p'' = A e^{t}(2+t). $$
-$$ y_p''-y_p = A e^{t}(2+t) - A t e^{t} = 2A e^{t} \stackrel{!}{=} 11e^{t}\ \Rightarrow\ A=\tfrac{11}{2}. $$
+<p><strong>Resonance.</strong> $e^t$ matches the simple root $r=1$, so we bump the guess by $t$: $y_p = A\,t\,e^{t}$.</p>
+<p><strong>First derivative</strong> — product rule on $(A t)\cdot e^{t}$, i.e. (derivative of $At$)$\,\cdot e^t$ + $At\cdot$(derivative of $e^t$):</p>
+$$ y_p' = A\cdot e^{t} + A t\cdot e^{t} = A e^{t}(1+t). $$
+<p><strong>Second derivative</strong> — differentiate $A e^{t} + A t e^{t}$; the first term gives $A e^t$, the second needs the product rule again:</p>
+$$ y_p'' = A e^{t} + \big(A e^{t} + A t e^{t}\big) = 2A e^{t} + A t e^{t} = A e^{t}(2+t). $$
+<p><strong>Substitute into</strong> $y_p''-y_p$:</p>
+$$ y_p''-y_p = A e^{t}(2+t) - A t e^{t} = 2A e^{t} + A t e^{t} - A t e^{t} = 2A e^{t} \stackrel{!}{=} 11e^{t}\ \Rightarrow\ A=\tfrac{11}{2}. $$
+<div class="tip">notice the $A t e^{t}$ pieces cancel, leaving just $2Ae^t$. The leftover bare-$e^t$ term is what matches the forcing — the part carrying the extra $t$ is what made resonance necessary in the first place.</div>
 <div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1 e^{-t} + c_2 e^{t} + \dfrac{11}{2}\,t e^{t}.$</div>
 
 <!-- 2b -->
 <h3>2b) &nbsp; $y'' + 4y = 2\sin(2t)$</h3>
 <p><strong>Homogeneous.</strong> $r=\pm 2i$, so $y_h=c_1\cos 2t+c_2\sin 2t$.</p>
-<p><strong>Resonance.</strong> Guess $y_p = t(A\cos 2t + B\sin 2t)$. Differentiating twice and simplifying,</p>
-$$ y_p'' + 4y_p = 4B\cos 2t - 4A\sin 2t. $$
-<p>Match $2\sin 2t$ (i.e. $0\cdot\cos 2t + 2\sin 2t$): $4B=0\Rightarrow B=0$ and $-4A=2\Rightarrow A=-\tfrac12$.</p>
+<p><strong>Resonance.</strong> The forcing $\sin 2t$ is already a homogeneous solution, so we multiply by $t$ and guess</p>
+$$ y_p = t(A\cos 2t + B\sin 2t) = A\,t\cos 2t + B\,t\sin 2t. $$
+<p><strong>First derivative.</strong> Apply the product rule to each term ($t$ times a trig function), using $(\cos 2t)'=-2\sin 2t$ and $(\sin 2t)'=2\cos 2t$:</p>
+$$ y_p' = A\big(\cos 2t + t(-2\sin 2t)\big) + B\big(\sin 2t + t(2\cos 2t)\big) = A\cos 2t - 2A\,t\sin 2t + B\sin 2t + 2B\,t\cos 2t. $$
+<p><strong>Second derivative.</strong> Differentiate that, term by term (the two $t\cdot\text{trig}$ terms each need the product rule again):</p>
+$$ \begin{aligned}
+\tfrac{d}{dt}\big(A\cos 2t\big) &= -2A\sin 2t,\\
+\tfrac{d}{dt}\big(-2A\,t\sin 2t\big) &= -2A\sin 2t - 4A\,t\cos 2t,\\
+\tfrac{d}{dt}\big(B\sin 2t\big) &= 2B\cos 2t,\\
+\tfrac{d}{dt}\big(2B\,t\cos 2t\big) &= 2B\cos 2t - 4B\,t\sin 2t.
+\end{aligned} $$
+<p>Add the four lines (the two plain $\sin/\cos$ pairs combine):</p>
+$$ y_p'' = -4A\sin 2t + 4B\cos 2t - 4A\,t\cos 2t - 4B\,t\sin 2t. $$
+<p><strong>Substitute into</strong> $y_p'' + 4y_p$. Since $4y_p = 4A\,t\cos 2t + 4B\,t\sin 2t$, the two $t$-terms cancel exactly:</p>
+$$ y_p'' + 4y_p = -4A\sin 2t + 4B\cos 2t - 4A\,t\cos 2t - 4B\,t\sin 2t + 4A\,t\cos 2t + 4B\,t\sin 2t = -4A\sin 2t + 4B\cos 2t. $$
+<div class="tip">the $t$-terms cancelling isn't a coincidence — the un-bumped part $A\cos 2t+B\sin 2t$ solves the homogeneous equation (gives $0$), so only the extra-$t$ piece can survive to match the forcing. That's the whole reason the resonance bump works.</div>
+<p>Match $2\sin 2t$ (that is, $0\cdot\cos 2t + 2\sin 2t$): the $\cos 2t$ coefficients give $4B=0\Rightarrow B=0$, and the $\sin 2t$ coefficients give $-4A=2\Rightarrow A=-\tfrac12$.</p>
 <div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1\cos 2t + c_2\sin 2t - \dfrac{1}{2}\,t\cos 2t.$</div>
 
 <!-- 2c -->
 <h3>2c) &nbsp; $y'' + 5y' + 4y = t\,e^{t}$</h3>
 <p><strong>Homogeneous.</strong> $r^2+5r+4=(r+1)(r+4)=0\Rightarrow r=-1,-4$, so $y_h=c_1 e^{-4t}+c_2 e^{-t}$.</p>
-<p><strong>Guess.</strong> $1$ is not a root, so $y_p=(At+B)e^{t}$, with $y_p'=e^{t}(At+A+B)$, $y_p''=e^{t}(At+2A+B)$.</p>
-<p><strong>Substitute.</strong></p>
-$$ y_p''+5y_p'+4y_p = e^{t}\big[10A\,t + (7A+10B)\big]. $$
+<p><strong>Guess.</strong> $1$ is not a root, so $y_p=(At+B)e^{t}$.</p>
+<p><strong>First derivative</strong> — product rule on $(At+B)\cdot e^{t}$:</p>
+$$ y_p' = A\cdot e^{t} + (At+B)\cdot e^{t} = e^{t}(At + A + B). $$
+<p><strong>Second derivative</strong> — product rule on $(At+A+B)\cdot e^{t}$:</p>
+$$ y_p'' = A\cdot e^{t} + (At+A+B)\cdot e^{t} = e^{t}(At + 2A + B). $$
+<p><strong>Substitute</strong> into $y_p''+5y_p'+4y_p$:</p>
+$$ y_p''+5y_p'+4y_p = e^{t}\big[(At+2A+B) + 5(At+A+B) + 4(At+B)\big]. $$
+<p>Collect the $t$-terms and the constant terms inside the bracket separately:</p>
+$$ = e^{t}\big[\underbrace{(A+5A+4A)}_{10A}\,t + \underbrace{(2A+5A)}_{7A} + \underbrace{(B+5B+4B)}_{10B}\big] = e^{t}\big[10A\,t + (7A+10B)\big]. $$
 <p>Match $t e^{t}$: $10A=1\Rightarrow A=\tfrac{1}{10}$; $7A+10B=0\Rightarrow B=-\tfrac{7}{100}$.</p>
 <div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1 e^{-4t} + c_2 e^{-t} + \dfrac{1}{10}t\,e^{t} - \dfrac{7}{100}e^{t}.$</div>
 

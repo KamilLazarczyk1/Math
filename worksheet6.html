@@ -187,8 +187,12 @@ $$ 2A + 4(2At+B) + 4(At^2+Bt+C) = 4A\,t^2 + (8A+4B)\,t + (2A+4B+4C). $$
 <h3>2e) &nbsp; $y'' + 4y = 20e^{t}\cos t$</h3>
 <p><strong>Homogeneous.</strong> $r^2+4=0 \Rightarrow r=\pm 2i$, so $y_h = c_1\sin 2t + c_2\cos 2t$.</p>
 <p><strong>Guess.</strong> Forcing wants $r=1\pm i$ (not $\pm 2i$), so no resonance: $y_p = e^{t}(A\cos t + B\sin t)$.</p>
-<p><strong>Derivatives</strong> (product rule). With $y_p=e^t(A\cos t+B\sin t)$,</p>
-$$ y_p' = e^{t}\big[(A+B)\cos t + (B-A)\sin t\big], \qquad y_p'' = e^{t}\big[2B\cos t - 2A\sin t\big]. $$
+<p><strong>First derivative</strong> — product rule on $e^{t}\cdot(A\cos t+B\sin t)$: keep $e^t$ times the bracket, then add $e^t$ times the bracket's derivative $(-A\sin t + B\cos t)$:</p>
+$$ y_p' = e^{t}(A\cos t + B\sin t) + e^{t}(-A\sin t + B\cos t) = e^{t}\big[(A+B)\cos t + (B-A)\sin t\big]. $$
+<p><strong>Second derivative</strong> — same product rule, now on $e^t$ times the new bracket:</p>
+$$ y_p'' = e^{t}\big[(A+B)\cos t + (B-A)\sin t\big] + e^{t}\big[-(A+B)\sin t + (B-A)\cos t\big]. $$
+<p>Combine like terms: the $\cos t$ coefficient is $(A+B)+(B-A)=2B$, and the $\sin t$ coefficient is $(B-A)-(A+B)=-2A$, so</p>
+$$ y_p'' = e^{t}\big[2B\cos t - 2A\sin t\big]. $$
 <p><strong>Substitute into $y_p''+4y_p$:</strong></p>
 $$ e^{t}(2B\cos t - 2A\sin t) + 4e^{t}(A\cos t + B\sin t) = e^{t}\big[(4A+2B)\cos t + (4B-2A)\sin t\big]. $$
 <p>Match $20e^{t}\cos t$ (so $20\cos t + 0\sin t$): $4B-2A=0\Rightarrow A=2B$, then $4(2B)+2B=20\Rightarrow 10B=20\Rightarrow B=2,\ A=4$.</p>
@@ -234,14 +238,19 @@ $$ y'(0)=-3c_1-c_2+\tfrac23+\tfrac45 = 0 \;\Rightarrow\; -3c_1-c_2=-\tfrac{22}{1
 
 <!-- 3d -->
 <h3>3d) &nbsp; $y(0)=5,\ y'(0)=3$ &nbsp;<span class="sub">(equation 2d)</span></h3>
-<p>$y = (c_1+c_2 t)e^{-2t} + \tfrac14 t^2 - \tfrac12 t + \tfrac38$. Differentiating the product, $y' = e^{-2t}\big(c_2 - 2c_1 - 2c_2 t\big) + \tfrac12 t - \tfrac12$.</p>
+<p>$y = (c_1+c_2 t)e^{-2t} + \tfrac14 t^2 - \tfrac12 t + \tfrac38$. For the first term apply the product rule to $(c_1+c_2 t)\cdot e^{-2t}$:</p>
+$$ \tfrac{d}{dt}\big[(c_1+c_2 t)e^{-2t}\big] = c_2\,e^{-2t} + (c_1+c_2 t)\cdot(-2)e^{-2t} = e^{-2t}\big(c_2 - 2c_1 - 2c_2 t\big). $$
+<p>The polynomial part differentiates to $\tfrac12 t - \tfrac12$, so altogether $y' = e^{-2t}\big(c_2 - 2c_1 - 2c_2 t\big) + \tfrac12 t - \tfrac12$.</p>
 $$ y(0)=c_1+\tfrac38=5 \Rightarrow c_1=\tfrac{37}{8}, \qquad y'(0)=c_2-2c_1-\tfrac12=3 \Rightarrow c_2 = \tfrac72 + 2c_1 = \tfrac72+\tfrac{37}{4}=\tfrac{51}{4}. $$
 <div class="check"><span class="check-title">$c_1=\dfrac{37}{8},\ c_2=\dfrac{51}{4}$</span> — matches key.</div>
 
 <!-- 3e -->
 <h3>3e) &nbsp; $y(0)=0,\ y'(0)=-1$ &nbsp;<span class="sub">(equation 2e)</span></h3>
-<p>$y = c_1\sin 2t + c_2\cos 2t + 4e^{t}\cos t + 2e^{t}\sin t$. Then
-$y' = 2c_1\cos 2t - 2c_2\sin 2t + 4e^{t}(\cos t-\sin t) + 2e^{t}(\sin t+\cos t)$.</p>
+<p>$y = c_1\sin 2t + c_2\cos 2t + 4e^{t}\cos t + 2e^{t}\sin t$. Differentiate, using the product rule on the two $e^{t}\cdot\text{trig}$ terms:</p>
+$$ \tfrac{d}{dt}\big[4e^{t}\cos t\big] = 4e^{t}\cos t - 4e^{t}\sin t = 4e^{t}(\cos t-\sin t), $$
+$$ \tfrac{d}{dt}\big[2e^{t}\sin t\big] = 2e^{t}\sin t + 2e^{t}\cos t = 2e^{t}(\sin t+\cos t), $$
+<p>and the homogeneous part gives $\tfrac{d}{dt}[c_1\sin 2t + c_2\cos 2t]=2c_1\cos 2t - 2c_2\sin 2t$. Altogether,</p>
+$$ y' = 2c_1\cos 2t - 2c_2\sin 2t + 4e^{t}(\cos t-\sin t) + 2e^{t}(\sin t+\cos t). $$
 $$ y(0)=c_2 + 4 = 0 \Rightarrow c_2=-4, \qquad y'(0)=2c_1 + 4 + 2 = -1 \Rightarrow 2c_1=-7 \Rightarrow c_1=-\tfrac72. $$
 <div class="check"><span class="check-title">$c_1=-\dfrac72,\ c_2=-4$</span> — matches key.</div>
 

@@ -103,8 +103,10 @@ $$ \det J_\Phi=(2-x_2)(1)-(-x_1)(0)=2-x_2\;\gt0\ \text{ (since } x_2\le1), \quad
 <div class="tip">there's a $0$ in the bottom-left corner, so this matrix is "triangular" and its determinant is just the product of the diagonal, $(2-x_2)\cdot1$. That number is the area exchange rate: a tiny tile in the $(x_1,x_2)$ rectangle covers $(2-x_2)$ times as much area after the map $\Phi$ stretches it.</div>
 <p><strong>Transform the integrand.</strong> With $\Phi_1=x_1(2-x_2)$ and $\Phi_2=x_2$,</p>
 $$ f(\Phi(x))=\Phi_1^2-2\Phi_2\Phi_1=x_1^2(2-x_2)^2-2x_2 x_1(2-x_2). $$
-<p>Multiply by $|\det J_\Phi|=(2-x_2)$ and integrate over the rectangle. Doing the $x_1$-integral first, $\int_{-1}^1 x_1^2\,dx_1=\tfrac23$ while $\int_{-1}^1 x_1\,dx_1=0$ kills the second term:</p>
-$$ \int_{-1}^{1}\!\Big[x_1^2(2-x_2)^3-2x_2 x_1(2-x_2)^2\Big]dx_1=\frac{2}{3}(2-x_2)^3. $$
+<p>Multiply by $|\det J_\Phi|=(2-x_2)$. Each term picks up one more factor of $(2-x_2)$:</p>
+$$ f(\Phi(x))\,|\det J_\Phi| = x_1^2(2-x_2)^2\cdot(2-x_2) - 2x_2 x_1(2-x_2)\cdot(2-x_2) = x_1^2(2-x_2)^3 - 2x_2 x_1(2-x_2)^2. $$
+<p>Integrate over the rectangle, doing the $x_1$-integral first. Because $\int_{-1}^1 x_1^2\,dx_1=\tfrac23$ and $\int_{-1}^1 x_1\,dx_1=0$, the second term vanishes:</p>
+$$ \int_{-1}^{1}\!\Big[x_1^2(2-x_2)^3-2x_2 x_1(2-x_2)^2\Big]dx_1=(2-x_2)^3\!\int_{-1}^1 x_1^2\,dx_1 - 2x_2(2-x_2)^2\!\int_{-1}^1 x_1\,dx_1=\frac{2}{3}(2-x_2)^3. $$
 <p>This is the very same inner result as in part (a), so the outer integral again gives</p>
 <div class="check"><span class="check-title">$\displaystyle\int_{[-1,1]\times[0,1]} f(\Phi(x))\,|\det J_\Phi(x)|\,dx=\frac{5}{2}=\iint_\Omega f\,dx.$</span> The change-of-variables formula checks out.</div>
 </div>
