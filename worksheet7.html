@@ -68,7 +68,7 @@ $$ y_p(t) = -\,y_1(t)\!\int \frac{y_2(t)\,g(t)}{W(t)}\,dt \;+\; y_2(t)\!\int \fr
 <p class="muted">Any constant of integration just reproduces a homogeneous solution, so we drop them and fold everything into $c_1,c_2$ at the end.</p>
 </div>
 <div class="note">
-<p><span class="note-title">Official vs. own.</span> The <strong>variation-of-parameters formula</strong> and the <strong>Wronskian</strong> are <em>not</em> on the official sheets <span class="pill pill-own">bring yourself</span>. The integrals we hit ($\int\sec t\,dt=\ln|\sec t+\tan t|$, $\int\sin t\,dt$, partial fractions) <em>are</em> on the official <em>Derivatives &amp; Integrals</em> sheet <span class="pill pill-official">on official sheet</span>.</p>
+<p><span class="note-title">Official vs. own.</span> The <strong>variation-of-parameters formula</strong> and the <strong>Wronskian</strong> are <em>not</em> on the official sheets <span class="pill pill-own">bring yourself</span>. The integrals we hit ($\int\sin t\,dt$, $\int\cos t\,dt$, and partial fractions for $\int\frac{dw}{1-w^2}$) are all built from the official <em>Derivatives &amp; Integrals</em> sheet <span class="pill pill-official">on official sheet</span>.</p>
 </div>
 
 <!-- ===================== EX 1 ===================== -->
@@ -160,12 +160,18 @@ $$ = e^{t}\big[\underbrace{(A+5A+4A)}_{10A}\,t + \underbrace{(2A+5A)}_{7A} + \un
 <p><strong>Wronskian.</strong> $W = \cos t\cos t - (-\sin t)\sin t = \cos^2 t+\sin^2 t = 1$.</p>
 <p>The equation is already in standard form, so $g=\tan t$. Then</p>
 $$ u_1' = -\frac{y_2 g}{W} = -\sin t\tan t = -\frac{\sin^2 t}{\cos t}, \qquad u_2' = \frac{y_1 g}{W} = \cos t\tan t = \sin t. $$
-<p><strong>Integrate.</strong> Easily $u_2 = -\cos t$. For $u_1$, write $\dfrac{\sin^2 t}{\cos t}=\dfrac{1-\cos^2 t}{\cos t}=\sec t-\cos t$:</p>
-$$ u_1 = -\!\int(\sec t-\cos t)\,dt = -\ln|\sec t+\tan t| + \sin t. $$
-<div class="tip">the awkward $\dfrac{\sin^2 t}{\cos t}$ can't be integrated as-is, so we trade $\sin^2 t$ for $1-\cos^2 t$ (the Pythagorean identity). That splits it into $\sec t - \cos t$ — two pieces we <em>do</em> have on the integral sheet.</div>
-<p><strong>Assemble</strong> $y_p=u_1 y_1+u_2 y_2$:</p>
-$$ y_p = \big(-\ln|\sec t+\tan t|+\sin t\big)\cos t + (-\cos t)\sin t = -\cos t\,\ln|\sec t+\tan t|, $$
-<p>since the two $\sin t\cos t$ terms cancel. Finally $\sec t+\tan t=\dfrac{1+\sin t}{\cos t}$.</p>
+<p><strong>Integrate $u_2$.</strong> Directly $u_2 = \displaystyle\int \sin t\,dt = -\cos t$.</p>
+<p><strong>Integrate $u_1$.</strong> Use $\sin^2 t = 1-\cos^2 t$ to split the fraction:</p>
+$$ u_1 = -\int\frac{\sin^2 t}{\cos t}\,dt = -\int\frac{1-\cos^2 t}{\cos t}\,dt = -\int\frac{1}{\cos t}\,dt + \int\cos t\,dt = -\int\frac{1}{\cos t}\,dt + \sin t. $$
+<p>The only hard piece is $\displaystyle\int\frac{1}{\cos t}\,dt$. Multiply top and bottom by $\cos t$ and substitute $w=\sin t$ (so $dw=\cos t\,dt$ and $\cos^2 t = 1-w^2$):</p>
+$$ \int\frac{1}{\cos t}\,dt = \int\frac{\cos t}{\cos^2 t}\,dt = \int\frac{\cos t}{1-\sin^2 t}\,dt = \int\frac{dw}{1-w^2}. $$
+<p>Partial fractions $\dfrac{1}{1-w^2}=\dfrac12\!\left(\dfrac{1}{1-w}+\dfrac{1}{1+w}\right)$ then give</p>
+$$ \int\frac{dw}{1-w^2} = \frac12\big(-\ln|1-w|+\ln|1+w|\big) = \frac12\ln\!\left|\frac{1+w}{1-w}\right| = \frac12\ln\!\left(\frac{1+\sin t}{1-\sin t}\right). $$
+<p>So $\;u_1 = -\dfrac12\ln\!\left(\dfrac{1+\sin t}{1-\sin t}\right) + \sin t.$</p>
+<div class="tip">no "secant" needed. The whole trick for $\int\frac{1}{\cos t}\,dt$ is to multiply by $\frac{\cos t}{\cos t}$ so the top becomes $dw$ for $w=\sin t$; the bottom turns into $1-w^2$, which partial fractions handles. Everything stays in $\sin$ and $\cos$.</div>
+<p><strong>Assemble</strong> $y_p=u_1 y_1+u_2 y_2$. The two $\sin t\cos t$ terms cancel:</p>
+$$ y_p = \left(-\tfrac12\ln\tfrac{1+\sin t}{1-\sin t}+\sin t\right)\cos t + (-\cos t)\sin t = -\tfrac12\,\cos t\,\ln\!\left(\frac{1+\sin t}{1-\sin t}\right). $$
+<p>This is already a correct answer. To get the key's shorter form, note $\dfrac{1+\sin t}{1-\sin t}=\dfrac{(1+\sin t)^2}{(1-\sin t)(1+\sin t)}=\dfrac{(1+\sin t)^2}{\cos^2 t}$, so $\tfrac12\ln\dfrac{1+\sin t}{1-\sin t}=\ln\dfrac{1+\sin t}{\cos t}$ (valid since $\cos t\gt0$ on $-\tfrac{\pi}{2}\lt t\lt\tfrac{\pi}{2}$). Therefore:</p>
 <div class="check"><span class="check-title">Answer (matches key):</span> $\quad y = c_1\cos t + c_2\sin t - \cos t\,\ln\!\left(\dfrac{1+\sin t}{\cos t}\right).$</div>
 
 <!-- 2e -->

@@ -61,7 +61,7 @@
 <tr><td>Exponential (chain)</td><td>$\dfrac{d}{dx}e^{g(x)}=g'(x)e^{g(x)}$, &nbsp; $\dfrac{d}{dx}a^x=a^x\ln a$</td><td><span class="pill pill-official">official</span></td></tr>
 <tr><td>Logarithm (chain)</td><td>$\dfrac{d}{dx}\ln g(x)=\dfrac{g'(x)}{g(x)}$, &nbsp; $\dfrac{d}{dx}\ln|x|=\dfrac1x$</td><td><span class="pill pill-official">official</span></td></tr>
 <tr><td>Square root (used in WS8)</td><td>$\dfrac{d}{dx}\sqrt{u}=\dfrac{u'}{2\sqrt u}$</td><td><span class="pill pill-official">official</span> <span class="muted">(power rule, $n=\tfrac12$)</span></td></tr>
-<tr><td>Trig</td><td>$\sin'=\cos$, $\cos'=-\sin$, $\tan'=\sec^2$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>Trig</td><td>$\sin'=\cos$, $\cos'=-\sin$, $\tan' t=\dfrac{1}{\cos^2 t}$, $\cot' t=-\dfrac{1}{\sin^2 t}$</td><td><span class="pill pill-official">official</span></td></tr>
 <tr><td>Inverse tangent (WS8 Ex2a)</td><td>$\dfrac{d}{dx}\arctan u=\dfrac{u'}{1+u^2}$</td><td><span class="pill pill-official">official</span></td></tr>
 <tr><td>Reciprocal (WS9)</td><td>$\dfrac{d}{dx}\dfrac1x=-\dfrac1{x^2}$</td><td><span class="pill pill-official">official</span></td></tr>
 </table>
@@ -74,7 +74,7 @@
 <tr><td>Reciprocal</td><td>$\displaystyle\int\dfrac1x\,dx=\ln|x|+c$</td><td><span class="pill pill-official">official</span></td></tr>
 <tr><td>Linear denominator</td><td>$\displaystyle\int\dfrac{1}{ax+b}\,dx=\dfrac1a\ln|ax+b|+c$</td><td><span class="pill pill-official">official</span></td></tr>
 <tr><td>Sine / cosine</td><td>$\displaystyle\int\sin u\,du=-\cos u+c,\ \int\cos u\,du=\sin u+c$</td><td><span class="pill pill-official">official</span></td></tr>
-<tr><td>Secant (WS7 2d)</td><td>$\displaystyle\int\sec u\,du=\ln|\sec u+\tan u|+c$</td><td><span class="pill pill-official">official</span></td></tr>
+<tr><td>$\tfrac{1}{\cos}$ integral (WS7 2d)</td><td>$\displaystyle\int\frac{1}{\cos t}\,dt=\frac12\ln\!\left|\frac{1+\sin t}{1-\sin t}\right|+c$ &nbsp;<span class="muted">(derive via $w=\sin t$ + partial fractions)</span></td><td><span class="pill pill-own">bring yourself</span></td></tr>
 <tr><td>Partial fractions (WS7 2f)</td><td>Decomposition table for $\dfrac{P(x)}{Q(x)}$ by factor type</td><td><span class="pill pill-official">official</span></td></tr>
 <tr><td>By parts</td><td>$\displaystyle\int u\,dv=uv-\int v\,du$</td><td><span class="pill pill-official">official</span></td></tr>
 <tr><td>$u$-substitution</td><td>$\displaystyle\int f(g(x))g'(x)\,dx=\int f(u)\,du$</td><td><span class="pill pill-official">official</span></td></tr>
@@ -135,8 +135,8 @@
 <table>
 <tr><th>Identity</th><th>Formula</th><th>Source</th></tr>
 <tr><td>Pythagorean</td><td>$\sin^2 t+\cos^2 t=1$ &nbsp;(so $1-\cos^2 t=\sin^2 t$)</td><td><span class="pill pill-own">bring yourself</span></td></tr>
-<tr><td>Definitions</td><td>$\tan t=\dfrac{\sin t}{\cos t}$, &nbsp; $\sec t=\dfrac{1}{\cos t}$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
-<tr><td>Used in WS7 2d</td><td>$\sec t+\tan t=\dfrac{1+\sin t}{\cos t}$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Definitions</td><td>$\tan t=\dfrac{\sin t}{\cos t}$, &nbsp; $\cot t=\dfrac{\cos t}{\sin t}$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
+<tr><td>Used in WS7 2d</td><td>$\dfrac{1}{1-w^2}=\dfrac12\!\left(\dfrac{1}{1-w}+\dfrac{1}{1+w}\right)$, &nbsp; $\dfrac{1+\sin t}{1-\sin t}=\dfrac{(1+\sin t)^2}{\cos^2 t}$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
 <tr><td>Bound (WS8 3c)</td><td>$|\sin x|\le|x|$ for all $x$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
 <tr><td>Even/odd over $[-a,a]$ (WS10)</td><td>$\int_{-a}^a(\text{odd})=0$, &nbsp; $\int_{-a}^a(\text{even})=2\int_0^a$</td><td><span class="pill pill-own">bring yourself</span></td></tr>
 <tr><td>Euler's formula</td><td>$e^{i\theta}=\cos\theta+i\sin\theta$ &nbsp;<span class="muted">(why complex roots give $\cos,\sin$)</span></td><td><span class="pill pill-own">bring yourself</span></td></tr>

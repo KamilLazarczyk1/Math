@@ -104,10 +104,9 @@
         <li><span class="mark-o">O</span> $\frac{d}{dx}\ln x=\frac1x,\ \frac{d}{dx}\ln g=\frac{g'}{g}$</li>
         <li><span class="mark-o">O</span> $\frac{d}{dx}\log_a x=\frac{1}{x\ln a}$</li>
         <li><span class="mark-o">O</span> $\sin'=\cos,\ \cos'=-\sin$</li>
-        <li><span class="mark-o">O</span> $\tan'=\sec^2,\ \cot'=-\csc^2$</li>
-        <li><span class="mark-o">O</span> $\sec'=\sec\tan,\ \csc'=-\csc\cot$</li>
-        <li><span class="mark-o">O</span> $\arctan'u=\frac{u'}{1+u^2}$</li>
-        <li><span class="mark-o">O</span> $\arcsin'u=\frac{u'}{\sqrt{1-u^2}}$</li>
+        <li><span class="mark-o">O</span> $\tan' t=\frac{1}{\cos^2 t},\ \cot' t=-\frac{1}{\sin^2 t}$</li>
+        <li><span class="mark-o">O</span> $\arctan'u=\frac{u'}{1+u^2},\ \operatorname{arccot}'u=-\frac{u'}{1+u^2}$</li>
+        <li><span class="mark-o">O</span> $\arcsin'u=\frac{u'}{\sqrt{1-u^2}},\ \arccos'u=-\frac{u'}{\sqrt{1-u^2}}$</li>
       </ul>
     </div>
 
@@ -131,12 +130,12 @@
       <ul>
         <li><span class="mark-o">O</span> $\int\sin u\,du=-\cos u+c$</li>
         <li><span class="mark-o">O</span> $\int\cos u\,du=\sin u+c$</li>
-        <li><span class="mark-o">O</span> $\int\sec^2 u\,du=\tan u+c$</li>
-        <li><span class="mark-o">O</span> $\int\csc^2 u\,du=-\cot u+c$</li>
-        <li><span class="mark-o">O</span> $\int\tan u\,du=\ln|\sec u|+c$</li>
+        <li><span class="mark-o">O</span> $\int\frac{1}{\cos^2 u}\,du=\tan u+c$</li>
+        <li><span class="mark-o">O</span> $\int\frac{1}{\sin^2 u}\,du=-\cot u+c$</li>
+        <li><span class="mark-o">O</span> $\int\tan u\,du=-\ln|\cos u|+c$</li>
         <li><span class="mark-o">O</span> $\int\cot u\,du=\ln|\sin u|+c$</li>
-        <li><span class="mark-o">O</span> $\int\sec u\,du=\ln|\sec u+\tan u|+c$</li>
-        <li><span class="mark-o">O</span> $\int\csc u\,du=\ln|\csc u-\cot u|+c$</li>
+        <li><span class="mark-x">★</span> $\int\frac{1}{\cos u}\,du=\frac12\ln\left|\frac{1+\sin u}{1-\sin u}\right|+c$</li>
+        <li><span class="mark-x">★</span> $\int\frac{1}{\sin u}\,du=\frac12\ln\left|\frac{1-\cos u}{1+\cos u}\right|+c$</li>
       </ul>
     </div>
 
@@ -235,8 +234,9 @@
       <h3>Algebra &amp; trig identities</h3>
       <ul>
         <li><span class="mark-x">★</span> $\sin^2t+\cos^2t=1$; $\ 1-\cos^2t=\sin^2t$</li>
-        <li><span class="mark-x">★</span> $\tan t=\frac{\sin t}{\cos t},\ \sec t=\frac1{\cos t}$</li>
-        <li><span class="mark-x">★</span> $\sec t+\tan t=\frac{1+\sin t}{\cos t}$</li>
+        <li><span class="mark-x">★</span> $\tan t=\frac{\sin t}{\cos t},\ \cot t=\frac{\cos t}{\sin t}$</li>
+        <li><span class="mark-x">★</span> $\frac{1}{1-w^2}=\frac12\left(\frac{1}{1-w}+\frac{1}{1+w}\right)$</li>
+        <li><span class="mark-x">★</span> $\frac{1+\sin t}{1-\sin t}=\frac{(1+\sin t)^2}{\cos^2 t}$</li>
         <li><span class="mark-x">★</span> $|\sin x|\le|x|$</li>
         <li><span class="mark-x">★</span> $\int_{-a}^a$odd$=0$; $\int_{-a}^a$even$=2\int_0^a$</li>
         <li><span class="mark-x">★</span> $e^{i\theta}=\cos\theta+i\sin\theta$</li>
