@@ -107,9 +107,9 @@ $$ \frac{\partial f}{\partial x_1}=\frac{3}{2\sqrt{3x_1+x_2^2}},\qquad \frac{\pa
 
 <div class="subpart">
 <p class="subpart-head">(ii) &nbsp; $f(x_1,x_2,x_3)=x_2\,e^{x_1+x_2x_3}$ at $(0,1,-1)$</p>
-<p>Let $E=e^{x_1+x_2x_3}$. Differentiating (product rule where $x_2$ appears as a factor):</p>
-$$ \frac{\partial f}{\partial x_1}=x_2 E,\qquad \frac{\partial f}{\partial x_2}=E + x_2 E\,x_3 = E(1+x_2x_3),\qquad \frac{\partial f}{\partial x_3}=x_2 E\,x_2 = x_2^2 E. $$
-<p>At $(0,1,-1)$ the exponent is $0+(1)(-1)=-1$, so $E=e^{-1}$:</p>
+<p>Differentiate directly: $e^{x_1+x_2x_3}$ stays put, multiplied by the derivative of the exponent. For $x_2$ use the product rule, since $x_2$ is both the front factor and sits inside the exponent:</p>
+$$ \frac{\partial f}{\partial x_1}=x_2\,e^{x_1+x_2x_3},\quad \frac{\partial f}{\partial x_2}=e^{x_1+x_2x_3}+x_2\,e^{x_1+x_2x_3}\,x_3=e^{x_1+x_2x_3}(1+x_2x_3),\quad \frac{\partial f}{\partial x_3}=x_2\,e^{x_1+x_2x_3}\,x_2=x_2^2\,e^{x_1+x_2x_3}. $$
+<p>At $(0,1,-1)$ the exponent is $0+(1)(-1)=-1$, so $e^{x_1+x_2x_3}=e^{-1}$:</p>
 <div class="check"><span class="check-title">$\dfrac{\partial f}{\partial x_1}=\dfrac1e,\quad \dfrac{\partial f}{\partial x_2}=e^{-1}(1-1)=0,\quad \dfrac{\partial f}{\partial x_3}=\dfrac1e$</span> — matches.</div>
 </div>
 
@@ -124,12 +124,12 @@ $$ \frac{\partial f}{\partial x_1}=x_2 E,\qquad \frac{\partial f}{\partial x_2}=
 
 <div class="subpart">
 <p class="subpart-head">(i) &nbsp; $f(x_1,x_2)=\ln\!\big(x_1+\sqrt{x_1^2+x_2^2}\big)$</p>
-<p>Write $R=\sqrt{x_1^2+x_2^2}$ and use $\dfrac{d}{du}\ln u=\dfrac{u'}{u}$. For $x_1$, the inside derivative is $1+\dfrac{x_1}{R}=\dfrac{R+x_1}{R}$, so</p>
-$$ \frac{\partial f}{\partial x_1}=\frac{1}{x_1+R}\cdot\frac{R+x_1}{R}=\frac{1}{R}=\frac{1}{\sqrt{x_1^2+x_2^2}}. $$
-<div class="tip">don't panic at the messy fraction — the bracket on top, $R+x_1$, is identical to the $x_1+R$ on the bottom, so they cancel and almost everything disappears. Always glance for a shared factor before grinding through algebra.</div>
-<p>For $x_2$, the inside derivative is $\dfrac{x_2}{R}$, so</p>
-$$ \frac{\partial f}{\partial x_2}=\frac{1}{x_1+R}\cdot\frac{x_2}{R}=\frac{x_2}{\big(x_1+\sqrt{x_1^2+x_2^2}\big)\sqrt{x_1^2+x_2^2}}. $$
-<div class="check"><span class="check-title">Both match the given answer.</span> (Nice surprise: the $x_1$-partial collapses to $1/R$.)</div>
+<p>Use $\big(\ln(\text{inside})\big)'=\dfrac{(\text{inside})'}{\text{inside}}$ with inside $=x_1+\sqrt{x_1^2+x_2^2}$. Its $x_1$-derivative is $1+\dfrac{x_1}{\sqrt{x_1^2+x_2^2}}=\dfrac{\sqrt{x_1^2+x_2^2}+x_1}{\sqrt{x_1^2+x_2^2}}$, so</p>
+$$ \frac{\partial f}{\partial x_1}=\frac{1}{x_1+\sqrt{x_1^2+x_2^2}}\cdot\frac{\sqrt{x_1^2+x_2^2}+x_1}{\sqrt{x_1^2+x_2^2}}=\frac{1}{\sqrt{x_1^2+x_2^2}}. $$
+<div class="tip">don't panic at the messy fraction — the top, $\sqrt{x_1^2+x_2^2}+x_1$, is identical to the factor $x_1+\sqrt{x_1^2+x_2^2}$ on the bottom, so they cancel and almost everything disappears. Always glance for a shared factor before grinding through algebra.</div>
+<p>For $x_2$, the inside's derivative is $\dfrac{x_2}{\sqrt{x_1^2+x_2^2}}$, so</p>
+$$ \frac{\partial f}{\partial x_2}=\frac{1}{x_1+\sqrt{x_1^2+x_2^2}}\cdot\frac{x_2}{\sqrt{x_1^2+x_2^2}}=\frac{x_2}{\big(x_1+\sqrt{x_1^2+x_2^2}\big)\sqrt{x_1^2+x_2^2}}. $$
+<div class="check"><span class="check-title">Both match the given answer.</span> (Nice surprise: the $x_1$-partial collapses to $\tfrac{1}{\sqrt{x_1^2+x_2^2}}$.)</div>
 </div>
 
 <div class="subpart">
@@ -153,20 +153,21 @@ $$ \frac{\partial f}{\partial x_3}=(x_1-x_2)\cdot\frac{-1}{(x_3-x_4)^2}=\frac{x_
 <div class="exercise">
 <div class="subpart">
 <p class="subpart-head">(a) &nbsp; Gradient of $f(x_1,x_2)=\arctan\!\Big(\dfrac{x_1+x_2}{x_1-x_2}\Big)$</p>
-<p>Let $u=\dfrac{x_1+x_2}{x_1-x_2}$. Then $\dfrac{\partial f}{\partial x_i}=\dfrac{1}{1+u^2}\,\dfrac{\partial u}{\partial x_i}$ since $\dfrac{d}{du}\arctan u=\dfrac{1}{1+u^2}$.</p>
-<p><strong>Inside derivatives</strong> (quotient rule):</p>
-$$ \frac{\partial u}{\partial x_1}=\frac{(x_1-x_2)-(x_1+x_2)}{(x_1-x_2)^2}=\frac{-2x_2}{(x_1-x_2)^2},\qquad \frac{\partial u}{\partial x_2}=\frac{(x_1-x_2)+(x_1+x_2)}{(x_1-x_2)^2}=\frac{2x_1}{(x_1-x_2)^2}. $$
-<p><strong>The $1+u^2$ factor</strong> simplifies beautifully:</p>
-$$ 1+u^2=\frac{(x_1-x_2)^2+(x_1+x_2)^2}{(x_1-x_2)^2}=\frac{2(x_1^2+x_2^2)}{(x_1-x_2)^2}. $$
-<p>Multiplying, the $(x_1-x_2)^2$ cancel:</p>
-$$ \frac{\partial f}{\partial x_1}=\frac{(x_1-x_2)^2}{2(x_1^2+x_2^2)}\cdot\frac{-2x_2}{(x_1-x_2)^2}=\frac{-x_2}{x_1^2+x_2^2},\qquad \frac{\partial f}{\partial x_2}=\frac{x_1}{x_1^2+x_2^2}. $$
+<p>Use the $\arctan$ chain rule $\big(\arctan g\big)'=\dfrac{g'}{1+g^2}$ directly with $g=\dfrac{x_1+x_2}{x_1-x_2}$ (written out in full, no renaming).</p>
+<p><strong>Derivative of the fraction</strong> (quotient rule):</p>
+$$ \frac{\partial}{\partial x_1}\!\left(\frac{x_1+x_2}{x_1-x_2}\right)=\frac{(x_1-x_2)-(x_1+x_2)}{(x_1-x_2)^2}=\frac{-2x_2}{(x_1-x_2)^2},\qquad \frac{\partial}{\partial x_2}\!\left(\frac{x_1+x_2}{x_1-x_2}\right)=\frac{(x_1-x_2)+(x_1+x_2)}{(x_1-x_2)^2}=\frac{2x_1}{(x_1-x_2)^2}. $$
+<p><strong>The $1+(\text{fraction})^2$ denominator</strong> simplifies beautifully:</p>
+$$ 1+\left(\frac{x_1+x_2}{x_1-x_2}\right)^2=\frac{(x_1-x_2)^2+(x_1+x_2)^2}{(x_1-x_2)^2}=\frac{2(x_1^2+x_2^2)}{(x_1-x_2)^2}. $$
+<p>Divide the fraction's derivative by that (the $(x_1-x_2)^2$ cancel):</p>
+$$ \frac{\partial f}{\partial x_1}=\frac{-2x_2}{(x_1-x_2)^2}\cdot\frac{(x_1-x_2)^2}{2(x_1^2+x_2^2)}=\frac{-x_2}{x_1^2+x_2^2},\qquad \frac{\partial f}{\partial x_2}=\frac{x_1}{x_1^2+x_2^2}. $$
 <div class="check"><span class="check-title">$\nabla f=\Big(-\dfrac{x_2}{x_1^2+x_2^2},\ \dfrac{x_1}{x_1^2+x_2^2}\Big)$</span> — matches.</div>
 </div>
 
 <div class="subpart">
 <p class="subpart-head">(ii) &nbsp; Directional derivative of $f(x)=\dfrac{1}{x_1+2x_2-3x_3}$ at $x_0=(1,1,-1)$ along $v=(12,-9,-4)$</p>
-<p>Let $D=x_1+2x_2-3x_3$, so $f=D^{-1}$ and $\dfrac{\partial f}{\partial x_i}=-D^{-2}\dfrac{\partial D}{\partial x_i}$ with $\partial D=(1,2,-3)$.</p>
-<p><strong>At $x_0$:</strong> $D=1+2(1)-3(-1)=1+2+3=6$, so $D^2=36$ and</p>
+<p>Write $f=(x_1+2x_2-3x_3)^{-1}$ and differentiate with the power/chain rule; the inner derivatives of $x_1+2x_2-3x_3$ are $1,2,-3$:</p>
+$$ \frac{\partial f}{\partial x_1}=\frac{-1}{(x_1+2x_2-3x_3)^2},\quad \frac{\partial f}{\partial x_2}=\frac{-2}{(x_1+2x_2-3x_3)^2},\quad \frac{\partial f}{\partial x_3}=\frac{3}{(x_1+2x_2-3x_3)^2}. $$
+<p><strong>At $x_0=(1,1,-1)$:</strong> the denominator is $x_1+2x_2-3x_3=1+2(1)-3(-1)=1+2+3=6$, so each square is $36$ and</p>
 $$ \nabla f(x_0)=\Big(-\tfrac{1}{36},\,-\tfrac{2}{36},\,\tfrac{3}{36}\Big)=\Big(-\tfrac{1}{36},\,-\tfrac{1}{18},\,\tfrac{1}{12}\Big). $$
 <p><strong>Dot with the given vector</strong> $v=(12,-9,-4)$:</p>
 $$ \frac{\partial f}{\partial v}(x_0)=\nabla f(x_0)\cdot v = -\tfrac{12}{36}+\tfrac{(-9)(-1)}{18}+\tfrac{-4}{12} = -\tfrac13+\tfrac12-\tfrac13 = -\tfrac16. $$
@@ -181,9 +182,9 @@ $$ \frac{\partial f}{\partial v}(x_0)=\nabla f(x_0)\cdot v = -\tfrac{12}{36}+\tf
 <div class="subpart">
 <p class="subpart-head">(a) &nbsp; Tangent plane to $f(x_1,x_2)=e^{x_2^2-x_1^2}$ at $x_0=(-1,1)$</p>
 <p><strong>Value.</strong> $f(-1,1)=e^{1-1}=e^0=1$.</p>
-<p><strong>Partials.</strong> With $E=e^{x_2^2-x_1^2}$,</p>
-$$ \frac{\partial f}{\partial x_1}=-2x_1 E,\qquad \frac{\partial f}{\partial x_2}=2x_2 E. $$
-<p>At $(-1,1)$, $E=1$, so $\dfrac{\partial f}{\partial x_1}=-2(-1)=2$ and $\dfrac{\partial f}{\partial x_2}=2(1)=2$.</p>
+<p><strong>Partials.</strong> Keep $e^{x_2^2-x_1^2}$ and multiply by the derivative of the exponent:</p>
+$$ \frac{\partial f}{\partial x_1}=-2x_1\,e^{x_2^2-x_1^2},\qquad \frac{\partial f}{\partial x_2}=2x_2\,e^{x_2^2-x_1^2}. $$
+<p>At $(-1,1)$, $e^{x_2^2-x_1^2}=e^{1-1}=1$, so $\dfrac{\partial f}{\partial x_1}=-2(-1)=2$ and $\dfrac{\partial f}{\partial x_2}=2(1)=2$.</p>
 <p><strong>Plane.</strong></p>
 $$ z = 1 + 2\,(x_1-(-1)) + 2\,(x_2-1) = 1 + 2(x_1+1) + 2(x_2-1). $$
 <div class="check"><span class="check-title">Tangent plane:</span> $\;z = 2x_1 + 2x_2 + 1.$</div>
