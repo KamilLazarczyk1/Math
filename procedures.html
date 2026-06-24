@@ -39,6 +39,7 @@
   <strong>Pick your task</strong>
   <ul>
     <li><a href="#ode">1. ODE — general solution</a></li>
+    <li><a href="#resonance">1b. Resonance — every case</a></li>
     <li><a href="#grad">2. Gradient &amp; directional derivative</a></li>
     <li><a href="#diff">3. Check differentiability</a></li>
     <li><a href="#hessian">4. Local extrema (Hessian)</a></li>
@@ -79,7 +80,7 @@
 <div class="proc-step"><span class="st-title">Undetermined coefficients</span>
 <div class="proc-substep"><b>(a) Guess the shape.</b> For each piece of $g(t)$ write a guess with unknown letters:
 <br>$e^{at}\to A\,e^{at}$; &nbsp; degree-$n$ polynomial $\to A_nt^n+\dots+A_1t+A_0$ (the <em>full</em> polynomial); &nbsp; $\cos bt$ or $\sin bt\to A\cos bt+B\sin bt$ (always both); &nbsp; a product $\to$ the product of the guesses.</div>
-<div class="proc-substep"><b>(b) Resonance fix.</b> If your guess (ignoring the letters) already appears in $y_h$, multiply that guess by $t$. If it still appears (a repeated root), multiply by $t^2$.</div>
+<div class="proc-substep"><b>(b) Resonance fix.</b> Decide the power $t^s$ with the exact, every-case procedure in <a href="#resonance">§1b below</a>. (Short version: if your guess — ignoring the letters — already appears in $y_h$, multiply by $t$; if it appears as a repeated root, by $t^2$.)</div>
 <div class="proc-substep"><b>(c) Plug in.</b> Substitute the guess into $y''+p\,y'+q\,y$ and expand.</div>
 <div class="proc-substep"><b>(d) Match.</b> Set the coefficient of each function (each power of $t$, each $\cos$, $\sin$, $e^{at}$) equal on both sides. Solve the resulting linear system for the unknown letters.</div>
 </div>
@@ -106,6 +107,87 @@ Here $g$ is the right side <em>after</em> Step 1 (with $y''$ alone).</div>
 <p>Substitute your $y_p$ into the left side $y''+p\,y'+q\,y$; you must get exactly $g(t)$.</p></div>
 </div>
 <div class="keybox"><b>Key:</b> $y_h$ = homogeneous solution (carries $c_1,c_2$); $y_p$ = one particular solution; $r$ = root of the characteristic equation; $W$ = Wronskian; $g(t)$ = right-hand side.</div>
+</div>
+
+<!-- ============ 1b. RESONANCE ============ -->
+<div class="card">
+<h2 id="resonance">1b. Resonance check — the exact procedure for every case</h2>
+<div class="proc-when"><b>Use inside Step 4(b)</b> of the ODE recipe, separately for each piece of $g(t)$. The whole job is to find one number $s\in\{0,1,2\}$ and multiply your guess by $t^s$.</div>
+
+<div class="proc">
+<div class="proc-step"><span class="st-title">Read off $a$, $b$, $m$ from the forcing piece</span>
+<p>Picture the piece in the shape $\;e^{at}\cdot(\text{polynomial of degree }m)\cdot(\cos bt\ \text{or}\ \sin bt)\;$ and read three numbers:</p>
+<div class="proc-substep">$a$ = the exponential rate. &nbsp;<b>No $e^{\cdots}$ at all? Then $a=0$</b> (since $1=e^{0\,t}$).</div>
+<div class="proc-substep">$b$ = the number inside $\cos$/$\sin$. &nbsp;<b>No $\cos$/$\sin$? Then $b=0$.</b></div>
+<div class="proc-substep">$m$ = degree of the polynomial factor (a plain number is $m=0$, a "$t$" is $m=1$, "$t^2$" is $m=2$).</div>
+</div>
+
+<div class="proc-step"><span class="st-title">Form the test root $r_0$</span>
+<div class="formula-line">$$ r_0 = a + b\,i. $$</div>
+<p>(No trig $\Rightarrow r_0=a$, a real number. &nbsp; No exponential $\Rightarrow r_0=b\,i$. &nbsp; Plain polynomial $\Rightarrow r_0=0$.)</p>
+</div>
+
+<div class="proc-step"><span class="st-title">Count how many characteristic roots equal $r_0$ — that count is $s$</span>
+<div class="decision"><span class="d-h">Read $s$ off your two roots</span>
+<ul>
+<li>$r_0$ matches <b>neither</b> root → $s=0$ &nbsp;(no extra $t$)</li>
+<li>$r_0$ matches <b>one</b> root → $s=1$ &nbsp;(multiply by $t$)</li>
+<li>$r_0$ matches a <b>double</b> root → $s=2$ &nbsp;(multiply by $t^2$)</li>
+</ul></div>
+<p class="muted">Complex roots come as a pair $\alpha\pm\beta i$; matching $r_0=a+bi$ (take $b\gt0$) to the "$+$" partner counts the whole pair and gives $s=1$. In a second-order equation a complex pair is always simple, so for $\cos$/$\sin$ forcing $s$ is only ever $0$ or $1$.</p>
+</div>
+
+<div class="proc-step"><span class="st-title">Write the base guess, then multiply by $t^{\,s}$</span>
+<div class="proc-substep"><b>No trig ($b=0$):</b> &nbsp; base $=e^{at}\big(A_m t^m+\dots+A_1 t+A_0\big)$.</div>
+<div class="proc-substep"><b>Trig ($b\neq0$):</b> &nbsp; base $=e^{at}\big[(A_m t^m+\dots+A_0)\cos bt+(B_m t^m+\dots+B_0)\sin bt\big]$.</div>
+<div class="formula-line">$$ \boxed{\ \text{guess}=t^{\,s}\times(\text{base})\ } $$</div>
+</div>
+</div>
+
+<h3>Every case, written out</h3>
+
+<div class="subpart">
+<p class="subpart-head">Case 1 — polynomial only (no $e$, no $\cos$/$\sin$)</p>
+<p>$a=0,\ b=0\ \Rightarrow\ r_0=0$. &nbsp; Base $=A_m t^m+\dots+A_0$.</p>
+<div class="proc-substep">$s=0$ if $0$ is not a root (there is a $y$-term, $q\neq0$) — guess unchanged.</div>
+<div class="proc-substep">$s=1$ if $0$ is a simple root (no $y$-term but a $y'$-term) — multiply by $t$.</div>
+<div class="proc-substep">$s=2$ if $0$ is a double root (equation looks like $y''=\dots$) — multiply by $t^2$.</div>
+<p><b>Examples:</b> $y''+y'-2y=4t^2-1$ (roots $1,-2$; $0$ not a root) $\Rightarrow A t^2+Bt+C$. &nbsp; $y''+y'=3$ (roots $0,-1$) $\Rightarrow t\,(A)=A t$. &nbsp; $y''=t$ (root $0$ doubled) $\Rightarrow t^2(At+B)$.</p>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">Case 2 — exponential $\times$ polynomial: $e^{at}\cdot(\text{poly})$, no trig</p>
+<p>$b=0\ \Rightarrow\ r_0=a$. &nbsp; Base $=e^{at}(A_m t^m+\dots+A_0)$.</p>
+<div class="proc-substep">$s=$ number of characteristic roots equal to $a$ ($0$, $1$, or $2$).</div>
+<p><b>Examples:</b> $y''-y'-12y=10e^{5t}$ (roots $4,-3$; $a=5$ not a root, $s=0$) $\Rightarrow A e^{5t}$. &nbsp; $y''-y=11e^{t}$ (roots $\pm1$; $a=1$ simple, $s=1$) $\Rightarrow t\,A e^{t}$. &nbsp; $y''-2y'+y=3e^{t}$ (root $1$ doubled, $s=2$) $\Rightarrow t^2 A e^{t}$.</p>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">Case 3 — cosine or sine (optionally $\times$ poly), no exponential</p>
+<p>$a=0\ \Rightarrow\ r_0=b\,i$. &nbsp; Base $=(A_m t^m+\dots)\cos bt+(B_m t^m+\dots)\sin bt$ &nbsp;(<b>always both</b> $\cos$ and $\sin$).</p>
+<div class="proc-substep">$s=0$ if $\pm b\,i$ are not the roots.</div>
+<div class="proc-substep">$s=1$ if the characteristic roots <em>are</em> $\pm b\,i$ (i.e. the equation is $y''+b^2y=\dots$).</div>
+<p><b>Examples:</b> $y''+4y'+3y=4\cos t$ (roots $-1,-3$; $\pm i$ not roots, $s=0$) $\Rightarrow A\cos t+B\sin t$. &nbsp; $y''+4y=2\sin 2t$ (roots $\pm2i$, $s=1$) $\Rightarrow t\,(A\cos 2t+B\sin 2t)$.</p>
+</div>
+
+<div class="subpart">
+<p class="subpart-head">Case 4 — exponential $\times$ cosine/sine (optionally $\times$ poly): $e^{at}\cos bt$ or $e^{at}\sin bt$</p>
+<p>$r_0=a+b\,i$. &nbsp; Base $=e^{at}\big[(A_m t^m+\dots)\cos bt+(B_m t^m+\dots)\sin bt\big]$.</p>
+<div class="proc-substep">$s=0$ if $a\pm b\,i$ are not the roots.</div>
+<div class="proc-substep">$s=1$ if the characteristic roots are exactly $a\pm b\,i$.</div>
+<p><b>Examples:</b> $y''+4y=20e^{t}\cos t$ (roots $\pm2i$; test $1+i\neq\pm2i$, $s=0$) $\Rightarrow e^{t}(A\cos t+B\sin t)$. &nbsp; $y''-4y'-5y=3e^{2t}\sin t$ (roots $5,-1$; test $2+i$, $s=0$) $\Rightarrow e^{2t}(A\cos t+B\sin t)$. &nbsp; <em>(Resonant version:</em> if the roots were $2\pm i$ and $g=e^{2t}\sin t$, then $s=1$ and you multiply by $t$.)</p>
+</div>
+
+<h3>One-look summary</h3>
+<table>
+<tr><th>Forcing piece $g(t)$</th><th>Test root $r_0$</th><th>Base guess (before $t^s$)</th></tr>
+<tr><td>polynomial, degree $m$</td><td>$0$</td><td>$A_m t^m+\dots+A_0$</td></tr>
+<tr><td>$e^{at}\cdot$ poly</td><td>$a$</td><td>$e^{at}(A_m t^m+\dots+A_0)$</td></tr>
+<tr><td>$\cos bt$ or $\sin bt$ ($\cdot$ poly)</td><td>$b\,i$</td><td>$(\dots)\cos bt+(\dots)\sin bt$</td></tr>
+<tr><td>$e^{at}\cos bt$ or $e^{at}\sin bt$ ($\cdot$ poly)</td><td>$a+b\,i$</td><td>$e^{at}[(\dots)\cos bt+(\dots)\sin bt]$</td></tr>
+</table>
+<p>Then: $\,s=$ how many of the two characteristic roots equal $r_0$, and the final guess is $\,t^{\,s}\times(\text{base})$.</p>
+<div class="keybox"><b>Key:</b> $r_0$ = the value the forcing "wants" ($a+bi$); $s$ = its multiplicity as a characteristic root ($0$/$1$/$2$); $m$ = degree of the polynomial factor; $A_k,B_k$ = the unknown coefficients you solve for afterward.</div>
 </div>
 
 <!-- ============ 2. GRADIENT ============ -->
@@ -173,26 +255,55 @@ Here $g$ is the right side <em>after</em> Step 1 (with $y''$ alone).</div>
 <p>$f_{x_ix_j}$ means differentiate $f$ by $x_i$, then by $x_j$. $H$ is symmetric.</p></div>
 
 <div class="proc-step"><span class="st-title">At each critical point, plug in numbers and classify</span>
-<div class="decision"><span class="d-h">Option A — eigenvalues</span> Solve $\det(H-\lambda I)=0$ for the eigenvalues $\lambda$:
+<p>Use either method below — they always agree. <b>Option B (the determinant test) is usually fastest</b> because you never have to solve for eigenvalues.</p>
+
+<h4 style="margin:.8em 0 .2em">Option A — eigenvalues</h4>
+<p>Solve $\det(H-\lambda I)=0$ and look at the signs of the eigenvalues $\lambda$:</p>
+<table>
+<tr><th>Eigenvalues of $H$ (at the point)</th><th>The point is a…</th></tr>
+<tr><td>all $\lambda\gt0$</td><td><b>minimum</b></td></tr>
+<tr><td>all $\lambda\lt0$</td><td><b>maximum</b></td></tr>
+<tr><td>mixed signs (at least one $+$ and one $-$)</td><td><b>saddle</b> (no extremum)</td></tr>
+<tr><td>some $\lambda=0$, the rest one sign</td><td>inconclusive</td></tr>
+</table>
+
+<h4 style="margin:1em 0 .2em">Option B — the determinant test (leading principal minors)</h4>
+<p>The minors $D_1,D_2,D_3$ are the top-left "corner" determinants of $H$, each worked out as a <em>number</em> at the critical point:</p>
+$$ D_1=H_{11},\qquad D_2=\det\!\begin{bmatrix}H_{11}&H_{12}\\ H_{12}&H_{22}\end{bmatrix}=H_{11}H_{22}-H_{12}^{\,2},\qquad D_3=\det H. $$
+<p>A $2\times2$ Hessian has only $D_1$ and $D_2(=\det H)$; a $3\times3$ Hessian also has $D_3(=\det H)$. For a symmetric $H=\begin{bmatrix}a&b&c\\ b&d&e\\ c&e&f\end{bmatrix}$ the full determinant is</p>
+$$ \det H = a\,(df-e^2)-b\,(bf-ce)+c\,(be-cd). $$
+<div class="decision"><span class="d-h">Master rule (any size)</span>
 <ul>
-<li>all $\lambda\gt0$ → local <b>minimum</b></li>
-<li>all $\lambda\lt0$ → local <b>maximum</b></li>
-<li>both signs appear → <b>saddle</b> (no extremum)</li>
-<li>some $\lambda=0$, rest one sign → inconclusive</li>
+<li><b>All</b> minors $\gt0$ → positive definite → <b>MINIMUM</b>.</li>
+<li>Signs <b>alternate starting negative</b> ($D_1\lt0,\ D_2\gt0,\ D_3\lt0,\dots$) → negative definite → <b>MAXIMUM</b>.</li>
+<li>Neither pattern but $\det H\neq0$ → indefinite → <b>SADDLE</b>.</li>
+<li>$\det H=0$ → <b>inconclusive</b> (a minor vanished; fall back to eigenvalues).</li>
 </ul></div>
-<div class="decision"><span class="d-h">Option B — 2×2 shortcut</span> Let $D=\det H=f_{x_1x_1}f_{x_2x_2}-(f_{x_1x_2})^2$:
-<ul>
-<li>$D\gt0$ and $f_{x_1x_1}\gt0$ → <b>minimum</b></li>
-<li>$D\gt0$ and $f_{x_1x_1}\lt0$ → <b>maximum</b></li>
-<li>$D\lt0$ → <b>saddle</b></li>
-<li>$D=0$ → inconclusive</li>
-</ul></div>
+
+<p style="margin:.8em 0 .2em"><b>$2\times2$ table</b> &nbsp;<span class="muted">($D_1=f_{x_1x_1}$, &nbsp;$D_2=\det H=f_{x_1x_1}f_{x_2x_2}-(f_{x_1x_2})^2$)</span></p>
+<table>
+<tr><th>$D_1$</th><th>$D_2=\det H$</th><th>Conclusion</th></tr>
+<tr><td>$\gt0$</td><td>$\gt0$</td><td><b>MINIMUM</b> (positive definite)</td></tr>
+<tr><td>$\lt0$</td><td>$\gt0$</td><td><b>MAXIMUM</b> (negative definite)</td></tr>
+<tr><td>either sign</td><td>$\lt0$</td><td><b>SADDLE</b></td></tr>
+<tr><td>either sign</td><td>$=0$</td><td>inconclusive → use eigenvalues</td></tr>
+</table>
+
+<p style="margin:.8em 0 .2em"><b>$3\times3$ table</b> &nbsp;<span class="muted">($D_1,D_2$ = top-left $1{\times}1$ and $2{\times}2$ determinants, $D_3=\det H$)</span></p>
+<table>
+<tr><th>$D_1$</th><th>$D_2$</th><th>$D_3=\det H$</th><th>Conclusion</th></tr>
+<tr><td>$\gt0$</td><td>$\gt0$</td><td>$\gt0$</td><td><b>MINIMUM</b> (positive definite)</td></tr>
+<tr><td>$\lt0$</td><td>$\gt0$</td><td>$\lt0$</td><td><b>MAXIMUM</b> (negative definite)</td></tr>
+<tr><td colspan="3">any other sign pattern, but $\det H\neq0$</td><td><b>SADDLE</b> (indefinite)</td></tr>
+<tr><td colspan="3">$\det H=0$</td><td>inconclusive → use eigenvalues</td></tr>
+</table>
+<p class="muted">Worked check (WS9 Ex1): at $(1,1,1)$ the minors are $D_1{=}2,\ D_2{=}3,\ D_3{=}4$ → all $+$ → minimum. At $(-1,-1,-1)$ they are $D_1{=}{-}2,\ D_2{=}3,\ D_3{=}{-}4$ → signs $-,+,-$ → maximum.</p>
 </div>
 
 <div class="proc-step"><span class="st-title">Report values</span>
 <p>For each max/min, compute $f$ at that point if the value is asked for.</p></div>
 </div>
-<div class="keybox"><b>Key:</b> critical point = where the gradient is zero; $H$ = Hessian; $\lambda$ = eigenvalue; $I$ = identity matrix; $\det$ = determinant.</div>
+<div class="keybox"><b>Key:</b> critical point = where the gradient is zero; $H$ = Hessian; $\lambda$ = eigenvalue; $I$ = identity matrix; $\det$ = determinant; $D_k$ = $k$-th leading principal minor = determinant of the top-left $k\times k$ corner of $H$ ($D_1=H_{11}$, $D_2$ = top-left $2\times2$, $D_3=\det H$).</div>
 </div>
 
 <!-- ============ 5. JACOBIAN ============ -->
