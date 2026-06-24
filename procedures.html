@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Procedures — Step-by-Step Methods</title>
+<link rel="stylesheet" href="katex/katex.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script defer src="katex/katex.min.js"></script>
+<script defer src="katex/auto-render.min.js"></script>
+<script defer src="js/render.js"></script>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner">
+  <a class="brand" href="index.html">Analysis 2</a>
+  <a class="navlink" href="index.html">Home</a>
+  <a class="navlink" href="worksheet6.html">WS 6</a>
+  <a class="navlink" href="worksheet7.html">WS 7</a>
+  <a class="navlink" href="worksheet8.html">WS 8</a>
+  <a class="navlink" href="worksheet9.html">WS 9</a>
+  <a class="navlink" href="worksheet10.html">WS 10</a>
+  <a class="navlink active" href="procedures.html">Procedures</a>
+  <a class="navlink" href="formulas.html">Formulas</a>
+  <a class="navlink" href="cheatsheet.html">Cheat sheet</a>
+</div></nav>
+
+<div class="wrap">
+<div class="page-header">
+  <span class="eyebrow">Exam recipes</span>
+  <h1>Procedures — Foolproof Step-by-Step Methods</h1>
+  <p class="lead">One numbered recipe per task type. Follow the steps in order and you cannot leave anything out or pick the wrong method. Each recipe lists the formulas in the simplest form, with a key explaining every symbol.</p>
+</div>
+
+<div class="keybox">
+<b>Notation used everywhere on this page.</b> Variables are $x_1,x_2,\dots$ (like the worksheets). $\dfrac{\partial f}{\partial x_i}$ means "differentiate $f$ with respect to $x_i$, treating every other letter as a constant." A dot $\cdot$ between vectors is the dot product: $(a_1,a_2)\cdot(b_1,b_2)=a_1b_1+a_2b_2$.
+</div>
+
+<div class="toc">
+  <strong>Pick your task</strong>
+  <ul>
+    <li><a href="#ode">1. ODE — general solution</a></li>
+    <li><a href="#grad">2. Gradient &amp; directional derivative</a></li>
+    <li><a href="#diff">3. Check differentiability</a></li>
+    <li><a href="#hessian">4. Local extrema (Hessian)</a></li>
+    <li><a href="#jacobian">5. Critical points (Jacobian)</a></li>
+    <li><a href="#stability">6. Asymptotic stability</a></li>
+    <li><a href="#chain">7. Chain rule / implicit (WS9 Ex3)</a></li>
+    <li><a href="#double">8. Volume / double integral</a></li>
+    <li><a href="#surface">9. Surface integral</a></li>
+  </ul>
+</div>
+
+<!-- ============ 1. ODE ============ -->
+<div class="card">
+<h2 id="ode">1. ODE — general solution of $a\,y''+b\,y'+c\,y=g(t)$</h2>
+<div class="proc-when"><b>Use when:</b> you see a second-order equation with constant numbers in front of $y''$, $y'$, $y$.</div>
+
+<div class="proc">
+<div class="proc-step"><span class="st-title">Make $y''$ stand alone</span>
+<p>Divide the whole equation by the number in front of $y''$ so it reads $\,y''+p\,y'+q\,y=g(t)$. Note what $g(t)$ (the right side) is — you'll need it.</p></div>
+
+<div class="proc-step"><span class="st-title">Solve the homogeneous part (the $y_h$ with the two constants)</span>
+<p>Write the <strong>characteristic equation</strong> and find its roots $r$:</p>
+<div class="formula-line">$$ r^2 + p\,r + q = 0 \qquad\Rightarrow\qquad r=\frac{-p\pm\sqrt{p^2-4q}}{2}. $$</div>
+<p>Then pick the matching shape:</p>
+<div class="proc-substep">Two different real roots $r_1\neq r_2$: &nbsp; $y_h=c_1e^{r_1 t}+c_2e^{r_2 t}$.</div>
+<div class="proc-substep">One repeated root $r$: &nbsp; $y_h=(c_1+c_2 t)e^{r t}$.</div>
+<div class="proc-substep">Complex roots $r=\alpha\pm\beta i$: &nbsp; $y_h=e^{\alpha t}\big(c_1\cos\beta t+c_2\sin\beta t\big)$.</div>
+</div>
+
+<div class="proc-step"><span class="st-title">Choose the method for a particular solution $y_p$</span>
+<div class="decision"><span class="d-h">Decide</span>
+<ul>
+<li>If $g(t)$ is a polynomial, an $e^{at}$, a $\cos/\sin$, or any product/sum of these → <b>Step 4 (undetermined coefficients)</b>.</li>
+<li>If $g(t)$ is anything else ($\tan t$, $\dfrac{1}{e^t+1}$, $\dfrac{e^t}{t}$, $\ln$, …) → <b>Step 5 (variation of parameters)</b>.</li>
+</ul></div>
+</div>
+
+<div class="proc-step"><span class="st-title">Undetermined coefficients</span>
+<div class="proc-substep"><b>(a) Guess the shape.</b> For each piece of $g(t)$ write a guess with unknown letters:
+<br>$e^{at}\to A\,e^{at}$; &nbsp; degree-$n$ polynomial $\to A_nt^n+\dots+A_1t+A_0$ (the <em>full</em> polynomial); &nbsp; $\cos bt$ or $\sin bt\to A\cos bt+B\sin bt$ (always both); &nbsp; a product $\to$ the product of the guesses.</div>
+<div class="proc-substep"><b>(b) Resonance fix.</b> If your guess (ignoring the letters) already appears in $y_h$, multiply that guess by $t$. If it still appears (a repeated root), multiply by $t^2$.</div>
+<div class="proc-substep"><b>(c) Plug in.</b> Substitute the guess into $y''+p\,y'+q\,y$ and expand.</div>
+<div class="proc-substep"><b>(d) Match.</b> Set the coefficient of each function (each power of $t$, each $\cos$, $\sin$, $e^{at}$) equal on both sides. Solve the resulting linear system for the unknown letters.</div>
+</div>
+
+<div class="proc-step"><span class="st-title">Variation of parameters (works for any $g$)</span>
+<div class="proc-substep"><b>(a)</b> Take the two independent homogeneous pieces $y_1,y_2$ from Step 2 (e.g. $y_1=e^{r_1t},y_2=e^{r_2t}$, or $\cos\beta t,\sin\beta t$, …).</div>
+<div class="proc-substep"><b>(b)</b> Compute the <strong>Wronskian</strong> $\;W=y_1y_2'-y_1'y_2$.</div>
+<div class="proc-substep"><b>(c)</b> Integrate (drop the $+C$):
+$$ u_1=\int\frac{-\,y_2\,g}{W}\,dt,\qquad u_2=\int\frac{y_1\,g}{W}\,dt. $$
+Here $g$ is the right side <em>after</em> Step 1 (with $y''$ alone).</div>
+<div class="proc-substep"><b>(d)</b> $\;y_p=u_1y_1+u_2y_2$. If any term is just a copy of $y_1$ or $y_2$, delete it (it merges into $c_1,c_2$).</div>
+</div>
+
+<div class="proc-step"><span class="st-title">Write the general solution</span>
+<div class="formula-line">$$ y=y_h+y_p. $$</div></div>
+
+<div class="proc-step"><span class="st-title">If initial conditions $y(0),y'(0)$ are given</span>
+<div class="proc-substep"><b>(a)</b> Differentiate your general solution to get $y'(t)$.</div>
+<div class="proc-substep"><b>(b)</b> Put $t=0$ into $y$ and into $y'$ → two equations (use $e^0=1,\cos0=1,\sin0=0$).</div>
+<div class="proc-substep"><b>(c)</b> Solve the two equations for $c_1,c_2$ and write the final answer.</div>
+</div>
+
+<div class="proc-step"><span class="st-title">Final check</span>
+<p>Substitute your $y_p$ into the left side $y''+p\,y'+q\,y$; you must get exactly $g(t)$.</p></div>
+</div>
+<div class="keybox"><b>Key:</b> $y_h$ = homogeneous solution (carries $c_1,c_2$); $y_p$ = one particular solution; $r$ = root of the characteristic equation; $W$ = Wronskian; $g(t)$ = right-hand side.</div>
+</div>
+
+<!-- ============ 2. GRADIENT ============ -->
+<div class="card">
+<h2 id="grad">2. Gradient &amp; directional derivative</h2>
+<div class="proc-when"><b>Use when:</b> asked for $\nabla f$, the gradient, or the rate of change of $f$ in a direction $v$.</div>
+<div class="proc">
+<div class="proc-step"><span class="st-title">Gradient = all first partials, listed as a vector</span>
+<div class="formula-line">$$ \nabla f=\Big(\tfrac{\partial f}{\partial x_1},\ \tfrac{\partial f}{\partial x_2},\ \dots,\ \tfrac{\partial f}{\partial x_n}\Big). $$</div>
+<p>For each $\tfrac{\partial f}{\partial x_i}$: differentiate $f$ in $x_i$, holding all other letters constant.</p></div>
+
+<div class="proc-step"><span class="st-title">If a point $x_0$ is given, plug it in</span>
+<p>Substitute the coordinates of $x_0$ into each partial to get the gradient vector $\nabla f(x_0)$ (a list of numbers).</p></div>
+
+<div class="proc-step"><span class="st-title">Directional derivative along a vector $v$</span>
+<div class="formula-line">$$ \frac{\partial f}{\partial v}(x_0)=\nabla f(x_0)\cdot v=\tfrac{\partial f}{\partial x_1}v_1+\tfrac{\partial f}{\partial x_2}v_2+\dots $$</div>
+<div class="decision"><span class="d-h">Important</span>
+<ul>
+<li>This course uses $v$ <b>exactly as given</b> — do not normalize it.</li>
+<li>Only if a problem explicitly says "unit direction" or "per unit length": divide the answer by $|v|=\sqrt{v_1^2+v_2^2+\dots}$.</li>
+</ul></div></div>
+</div>
+<div class="keybox"><b>Key:</b> $\nabla f$ = gradient (vector of slopes, points uphill); $v=(v_1,v_2,\dots)$ = direction vector; $\cdot$ = dot product.</div>
+</div>
+
+<!-- ============ 3. DIFFERENTIABILITY ============ -->
+<div class="card">
+<h2 id="diff">3. Check differentiability at a point $x_0$</h2>
+<div class="proc-when"><b>Use when:</b> asked "is $f$ differentiable at $x_0$?" (often $x_0=(0,0)$, often $f$ defined piecewise). Do the cheap tests first.</div>
+<div class="proc">
+<div class="proc-step"><span class="st-title">Continuity test (cheapest disqualifier)</span>
+<p>Check whether $\displaystyle\lim_{x\to x_0}f(x)=f(x_0)$.</p>
+<div class="proc-substep"><b>Fast disproof:</b> try two simple paths into $x_0$ (e.g. along $x_2=0$, then along $x_2=x_1$). If two paths give <em>different</em> limits, the limit doesn't exist → $f$ is <b>not continuous</b> → <span class="stop">not differentiable. STOP.</span></div>
+<div class="proc-substep"><b>To confirm continuity:</b> bound it — if $|f(x)-f(x_0)|\le(\text{something that}\to0)$, it is continuous; continue.</div>
+</div>
+
+<div class="proc-step"><span class="st-title">Partial derivatives at $x_0$ (from the definition)</span>
+<p>When $f$ is defined specially at $x_0$, compute the partials there with the limit definition:</p>
+<div class="formula-line">$$ \frac{\partial f}{\partial x_1}(x_0)=\lim_{h\to0}\frac{f(x_0+h\,\mathbf e_1)-f(x_0)}{h},\quad \frac{\partial f}{\partial x_2}(x_0)=\lim_{h\to0}\frac{f(x_0+h\,\mathbf e_2)-f(x_0)}{h}. $$</div>
+<p>($\mathbf e_1$ = step in the $x_1$-direction only, $\mathbf e_2$ = step in $x_2$ only.) If a partial doesn't exist → <span class="stop">not differentiable. STOP.</span></p></div>
+
+<div class="proc-step"><span class="st-title">The definition test (the decisive one)</span>
+<p>$f$ is differentiable at $x_0$ exactly when this limit is $0$:</p>
+<div class="formula-line">$$ \lim_{x\to x_0}\frac{\,f(x)-f(x_0)-\nabla f(x_0)\cdot(x-x_0)\,}{|x-x_0|}=0. $$</div>
+<div class="proc-substep">Write $x-x_0$ as the small displacement, plug in the partials from Step 2.</div>
+<div class="proc-substep">If the limit $=0$ (e.g. you can bound the fraction by something $\to0$) → <b>differentiable</b>. If it is nonzero on some path → <b>not differentiable</b>.</div>
+</div>
+</div>
+<div class="decision"><span class="d-h">Shortcut</span> If both partials exist <em>and</em> are continuous functions near $x_0$, then $f$ is automatically differentiable — you may skip Step 3. (But Step 3 is the definition and never fails.)</div>
+<div class="keybox"><b>Key:</b> $|x-x_0|=\sqrt{(x_1-x_{01})^2+(x_2-x_{02})^2}$ = distance to $x_0$; &nbsp; $\nabla f(x_0)\cdot(x-x_0)$ = the tangent-plane (linear) approximation. &nbsp; Logic chain: differentiable $\Rightarrow$ continuous, but "partials exist" does <em>not</em> give differentiable.</div>
+</div>
+
+<!-- ============ 4. HESSIAN ============ -->
+<div class="card">
+<h2 id="hessian">4. Local extrema with the Hessian</h2>
+<div class="proc-when"><b>Use when:</b> asked to find local maxima/minima of a scalar function $f(x_1,\dots,x_n)$.</div>
+<div class="proc">
+<div class="proc-step"><span class="st-title">Find the critical points</span>
+<p>Set every first partial to zero and solve the system:</p>
+<div class="formula-line">$$ \nabla f=0:\qquad \frac{\partial f}{\partial x_1}=0,\ \frac{\partial f}{\partial x_2}=0,\ \dots,\ \frac{\partial f}{\partial x_n}=0. $$</div>
+<p>Every solution is a candidate point.</p></div>
+
+<div class="proc-step"><span class="st-title">Build the Hessian (matrix of second partials)</span>
+<div class="formula-line">$$ H=\Big[\tfrac{\partial^2 f}{\partial x_i\,\partial x_j}\Big]\quad\Big(\text{2 vars: }H=\begin{bmatrix}f_{x_1x_1}&f_{x_1x_2}\\ f_{x_1x_2}&f_{x_2x_2}\end{bmatrix}\Big). $$</div>
+<p>$f_{x_ix_j}$ means differentiate $f$ by $x_i$, then by $x_j$. $H$ is symmetric.</p></div>
+
+<div class="proc-step"><span class="st-title">At each critical point, plug in numbers and classify</span>
+<div class="decision"><span class="d-h">Option A — eigenvalues</span> Solve $\det(H-\lambda I)=0$ for the eigenvalues $\lambda$:
+<ul>
+<li>all $\lambda\gt0$ → local <b>minimum</b></li>
+<li>all $\lambda\lt0$ → local <b>maximum</b></li>
+<li>both signs appear → <b>saddle</b> (no extremum)</li>
+<li>some $\lambda=0$, rest one sign → inconclusive</li>
+</ul></div>
+<div class="decision"><span class="d-h">Option B — 2×2 shortcut</span> Let $D=\det H=f_{x_1x_1}f_{x_2x_2}-(f_{x_1x_2})^2$:
+<ul>
+<li>$D\gt0$ and $f_{x_1x_1}\gt0$ → <b>minimum</b></li>
+<li>$D\gt0$ and $f_{x_1x_1}\lt0$ → <b>maximum</b></li>
+<li>$D\lt0$ → <b>saddle</b></li>
+<li>$D=0$ → inconclusive</li>
+</ul></div>
+</div>
+
+<div class="proc-step"><span class="st-title">Report values</span>
+<p>For each max/min, compute $f$ at that point if the value is asked for.</p></div>
+</div>
+<div class="keybox"><b>Key:</b> critical point = where the gradient is zero; $H$ = Hessian; $\lambda$ = eigenvalue; $I$ = identity matrix; $\det$ = determinant.</div>
+</div>
+
+<!-- ============ 5. JACOBIAN ============ -->
+<div class="card">
+<h2 id="jacobian">5. Critical points with the Jacobian</h2>
+<div class="proc-when"><b>Use when:</b> $f=(f_1,\dots,f_n)$ is a vector field (same number of outputs as inputs) and you must find its critical points (equilibria).</div>
+<div class="proc">
+<div class="proc-step"><span class="st-title">Set the whole output to zero</span>
+<p>A critical point is where every component is zero:</p>
+<div class="formula-line">$$ f(x_0)=0:\qquad f_1=0,\ f_2=0,\ \dots,\ f_n=0. $$</div>
+<p>Solve this system; each solution is a critical point.</p></div>
+
+<div class="proc-step"><span class="st-title">Build the Jacobian (for the stability question next)</span>
+<div class="formula-line">$$ J_f=\Big[\tfrac{\partial f_i}{\partial x_j}\Big]\quad\Big(\text{2 comps: }J_f=\begin{bmatrix}\partial f_1/\partial x_1 & \partial f_1/\partial x_2\\ \partial f_2/\partial x_1 & \partial f_2/\partial x_2\end{bmatrix}\Big). $$</div>
+<p>Row $i$ = the partials of $f_i$; column $j$ = derivative with respect to $x_j$.</p></div>
+</div>
+<div class="keybox"><b>Key:</b> $f_i$ = the $i$-th component (output) of $f$; $J_f$ = Jacobian (matrix of first partials). To then judge stability, go to recipe 6.</div>
+</div>
+
+<!-- ============ 6. STABILITY ============ -->
+<div class="card">
+<h2 id="stability">6. Is a critical point asymptotically stable?</h2>
+<div class="proc-when"><b>Use when:</b> you have a critical point $x_0$ of $f$ and must say whether it is asymptotically stable or not.</div>
+<div class="proc">
+<div class="proc-step"><span class="st-title">Jacobian at the point → a number matrix</span>
+<p>Build $J_f$ (recipe 5, Step 2) and substitute the coordinates of $x_0$. Now it is a plain matrix of numbers.</p></div>
+
+<div class="proc-step"><span class="st-title">Find its eigenvalues</span>
+<p>Solve $\det\!\big(J_f(x_0)-\lambda I\big)=0$. For a $2\times2$ matrix $\begin{bmatrix}a&b\\c&d\end{bmatrix}$ this is</p>
+<div class="formula-line">$$ \lambda^2-(\underbrace{a+d}_{\text{trace}})\,\lambda+(\underbrace{ad-bc}_{\det})=0 \;\Rightarrow\; \lambda=\frac{(a+d)\pm\sqrt{(a+d)^2-4(ad-bc)}}{2}. $$</div></div>
+
+<div class="proc-step"><span class="st-title">Read off the real parts</span>
+<div class="decision"><span class="d-h">Verdict</span>
+<ul>
+<li><b>All</b> eigenvalues have $\operatorname{Re}(\lambda)\lt0$ → <b>asymptotically stable</b>.</li>
+<li><b>At least one</b> eigenvalue has $\operatorname{Re}(\lambda)\gt0$ → <b>not stable</b>.</li>
+<li>Largest real part $=0$ (none positive) → this test is inconclusive.</li>
+</ul></div>
+<p>If $\lambda=\alpha\pm\beta i$ is complex, its real part is $\operatorname{Re}(\lambda)=\alpha$ (the part without $i$).</p></div>
+</div>
+<div class="keybox"><b>Key:</b> trace $=a+d$ = sum of diagonal entries; $\det=ad-bc$; $\operatorname{Re}(\lambda)$ = real part of the eigenvalue. Do this once per critical point.</div>
+</div>
+
+<!-- ============ 7. CHAIN RULE ============ -->
+<div class="card">
+<h2 id="chain">7. Chain rule / implicit differentiation (like WS9 Ex 3)</h2>
+<div class="proc-when"><b>Use when:</b> you differentiate something in $t$ where the variables themselves depend on $t$.</div>
+
+<h3 style="margin-top:.4em">Case A — a function $V$ evaluated along a moving point $x(t)$</h3>
+<div class="proc">
+<div class="proc-step"><span class="st-title">Use the chain-rule formula</span>
+<div class="formula-line">$$ \frac{d}{dt}V\big(x(t)\big)=\nabla V\cdot x'(t)=\frac{\partial V}{\partial x_1}\,x_1'(t)+\frac{\partial V}{\partial x_2}\,x_2'(t)+\dots $$</div></div>
+<div class="proc-step"><span class="st-title">Fill in the three ingredients</span>
+<p>(a) compute $\nabla V$; &nbsp;(b) write the given $x_1'(t),x_2'(t),\dots$; &nbsp;(c) form the dot product; &nbsp;(d) substitute the given formulas and simplify.</p></div>
+</div>
+
+<h3>Case B — an implicit relation $F\big(t,x(t)\big)=\text{constant}$</h3>
+<div class="proc">
+<div class="proc-step"><span class="st-title">Differentiate both sides in $t$</span>
+<p>Every time you differentiate $x$, write $x'$ (because $x$ depends on $t$). Use the product rule on mixed terms like $t\,x$. The right side (a constant) gives $0$.</p>
+<div class="keybox" style="margin-top:8px">Building blocks: &nbsp; $\dfrac{d}{dt}\big[x(t)^2\big]=2x\,x'$, &nbsp; $\dfrac{d}{dt}\big[t\,x(t)\big]=x+t\,x'$, &nbsp; $\dfrac{d}{dt}\big[t^2\big]=2t$, &nbsp; $\dfrac{d}{dt}[\text{const}]=0$.</div></div>
+<div class="proc-step"><span class="st-title">Collect terms</span>
+<p>Group the $x'$ terms together and the rest together — that is the required equation.</p></div>
+</div>
+</div>
+
+<!-- ============ 8. DOUBLE INTEGRAL ============ -->
+<div class="card">
+<h2 id="double">8. Volume / double integral over a region $\Omega$</h2>
+<div class="proc-when"><b>Use when:</b> asked for $\iint_\Omega f\,dx$ over a 2-D region.</div>
+<div class="proc">
+<div class="proc-step"><span class="st-title">Describe the region by slices</span>
+<p>For each height $x_2$ from $c$ to $d$, find where $x_1$ enters and leaves: from a left edge $\ell(x_2)$ to a right edge $r(x_2)$. (To get the edges, write each slanted side as a line and solve for $x_1$.)</p></div>
+
+<div class="proc-step"><span class="st-title">Write the iterated integral</span>
+<div class="formula-line">$$ \iint_\Omega f\,dx=\int_{c}^{d}\!\left(\int_{\ell(x_2)}^{r(x_2)} f(x_1,x_2)\,dx_1\right)dx_2. $$</div></div>
+
+<div class="proc-step"><span class="st-title">Inner integral first, then outer</span>
+<p>Integrate over $x_1$ treating $x_2$ as a constant; put in the limits. Then integrate the result over $x_2$.</p>
+<div class="keybox" style="margin-top:8px">Time-saver: over a symmetric interval $[-a,a]$, an <b>odd</b> function integrates to $0$; an <b>even</b> function gives $2\!\int_0^a$.</div></div>
+</div>
+<div class="decision"><span class="d-h">If a change of variables $\Phi$ is given</span> ($\Phi$ maps a simpler region $\Omega'$ onto $\Omega$):
+$$ \iint_\Omega f(x)\,dx=\iint_{\Omega'} f\big(\Phi(u)\big)\,\big|\det J_\Phi(u)\big|\,du. $$
+Steps: build $J_\Phi$ (its Jacobian matrix), take $\det$, take absolute value, multiply by $f(\Phi(u))$, integrate over the simpler region $\Omega'$.</div>
+<div class="keybox"><b>Key:</b> $\Omega$ = region; $\ell,r$ = left/right boundaries of a horizontal slice; $|\det J_\Phi|$ = how much the map $\Phi$ stretches area.</div>
+</div>
+
+<!-- ============ 9. SURFACE INTEGRAL ============ -->
+<div class="card">
+<h2 id="surface">9. Surface integral of $f$ over a surface $S$ in 3-D</h2>
+<div class="proc-when"><b>Use when:</b> asked for $\iint_S f\,d\sigma$ over a curved surface (a parametrization is usually given or hinted).</div>
+<div class="proc">
+<div class="proc-step"><span class="st-title">Get a parametrization</span>
+<p>Write the surface as $\sigma(u_1,u_2)=(x_1,x_2,x_3)$, with $(u_1,u_2)$ ranging over a flat region $D$. (Example: $\sigma(u_1,u_2)=(u_1,u_2,u_1u_2)$ for a graph $x_3=x_1x_2$.)</p></div>
+
+<div class="proc-step"><span class="st-title">Two tangent vectors</span>
+<div class="formula-line">$$ \sigma_{u_1}=\frac{\partial\sigma}{\partial u_1},\qquad \sigma_{u_2}=\frac{\partial\sigma}{\partial u_2}\quad(\text{each a 3-D vector}). $$</div></div>
+
+<div class="proc-step"><span class="st-title">Cross product, then its length (the area element)</span>
+<div class="formula-line">$$ N=\sigma_{u_1}\times\sigma_{u_2},\qquad |N|=\sqrt{N_1^2+N_2^2+N_3^2}. $$</div>
+<p>Cross product of $a=(a_1,a_2,a_3)$ and $b=(b_1,b_2,b_3)$:</p>
+<div class="formula-line">$$ a\times b=(a_2b_3-a_3b_2,\ \ a_3b_1-a_1b_3,\ \ a_1b_2-a_2b_1). $$</div></div>
+
+<div class="proc-step"><span class="st-title">Put the surface into $f$</span>
+<p>Replace $x_1,x_2,x_3$ in $f$ by the components of $\sigma$ to get $f\big(\sigma(u_1,u_2)\big)$. (Often a square root cancels here — watch for it.)</p></div>
+
+<div class="proc-step"><span class="st-title">Integrate over the flat region $D$</span>
+<div class="formula-line">$$ \iint_S f\,d\sigma=\iint_D f\big(\sigma(u_1,u_2)\big)\,|N|\,du_1\,du_2. $$</div>
+<p>Set the limits of $D$ and compute (inner integral first, then outer).</p></div>
+</div>
+<div class="keybox"><b>Key:</b> $\sigma$ = parametrization (surface written with two parameters); $\sigma_{u_1},\sigma_{u_2}$ = tangent vectors; $\times$ = cross product; $|N|$ = length of the normal = area-stretch factor; $d\sigma=|N|\,du_1\,du_2$ = surface area element.</div>
+</div>
+
+<div class="pager">
+  <a href="worksheet10.html">← Worksheet 10</a>
+  <span class="spacer"></span>
+  <a href="formulas.html">Formula Reference →</a>
+</div>
+</div>
+
+<footer class="site">Procedures · Follow each recipe top to bottom — the decision points and STOP rules keep you from skipping a case or picking the wrong method.</footer>
+</body>
+</html>

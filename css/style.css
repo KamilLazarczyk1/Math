@@ -216,6 +216,47 @@ a { color: var(--accent); }
   color: var(--eli5);
 }
 
+/* ---------- Procedure (recipe) steps ---------- */
+.proc { counter-reset: pstep; margin: 10px 0 6px; }
+.proc-step { position: relative; padding: 2px 0 14px 46px; margin: 0; }
+.proc-step::before {
+  counter-increment: pstep;
+  content: counter(pstep);
+  position: absolute; left: 0; top: 0;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .95rem;
+}
+.proc-step .st-title { font-weight: 700; display: block; margin-bottom: 2px; }
+.proc-step p { margin: .4em 0; }
+.proc-substep { margin: 5px 0 5px 4px; padding-left: 14px; border-left: 2px solid var(--border); }
+
+.decision {
+  background: var(--amber-soft);
+  border-left: 4px solid var(--amber);
+  border-radius: 8px;
+  padding: 8px 14px; margin: 10px 0; font-size: .95rem;
+}
+.decision .d-h { font-weight: 700; color: var(--amber); text-transform: uppercase; font-size: .78rem; letter-spacing: .04em; }
+.decision ul { margin: 5px 0 2px; padding-left: 20px; }
+.decision li { margin: 3px 0; }
+
+.keybox {
+  background: var(--code-bg);
+  border-radius: 8px;
+  padding: 8px 14px; margin: 10px 0; font-size: .9rem; color: var(--text-soft);
+}
+.keybox b { color: var(--text); }
+
+.stop { color: var(--red); font-weight: 700; }
+
+.proc-when {
+  font-size: .92rem; color: var(--text-soft);
+  background: var(--accent-soft); border-radius: 8px; padding: 7px 14px; margin: 6px 0 14px;
+}
+.proc-when b { color: var(--accent); }
+
 .note {
   background: var(--amber-soft);
   border-left: 4px solid var(--amber);
